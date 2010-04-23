@@ -1,0 +1,56 @@
+body { 
+	background: #fff url(bg.gif) repeat-x center top; 
+	color: #000; 
+	padding: 10px; 
+	margin: 0px; 
+}
+body, th, td {
+ font: normal 13px Verdana,Arial,'Bitstream Vera Sans',Helvetica,sans-serif;
+}
+h1, h2, h3, h4 {
+ font-family: Arial,Verdana,'Bitstream Vera Sans',Helvetica,sans-serif;
+ font-weight: bold;
+ letter-spacing: -0.018em;
+ page-break-after: avoid;
+}
+h1 { font-size: 19px; margin: .15em 1em 0.5em 0 }
+h2 { font-size: 16px }
+h3 { font-size: 14px }
+hr { border: none;  border-top: 1px solid #ccb; margin: 2em 0 }
+address { font-style: normal }
+img { border: none }
+tt { white-space: pre }
+
+/* Link styles */
+:link, :visited {
+ text-decoration: underline;
+ color: #0079e2;
+ /*border-bottom: 1px dotted #bbb;*/
+}
+:link:hover, :visited:hover { text-decoration: none; color: blue }
+h1 :link, h1 :visited ,h2 :link, h2 :visited, h3 :link, h3 :visited,
+h4 :link, h4 :visited, h5 :link, h5 :visited, h6 :link, h6 :visited {
+ color: inherit;
+}
+
+ul.versionList {
+	list-style: none;
+	padding-left: 0;
+}
+
+	ul.versionList li {
+		margin-left: 0;
+		padding-left: 0;
+	}
+	
+	ul.versionList li a {
+		display: block;
+		margin-bottom: 10px;
+		padding: 20px;
+		border: 1px solid #aaa;
+		background: #eee;
+		-moz-border-radius: 5px; 
+		-webkit-border-radius: 5px;
+		font-size: 14px;
+		font-weight: bold;
+	}

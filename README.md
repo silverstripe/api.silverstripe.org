@@ -27,4 +27,6 @@ accessible through the website, all documents are static HTML files.
  * Check if any new folders/files need to be added to the `--ignore` parameter
  * Run `makedoc.sh` and confirm the phpdoc command running through properly
  * Add a link to `index.html`
+ * If you're using `publishsite`, add the new folder to the `.publishinfo` excluded folders list
+   `--excluded-folders=`
  * Note: Don't commit the generated files, they dont need to be versioned
