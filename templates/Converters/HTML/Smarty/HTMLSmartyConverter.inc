@@ -1657,12 +1657,26 @@ class HTMLSmartyConverter extends Converter
     {
         Converter::setTargetDir($dir);
         if ($this->_wrote_tdir) return;
+
+				// CUSTOM ischommer, SilverStripe Ltd.
+				// Necessary because of how the smarty converter hooks into IntermediaParser->Output():
+				// It copies assets on setTargetDir(), which is in turn called by the Converter constructor.
+				// The actual setTemplateBase() call happens *after* the constructor.
+				// This code emulates phpDocumentor_setup->readCommandLineSettings().
+				global $_phpDocumentor_setting;
+				if(isset($_phpDocumentor_setting['templatebase'])) {
+					// TODO Second parameter is hardcoded, no idea where to get that from
+					$this->setTemplateBase(trim($_phpDocumentor_setting['templatebase']), 'PHP/');
+				}
+				// CUSTOM END
+
         $this->_wrote_tdir = true;
         $template_images = array();
         $stylesheets = array();
         $tdir = $dir;
         $dir = $this->templateDir;
         $this->templateDir = $this->templateDir.'templates/';
+				
         $info = new Io;
         $this->copyMediaRecursively($info->getDirTree($this->templateDir.'media',$this->templateDir),$tdir);
     }
