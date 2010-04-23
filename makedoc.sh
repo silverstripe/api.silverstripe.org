@@ -2,7 +2,7 @@ directorybase=".src/"
 ignore="_config.php,main.php,static-main.php,rewritetest.php,_register_database.php,index.php,install.php,Core.php,thirdparty/,lang/,tests/,*.js,*.css,*.yml,*.ss,*.jpg,*.gif,*.png,*.inc"
 output="HTML:frames:default"
 templatebase="templates"
-defaultargs="--ignore '$ignore'  --output '$output' --defaultpackagename 'sapphire' --title 'SilverStripe API Documentation'"
+defaultargs="--ignore '$ignore'  --output '$output' --defaultpackagename sapphire --title 'SilverStripe API Documentation'"
 
 # prepare base directory
 svn up .src
