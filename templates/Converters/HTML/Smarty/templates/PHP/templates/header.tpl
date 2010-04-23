@@ -1,32 +1,76 @@
+{if strpos($title, '2.2') !== FALSE}
+	{assign var="release" value='2.2'}
+{elseif strpos($title, '2.3') !== FALSE}
+	{assign var="release" value='2.3'}
+{elseif strpos($title, '2.4') !== FALSE}
+	{assign var="release" value='2.4'}
+{elseif strpos($title, 'trunk') !== FALSE}
+	{assign var="release" value='trunk'}
+{/if}
+
 <html>
 <head>
 <title>{$title}</title>
 <link rel="stylesheet" type="text/css" href="{$subdir}media/style.css">
+<link rel="stylesheet" type="text/css" href="{$subdir}media/screen.css">
+<link rel="stylesheet" href="googlesearch.css" type="text/css" />
 </head>
 <body>
 
-<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
-  <tr>
-    <td class="header_top">{$package}</td>
-  </tr>
-  <tr><td class="header_line"><img src="{$subdir}media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
-  <tr>
-    <td class="header_menu">
-        {assign var="packagehaselements" value=false}
-        {foreach from=$packageindex item=thispackage}
-            {if in_array($package, $thispackage)}
-                {assign var="packagehaselements" value=true}
-            {/if}
-        {/foreach}
-        {if $packagehaselements}
-  		  [ <a href="{$subdir}classtrees_{$package}.html" class="menu">class tree: {$package}</a> ]
-		  [ <a href="{$subdir}elementindex_{$package}.html" class="menu">index: {$package}</a> ]
-		{/if}
-  	    [ <a href="{$subdir}elementindex.html" class="menu">all elements</a> ]
-    </td>
-  </tr>
-  <tr><td class="header_line"><img src="{$subdir}media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
-</table>
+	<div id="banner">
+		<div id="header">
+			<a href="http://api.silverstripe.org/"><img src="{$subdir}media/ss_logo.gif" alt="SilverStripe logo" /></a>
+		</div>
+	</div>
+	
+	<div class="search row">
+		<div id="cse" style="width: 100%;">Loading</div>
+		<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+		<script type="text/javascript">
+			{literal}
+		  google.load('search', '1', {language : 'en'});
+		  google.setOnLoadCallback(function(){
+		    var customSearchControl = new google.search.CustomSearchControl(
+					{/literal}
+					{if $release == '2.2'}'008918494708543759628:4zq0wh03i0m'{/if}
+					{if $release == '2.3'}'008918494708543759628:k9hie5n-tpi'{/if}
+					{if $release == '2.4'}'008918494708543759628:xrr3g-om4zu'{/if}
+					{if $release == 'trunk'}'008918494708543759628:nf_ogd7nec8'{/if}
+					{literal}
+				);
+		    customSearchControl.setResultSetSize(google.search.Search.SMALL_RESULTSET);
+		    customSearchControl.draw('cse');
+		  }, true);
+			{/literal}
+		</script>
+	</div>
+	
+	<div class="row">
+		<h2 class="releases-header">Releases:</h2>
+		<ul class="releases horizontal">
+			<li class="{if $release == '2.2'}current{/if}"><a href="http://api.silverstripe.org/2.2">2.2</a></li>
+			<li class="{if $release == '2.3'}current{/if}"><a href="http://api.silverstripe.org/2.3">2.3</a></li>
+			<li class="{if $release == '2.4'}current{/if}"><a href="http://api.silverstripe.org/2.4">2.4</a></li>
+			<li class="{if $release == 'trunk'}current{/if}"><a href="http://api.silverstripe.org/trunk">trunk</a></li>
+		</ul>
+	</div>
+
+	<div class="row">
+		<h2 class="packages-header">{$package}</h2>
+		<ul class="packages horizontal">
+			{assign var="packagehaselements" value=false}
+	    {foreach from=$packageindex item=thispackage}
+	        {if in_array($package, $thispackage)}
+	            {assign var="packagehaselements" value=true}
+	        {/if}
+	    {/foreach}
+	    {if $packagehaselements}
+		  <li><a href="{$subdir}classtrees_{$package}.html" class="menu">class tree: {$package}</a></li>
+	  <li><a href="{$subdir}elementindex_{$package}.html" class="menu">index: {$package}</a></li>
+	{/if}
+	    <li><a href="{$subdir}elementindex.html" class="menu">all elements</a></li>
+		</ul>
+	</div>
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr valign="top">

@@ -8,7 +8,7 @@ defaultargs="--templatebase \"/Users/ingo/Silverstripe/ss2api/templates\" --igno
 # trunk
 #svn co http://svn.silverstripe.com/open/phpinstaller/trunk src/trunk
 echo "nice phpdoc --directory src/trunk/mysite --target trunk --title $defaultargs"
-nice phpdoc --directory src/trunk/cms --target trunk --title "SilverStripe trunk API Documentation" $defaultargs
+nice phpdoc --directory src/trunk/cms --target trunk --title "SilverStripe trunk API Documentation" --converterparams trunk $defaultargs
 
 # 2.4
 # svn co http://svn.silverstripe.com/open/phpinstaller/2.4 src/2.4
