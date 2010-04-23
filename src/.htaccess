@@ -1,0 +1,2 @@
+# The SilverStripe source code does not have to be accessible through the web
+deny from all
