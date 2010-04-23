@@ -3,9 +3,9 @@
 SilverStripe API docs for the core system in different versions,
 generated through *PHPDocumentor*.
 
-The documentation is generated from svn working copies located in `.svn/`
-and managed through `svn:externals.` The PHP code does not have to be
-accessible through the website, all documents are static HTML files. 
+The documentation is generated from svn working copies located in `svn/`.
+This folder is initially empty, the working copies are created through `makedocs.sh`.
+The PHP code does not have to be accessible through the website, all documents are static HTML files. 
 
 
 # Requirements
@@ -13,7 +13,7 @@ accessible through the website, all documents are static HTML files.
  * Subversion
  * [http://www.phpdoc.org/](PHPDocumentor binaries) (install through PEAR: `pear install PhpDocumentor`)
 
-# Installation
+# Installation and Usage
 
  * Ensure `makedoc.sh` is executable by the webserver user
  * Ensure the webroot is writeable by the webserver user
