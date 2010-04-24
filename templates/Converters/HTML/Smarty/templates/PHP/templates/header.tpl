@@ -1,10 +1,10 @@
-{if strpos($title, '2.2') !== FALSE}
+{if strpos($maintitle, '2.2') !== FALSE}
 	{assign var="release" value='2.2'}
-{elseif strpos($title, '2.3') !== FALSE}
+{elseif strpos($maintitle, '2.3') !== FALSE}
 	{assign var="release" value='2.3'}
-{elseif strpos($title, '2.4') !== FALSE}
+{elseif strpos($maintitle, '2.4') !== FALSE}
 	{assign var="release" value='2.4'}
-{elseif strpos($title, 'trunk') !== FALSE}
+{elseif strpos($maintitle, 'trunk') !== FALSE}
 	{assign var="release" value='trunk'}
 {/if}
 
@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="googlesearch.css" type="text/css" />
 </head>
 <body>
-
 	<div id="banner">
 		<div id="header">
 			<a href="http://api.silverstripe.org/"><img src="{$subdir}media/ss_logo.gif" alt="SilverStripe logo" /></a>
