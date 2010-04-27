@@ -22,28 +22,6 @@
 		</div>
 	</div>
 	
-	<div class="search row">
-		<div id="cse" style="width: 100%;">Loading</div>
-		<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-		<script type="text/javascript">
-			{literal}
-		  google.load('search', '1', {language : 'en'});
-		  google.setOnLoadCallback(function(){
-		    var customSearchControl = new google.search.CustomSearchControl(
-					{/literal}
-					{if $release == '2.2'}'008918494708543759628:4zq0wh03i0m'{/if}
-					{if $release == '2.3'}'008918494708543759628:k9hie5n-tpi'{/if}
-					{if $release == '2.4'}'008918494708543759628:xrr3g-om4zu'{/if}
-					{if $release == 'trunk'}'008918494708543759628:nf_ogd7nec8'{/if}
-					{literal}
-				);
-		    customSearchControl.setResultSetSize(google.search.Search.SMALL_RESULTSET);
-		    customSearchControl.draw('cse');
-		  }, true);
-			{/literal}
-		</script>
-	</div>
-	
 	<div class="row">
 		<h2 class="releases-header">Releases:</h2>
 		<ul class="releases horizontal">
