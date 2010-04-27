@@ -3,6 +3,8 @@
 ignore="_config.php,main.php,static-main.php,rewritetest.php,_register_database.php,index.php,install.php,Core.php,thirdparty/,lang/,tests/,*.js,*.css,*.yml,*.ss,*.jpg,*.gif,*.png,*.inc"
 defaultargs="--templatebase templates --ignore $ignore  --output HTML:Smarty:PHP --defaultpackagename sapphire"
 
+cd `dirname $0`y
+
 # trunk
 svn co http://svn.silverstripe.com/open/phpinstaller/trunk src/trunk
 nice phpdoc --directory src/trunk --target trunk --title "SilverStripe trunk API Documentation" $defaultargs
