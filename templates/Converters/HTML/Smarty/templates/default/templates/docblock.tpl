@@ -1,8 +1,11 @@
 {if $sdesc != ''}
-<p align="center"><strong>{$sdesc|default:''}
-</strong></p>
+	<p class="summary">{$sdesc|default:''}</p>
 {/if}
-{if $desc != ''}{$desc|default:''}{/if}
+
+{if $desc != ''}
+	<div class="desc">{$desc|default:''}</div>
+{/if}
+
 {if count($tags)}
 <h4>Tags:</h4>
 <ul>
