@@ -1,6 +1,4 @@
 {include file="header.tpl" noleftindex=true}
-
-<div class="right">
 <h1>{$title}</h1>
 {if $interfaces}
 {section name=classtrees loop=$interfaces}
@@ -17,4 +15,3 @@
 {/section}
 {/if}
 {include file="footer.tpl"}
-</div>

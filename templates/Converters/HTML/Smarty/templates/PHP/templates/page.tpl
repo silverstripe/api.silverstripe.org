@@ -1,8 +1,9 @@
 {include file="header.tpl" eltype="Procedural file" class_name=$name hasel=true contents=$pagecontents}
 
-<div class="right">
-	
-	{if $classes}
+<br>
+<br>
+
+{if $classes}
 <div class="contents">
 {if $tutorial}
 <span class="maintutorial">Main Tutorial: {$tutorial}</span>
@@ -25,8 +26,6 @@
 {include file="define.tpl"}
 <br />
 {include file="function.tpl"}
-
-</div>
 
 {include file="footer.tpl"}
 

@@ -16,28 +16,15 @@
 <link rel="stylesheet" href="googlesearch.css" type="text/css" />
 </head>
 <body>
-	<div id="header">
-		<div id="logo">
+	<div id="banner">
+		<div id="header">
 			<a href="http://api.silverstripe.org/"><img src="{$subdir}media/ss_logo.gif" alt="SilverStripe logo" /></a>
 		</div>
-		
-		<ul class="packages horizontal">
-			<li>Index:</li>
-			{assign var="packagehaselements" value=false}
-	    {foreach from=$packageindex item=thispackage}
-	        {if in_array($package, $thispackage)}
-	            {assign var="packagehaselements" value=true}
-	        {/if}
-	    {/foreach}
-	    {if $packagehaselements}
-		  <li><a href="{$subdir}classtrees_{$package}.html" class="menu">class tree</a></li>
-			<li><a href="{$subdir}elementindex_{$package}.html" class="menu">index</a></li>
-			{/if}
-	    <li><a href="{$subdir}elementindex.html" class="menu">all elements</a></li>
-		</ul>
-		
+	</div>
+	
+	<div class="row">
+		<h2 class="releases-header">Releases:</h2>
 		<ul class="releases horizontal">
-			<li>Releases:</li>
 			<li class="{if $release == '2.2'}current{/if}"><a href="http://api.silverstripe.org/2.2">2.2</a></li>
 			<li class="{if $release == '2.3'}current{/if}"><a href="http://api.silverstripe.org/2.3">2.3</a></li>
 			<li class="{if $release == '2.4'}current{/if}"><a href="http://api.silverstripe.org/2.4">2.4</a></li>
@@ -45,55 +32,84 @@
 		</ul>
 	</div>
 
-	<div class="row package-list">
-		<ul class="horizontal">
-			<li>Packages:</li>
-			{section name=packagelist loop=$packageindex}
-			  <li{if $packageindex[packagelist].title == $package} class="current"{/if}>
-					<a href="{$subdir}{$packageindex[packagelist].link}">{$packageindex[packagelist].title}</a>
-				</li>
-			{/section}
+	<div class="row">
+		<h2 class="packages-header">{$package}</h2>
+		<ul class="packages horizontal">
+			{assign var="packagehaselements" value=false}
+	    {foreach from=$packageindex item=thispackage}
+	        {if in_array($package, $thispackage)}
+	            {assign var="packagehaselements" value=true}
+	        {/if}
+	    {/foreach}
+	    {if $packagehaselements}
+		  <li><a href="{$subdir}classtrees_{$package}.html" class="menu">class tree: {$package}</a></li>
+	  <li><a href="{$subdir}elementindex_{$package}.html" class="menu">index: {$package}</a></li>
+	{/if}
+	    <li><a href="{$subdir}elementindex.html" class="menu">all elements</a></li>
 		</ul>
 	</div>
 
-<div class="left">
-	
-	{if !$noleftindex}{assign var="noleftindex" value=false}{/if}
-	
-  {if !$noleftindex}
-	
-		{if $compiledclassindex}
-			<div class="class-list-container">
-		  <h3>Classes:</h3>
-		  {eval var=$compiledclassindex}
-			</div>
-		{/if}
-	
-	  
-		{if $compiledfileindex}
-			<div class="file-list-container">
-		  <h3>Files:</h3>
-		  {eval var=$compiledfileindex}
-			</div>
-	  {/if}
-
-	{/if}
-
-	{if count($ric) >= 1}
-		<div id="ric">
-			{section name=ric loop=$ric}
-				<p><a href="{$subdir}{$ric[ric].file}">{$ric[ric].name}</a></p>
-			{/section}
-		</div>
-	{/if}
-
-	{if $hastodos}
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="200" class="menu">
+{if count($ric) >= 1}
+	<div id="ric">
+		{section name=ric loop=$ric}
+			<p><a href="{$subdir}{$ric[ric].file}">{$ric[ric].name}</a></p>
+		{/section}
+	</div>
+{/if}
+{if $hastodos}
 	<div id="todolist">
 			<p><a href="{$subdir}{$todolink}">Todo List</a></p>
 	</div>
-	{/if}
+{/if}
+      <b>Packages:</b><br />
+      {section name=packagelist loop=$packageindex}
+        <a href="{$subdir}{$packageindex[packagelist].link}">{$packageindex[packagelist].title}</a><br />
+      {/section}
+      <br /><br />
+{if $tutorials}
+		<b>Tutorials/Manuals:</b><br />
+		{if $tutorials.pkg}
+			<strong>Package-level:</strong>
+			{section name=ext loop=$tutorials.pkg}
+				{$tutorials.pkg[ext]}
+			{/section}
+		{/if}
+		{if $tutorials.cls}
+			<strong>Class-level:</strong>
+			{section name=ext loop=$tutorials.cls}
+				{$tutorials.cls[ext]}
+			{/section}
+		{/if}
+		{if $tutorials.proc}
+			<strong>Procedural-level:</strong>
+			{section name=ext loop=$tutorials.proc}
+				{$tutorials.proc[ext]}
+			{/section}
+		{/if}
+{/if}
+      {if !$noleftindex}{assign var="noleftindex" value=false}{/if}
+      {if !$noleftindex}
+      {if $compiledfileindex}
+      <b>Files:</b><br />
+      {eval var=$compiledfileindex}
+      {/if}
 
-</div>
+      {if $compiledinterfaceindex}
+      <b>Interfaces:</b><br />
+      {eval var=$compiledinterfaceindex}
+      {/if}
+
+      {if $compiledclassindex}
+      <b>Classes:</b><br />
+      {eval var=$compiledclassindex}
+      {/if}
+      {/if}
+    </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
 {if !$hasel}{assign var="hasel" value=false}{/if}
 {if $hasel}

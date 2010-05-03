@@ -1,6 +1,4 @@
 {include file="header.tpl" title=$title}
-
-<div class="right">
 {if $nav}
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr>
@@ -31,6 +29,4 @@ Prev{if $prev}</a>{/if}</td>
 </tr>
 </table>
 {/if}
-</div>
-
 {include file="footer.tpl"}
