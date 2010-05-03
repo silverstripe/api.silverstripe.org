@@ -1,4 +1,6 @@
 {include file="header.tpl" noleftindex=true}
+
+<div class="right">
 {section name=files loop=$files}
 <a href="#{$files[files].file}">{$files[files].file}</a><br>
 {/section}
@@ -19,3 +21,4 @@
 {/if}
 {/foreach}
 {include file="footer.tpl"}
+</div>

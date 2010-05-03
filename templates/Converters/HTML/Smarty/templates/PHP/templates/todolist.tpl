@@ -1,4 +1,6 @@
 {include file="header.tpl" title="Todo List"}
+
+<div class="right">
 <div align="center"><h1>Todo List</h1></div>
 {foreach from=$todos key=todopackage item=todo}
 <h2>{$todopackage}</h2>
@@ -11,4 +13,6 @@
 </ul>
 {/section}
 {/foreach}
+</div>
+
 {include file="footer.tpl"}

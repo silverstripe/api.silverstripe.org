@@ -1,0 +1,9 @@
+RewriteEngine On
+# Most of the /default package contents have shifted to /sapphire since api.ss.org was
+# last published in March 09
+RewriteRule ^(default)/(.*) /current/sapphire/$2 [R=301]
+# Rewrite old api.silverstripe.org links (without release specific subfolders)
+# to default to /trunk
+RewriteRule ^(sapphire|cms|forms|default)/(.*) /current/$1/$2 [R=301]
+# "Symlink" a "current" folder to the latest release
+RewriteRule ^current/?(.*)? /2.4/$1 [R=301]

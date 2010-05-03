@@ -1,5 +1,7 @@
 {include file="header.tpl" eltype="class" hasel=true contents=$classcontents}
 
+<div class="right">
+	
 {if $conflicts.conflict_type}<div class="warning">Conflicts with classes:<br />
 	{section name=me loop=$conflicts.conflicts}
 	{$conflicts.conflicts[me]}<br />
@@ -227,5 +229,7 @@
 {include file="const.tpl"}
 </div><br />
 {/if}
+
+</div>
 
 {include file="footer.tpl"}

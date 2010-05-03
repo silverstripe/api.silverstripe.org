@@ -1,3 +1,7 @@
+/* ############################## */
+/* Typography */
+/* ############################## */
+
 body { 
 	background: #fff url(header_bg.gif) repeat-x center top; 
 	color: #000; 
@@ -33,6 +37,52 @@ h4 :link, h4 :visited, h5 :link, h5 :visited, h6 :link, h6 :visited {
  color: inherit;
 }
 
+a.menu {
+	color: #0079E2;
+}
+
+td.menu {
+	padding-left: 0;
+}
+
+.left {
+	font-size: 10px;
+}
+
+
+/* ############################## */
+/* Layout */
+/* ############################## */
+
+.left {
+	clear: left;
+	float: left;
+	width: 200px;
+	border-right: 1px solid #aaa;
+	overflow: hidden;
+}
+
+.right {
+	margin-left: 210px;
+}
+
+.right ul.packages li {
+	font-size: 18px;
+	padding: 10px;
+}
+
+#header {}
+
+	#header #logo {
+		float: left;
+	}
+
+	#header ul.releases,
+	#header ul.packages {
+		float: right;
+		margin-top: 0;
+	}
+
 ul.horizontal {
 	list-style: none;
 	padding-left: 0;
@@ -42,6 +92,14 @@ ul.horizontal {
 		float: left;
 		margin-right: 5px;
 	}
+	
+	ul.horizontal li.current {
+		font-weight: bold;
+	}
+
+/* ############################## */
+/* Content */
+/* ############################## */
 
 ul.versionList {
 	list-style: none;
@@ -65,27 +123,17 @@ ul.versionList {
 		font-weight: bold;
 	}
 	
+.class-list-container ul,
+.file-list-container ul {
+	list-style: none;
+	padding-left: 0;
+}
+	
 div.row {
 	clear: both;
 }
 
-/* Overloaded style.css */
-	
-a.menu {
-	color: #0079E2;
-}
-
-td.menu {
-	padding-left: 0;
-}
-
-h2.packages-header,
-h2.releases-header {
-	float: left;
-	margin-top: 0;
-	margin-right: 10px;
-}
-
-ul.releases li.current {
-	font-weight: bold;
+.left h3,
+.left h4 {
+	margin-bottom: 0;
 }
