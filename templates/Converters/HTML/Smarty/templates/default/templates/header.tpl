@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="{$subdir}media/screen.css">
 	<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
 	<script type="text/javascript" src="{$subdir}media/app.js"></script>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" >
 </head>
 {if strpos($maintitle, '2.2') !== FALSE}
 	{assign var="release" value='2.2'}
