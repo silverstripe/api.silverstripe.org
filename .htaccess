@@ -7,3 +7,5 @@ RewriteRule ^(default)/(.*) /current/sapphire/$2 [R=301]
 RewriteRule ^(sapphire|cms|forms|default)/(.*) /current/$1/$2 [R=301]
 # "Symlink" a "current" folder to the latest release
 RewriteRule ^current/?(.*)? /2.4/$1 [R=301]
+# Rewrite old ecommerce links
+RewriteRule ^ecommerce/?(.*)? /modules/ecommerce/trunk/$1 [R=301]
