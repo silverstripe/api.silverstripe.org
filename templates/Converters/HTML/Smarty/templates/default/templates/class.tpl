@@ -3,21 +3,22 @@
 <div class="section class-overview">
 	<dl>
 
-		<dt>Inheritance:</dt>
-		<dd>{section name=tree loop=$class_tree.classes}{$class_tree.classes[tree]} <span class="inheritance-arrow">&lt;</span> {/section}</dd>
+		<p>
+			<small>
+				Inheritance: 
+				{section name=tree loop=$class_tree.classes}
+					{$class_tree.classes[tree]}
+					{if !$smarty.section.tree.last}
+						<span class="inheritance-arrow">&lt;</span>
+					{/if}
+				{/section}
+			</small>
+		</p>
 		
-		<br />
-		
-		<dt>Summary:</dt>
-		<dd>{$sdesc|default:''}</dd>
-		
-		<br />
+		<p>Summary: {$sdesc|default:''}</p>
 		
 		{if $tutorial}
-		<dt>{if $is_interface}Interface{else}Class{/if} Tutorial:</dt>
-		<dd>{$tutorial}</dd>
-		
-		<br />
+		<p>{if $is_interface}Interface{else}Class{/if} Tutorial: {$tutorial}</p>
 		{/if}
 		
 		{section name=tag loop=$tags}
