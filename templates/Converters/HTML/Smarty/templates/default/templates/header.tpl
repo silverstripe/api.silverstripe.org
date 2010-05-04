@@ -48,22 +48,22 @@
 		</ul>
 	</div>
 
-	<div class="row package-list">
-		<ul class="horizontal">
-			<li>Packages:</li>
-			{section name=packagelist loop=$packageindex}
-			  <li{if $packageindex[packagelist].title == $package} class="current"{/if}>
-					<a href="{$subdir}{$packageindex[packagelist].link}">{$packageindex[packagelist].title}</a>
-				</li>
-			{/section}
-		</ul>
-	</div>
-
 	<div class="left">
 	
 		{if !$noleftindex}{assign var="noleftindex" value=false}{/if}
 	
 	  {if !$noleftindex}
+	
+			<div class="package-list">
+				<h3>Packages:</h3>
+				<ul>
+					{section name=packagelist loop=$packageindex}
+					  <li{if $packageindex[packagelist].title == $package} class="current"{/if}>
+							<a href="{$subdir}{$packageindex[packagelist].link}">{$packageindex[packagelist].title}</a>
+						</li>
+					{/section}
+				</ul>
+			</div>
 	
 			{if $compiledclassindex}
 				<div class="class-list-container">

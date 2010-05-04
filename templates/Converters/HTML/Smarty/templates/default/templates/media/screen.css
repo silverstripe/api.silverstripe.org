@@ -51,10 +51,13 @@ td.menu {
 
 ul {
 	list-style: none;
+	margin-left: 0;
+	padding-left: 0;
 }
 
 	.desc ul {
 		list-style: disc;
+		padding-left: 1em;
 	}
 
 p {
@@ -249,8 +252,20 @@ ul.parameters {
 	}
 
 p.toggle {
-	margin: 0;
+	margin: 1em 0 0 0;
+	padding: 4px;
+	background: #eee;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	width: 12em; /* shouldnt be necessary */
 }
+
+	p.toggle a:link,
+	p.toggle a:visited,
+	p.toggle a:hover {
+		color: #444;
+		text-decoration: none;
+	}
 
 span.access-public,
 span.access-protected,
