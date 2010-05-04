@@ -96,7 +96,9 @@ dd {
 	padding: 10px;
 }
 
-#header {}
+#header {
+	overflow: auto;
+}
 
 	#header #logo {
 		float: left;
