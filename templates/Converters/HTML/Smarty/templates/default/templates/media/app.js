@@ -12,5 +12,13 @@
 				return false;
 			});
 		});
+		
+		// Unobtrusive anchor links (trac style)
+		$(':header').live('mouseover', function(e) {
+			$(this).find('a.anchor').show();
+		});
+		$(':header').live('mouseout', function(e) {
+			$(this).find('a.anchor').hide();
+		});
 	});
 }(jQuery));

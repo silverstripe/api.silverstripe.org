@@ -4,7 +4,10 @@
 {else}
 	<a name="{$methods[methods].method_dest}"></a>
 	<p></p>
-	<h3>{if $methods[methods].static}static {/if}{$methods[methods].function_name}</h3>
+	<h3>
+		{if $methods[methods].static}static {/if}{$methods[methods].function_name}
+		<a class="anchor" href="#{$methods[methods].method_dest}" title="Link to this section">¶</a>
+	</h3>
 	<div class="indent">
 		<p>
 		<code>{if $methods[methods].static}static {/if}{$methods[methods].function_return} {if $methods[methods].ifunction_call.returnsref}&amp;{/if}{$methods[methods].function_name}(

@@ -127,6 +127,15 @@ ul.horizontal {
 	display: none;
 }
 
+a.anchor {
+	display: none; /* enabled by js */
+}
+	a.anchor:link,
+	a.anchor:visited,
+	a.anchor:active {
+		color: #aaa;
+	}
+	
 ul.versionList {
 	list-style: none;
 	padding-left: 0;
