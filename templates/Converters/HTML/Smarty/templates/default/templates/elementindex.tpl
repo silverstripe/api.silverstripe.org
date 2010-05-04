@@ -2,4 +2,6 @@
 <a name="top"></a>
 <h1>Index of All Elements</h1>
 {include file="basicindex.tpl" indexname="elementindex"}
+
+</div> <!-- closing div#right -->
 {include file="footer.tpl"}

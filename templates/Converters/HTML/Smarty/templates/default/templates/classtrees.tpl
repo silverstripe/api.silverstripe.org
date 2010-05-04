@@ -14,4 +14,6 @@
 {$classtrees[classtrees].class_tree}
 {/section}
 {/if}
+
+</div> <!-- closing div#right -->
 {include file="footer.tpl"}

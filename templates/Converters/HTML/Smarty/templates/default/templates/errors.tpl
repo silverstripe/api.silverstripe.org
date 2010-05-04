@@ -18,4 +18,6 @@
 {/section}
 {/if}
 {/foreach}
+
+</div> <!-- closing div#right -->
 {include file="footer.tpl"}

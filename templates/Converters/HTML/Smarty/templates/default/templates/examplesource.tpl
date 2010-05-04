@@ -3,4 +3,6 @@
 <div class="php-src">
 {$source}
 </div>
+
+</div> <!-- closing div#right -->
 {include file="footer.tpl"}

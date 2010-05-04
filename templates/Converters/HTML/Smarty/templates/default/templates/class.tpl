@@ -281,4 +281,7 @@
 	{include file="const.tpl"}
 	{/if}
 </div>
+
+</div> <!-- closing div#right -->
+
 {include file="footer.tpl"}

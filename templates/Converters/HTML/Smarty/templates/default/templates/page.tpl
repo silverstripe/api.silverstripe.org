@@ -27,5 +27,6 @@
 <hr>
 {include file="function.tpl"}
 
+</div> <!-- closing div#right -->
 {include file="footer.tpl"}
 

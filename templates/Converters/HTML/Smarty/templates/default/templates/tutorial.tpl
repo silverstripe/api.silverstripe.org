@@ -29,4 +29,6 @@ Prev{if $prev}</a>{/if}</td>
 </tr>
 </table>
 {/if}
+
+</div> <!-- closing div#right -->
 {include file="footer.tpl"}

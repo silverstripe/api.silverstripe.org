@@ -11,4 +11,6 @@
 </ul>
 {/section}
 {/foreach}
+
+</div> <!-- closing div#right -->
 {include file="footer.tpl"}

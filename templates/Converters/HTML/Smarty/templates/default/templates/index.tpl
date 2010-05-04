@@ -4,4 +4,6 @@
 {else}
 {include file="blank.tpl"}
 {/if}
+
+</div> <!-- closing div#right -->
 {include file="footer.tpl"}

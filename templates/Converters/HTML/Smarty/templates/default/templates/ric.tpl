@@ -3,4 +3,6 @@
 <pre>
 {$contents|htmlentities}
 </pre>
+
+</div> <!-- closing div#right -->
 {include file="footer.tpl"}
