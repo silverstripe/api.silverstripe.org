@@ -3,8 +3,8 @@
 	<p>{if $methods[methods].static}static {/if}method {$methods[methods].function_call}, {$methods[methods].sdesc}</p>
 {else}
 	<a name="{$methods[methods].method_dest}"></a>
-	<p></p>
 	<h3>
+		{include file="access.tpl" access=$methods[methods].access}
 		{if $methods[methods].static}static {/if}{$methods[methods].function_name}
 		<a class="anchor" href="#{$methods[methods].method_dest}" title="Link to this section">¶</a>
 	</h3>
@@ -33,7 +33,7 @@
 	{/section}</p>
 {/if}
 
-{if count($methods[methods].method_overrides)}
+{if $methods[methods].method_overrides.link}
 	<p>
 		Overrides {$methods[methods].method_overrides.link} 	
 		({$methods[methods].method_overrides.sdesc|default:"parent method not documented"})

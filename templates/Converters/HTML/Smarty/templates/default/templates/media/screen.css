@@ -229,3 +229,38 @@ ul.parameters {
 p.toggle {
 	margin: 0;
 }
+
+.access-public,
+.access-protected,
+.access-private,
+.access-public-inherited,
+.access-protected-inherited,
+.access-private-inherited {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	margin-right: .5em;
+}
+	.access-public span,
+	.access-protected span,
+	.access-private span,
+	.access-public-inherited span,
+	.access-protected-inherited span,
+	.access-private-inherited span{
+		display: none;
+	}
+
+	.access-public {
+		background: url(icon_public.gif) no-repeat;
+	}
+	.access-public-inherited {
+		background: url(icon_public_parent.gif) no-repeat;
+	}
+	.access-protected,
+	.access-private {
+		background: url(icon_protected.gif) no-repeat;
+	}
+	.access-protected-inherited,
+	.access-private-inherited {
+		background: url(icon_protected_parent.gif) no-repeat;
+	}

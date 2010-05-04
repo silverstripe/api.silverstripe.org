@@ -59,16 +59,22 @@
 		<tbody>
 			{section name=vars loop=$vars}
 			{if !$vars[vars].static}
-			<tr class="{cycle values = 'odd,even'}">
-				<td><code><a href="#{$vars[vars].var_dest}">{$vars[vars].var_name}</a></code></td>
+			<tr class="{cycle values = 'odd,even'} access-{$methods[methods].access}">
+				<td>
+					{include file="access.tpl" access=$vars[vars].access}
+					<code><a href="#{$vars[vars].var_dest}">{$vars[vars].var_name}</a></code>
+				</td>
 				<td>{$vars[vars].sdesc}</td>
 			</tr>
 			{/if}
 			{/section}
 			{section name=vars loop=$vars}
 			{if $vars[vars].static}
-			<tr class="{cycle values = 'odd,even'}">
-				<td><code><a href="#{$vars[vars].var_dest}">static {$vars[vars].var_name}</a></code></td>
+			<tr class="{cycle values = 'odd,even'} access-{$vars[vars].access}">
+				<td>
+					{include file="access.tpl" access=$vars[vars].access}
+					<code><a href="#{$vars[vars].var_dest}">static {$vars[vars].var_name}</a></code>
+				</td>
 				<td>{$vars[vars].sdesc}</td>
 			</tr>
 			{/if}
@@ -91,8 +97,11 @@
 		<tbody>
 			{section name=ivars loop=$ivars}
 			{section name=ivars2 loop=$ivars[ivars].ivars}
-			<tr class="{cycle values = 'odd,even'}">
-				<td><code>{$ivars[ivars].ivars[ivars2].link}</code></td>
+			<tr class="{cycle values = 'odd,even'} access-{$ivars[ivars].ivars[ivars2].access}-inherited">
+				<td>
+					{include file="access.tpl" access=$ivars[ivars].ivars[ivars2].access inherited=true}
+					<code>{$ivars[ivars].ivars[ivars2].link}</code>
+				</td>
 				<td>{$ivars[ivars].ivars[ivars2].ivars_sdesc} </td>
 			</tr>
 			{/section}
@@ -112,16 +121,21 @@
 		<tbody>
 			{section name=methods loop=$methods}
 			{if $methods[methods].static}
-			<tr class="{cycle values = 'odd,even'}">
-				<td><code><a href="#{$methods[methods].method_dest}">static {$methods[methods].function_call}</a></code></td>
+			<tr class="{cycle values = 'odd,even'} access-{$methods[methods].access}">
+				<td>
+					{include file="access.tpl" access=$methods[methods].access}
+					<code><a href="#{$methods[methods].method_dest}">static {$methods[methods].function_call}</a></code>
+				</td>
 				<td>{$methods[methods].sdesc}</td>
 			</tr>
 			{/if}
 			{/section}
 			{section name=methods loop=$methods}
 			{if $methods[methods].static}
-			<tr class="{cycle values = 'odd,even'}">
-				<td><code><a href="#{$methods[methods].method_dest}">{$methods[methods].function_call}</a></code></td>
+			<tr class="{cycle values = 'odd,even'} access-{$methods[methods].access}">
+				<td>
+					<code><a href="#{$methods[methods].method_dest}">{$methods[methods].function_call}</a></code>
+				</td>
 				<td>{$methods[methods].sdesc}</td>
 			</tr>
 			{/if}
@@ -144,8 +158,11 @@
 		<tbody>
 			{section name=imethods loop=$imethods}
 			{section name=imethods2 loop=$imethods[imethods].imethods}
-			<tr class="{cycle values = 'odd,even'}">
-				<td><code>{$imethods[imethods].imethods[imethods2].link}</code></td>
+			<tr class="{cycle values = 'odd,even'} access-{$imethods[imethods].imethods[imethods2].access}-inherited">
+				<td>
+					{include file="access.tpl" access=$imethods[imethods].imethods[imethods2].access inherited=true}
+					<code>{$imethods[imethods].imethods[imethods2].link}</code>
+				</td>
 				<td>{$imethods[imethods].imethods[imethods2].imethods_sdesc} </td>
 			</tr>
 			{/section}
@@ -165,7 +182,10 @@
 		<tbody>
 			{section name=consts loop=$consts}
 			<tr class="{cycle values = 'odd,even'}">
-				<td><code><a href="#{$consts[consts].const_dest}">var {$consts[consts].const_name}</a></code></td>
+				<td>
+					{include file="access.tpl" access=$consts[consts].access}
+					<code><a href="#{$consts[consts].const_dest}">{$consts[consts].const_name}</a></code>
+				</td>
 				<td>{$consts[consts].sdesc}</td>
 			</tr>
 			{/section}
