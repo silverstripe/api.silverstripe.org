@@ -1666,7 +1666,7 @@ class HTMLSmartyConverter extends Converter
 				global $_phpDocumentor_setting;
 				if(isset($_phpDocumentor_setting['templatebase'])) {
 					// TODO Second parameter is hardcoded, no idea where to get that from
-					$this->setTemplateBase(trim($_phpDocumentor_setting['templatebase']), 'PHP/');
+					$this->setTemplateBase(trim($_phpDocumentor_setting['templatebase']), 'default/');
 				}
 				// CUSTOM END
 
