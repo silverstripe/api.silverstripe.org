@@ -1,4 +1,4 @@
-{include file="header.tpl"}
+{include file="header.tpl" bodyclass="index"}
 {if $contents}
 {$contents}
 {else}
