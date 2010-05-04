@@ -7,10 +7,12 @@
 {/if}
 
 {if count($tags)}
-<h4>Tags:</h4>
-<ul>
+<ul class="tags">
 {section name=tag loop=$tags}
-	<li><b>{$tags[tag].keyword}</b> - {$tags[tag].data}</li>
+	<li>
+		<strong class="tagblock">{$tags[tag].keyword}</strong>
+		{$tags[tag].data}
+	</li>
 {/section}
 </ul>
 {/if}

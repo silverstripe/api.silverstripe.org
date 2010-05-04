@@ -64,6 +64,9 @@ code {
 	font-family: Monaco, Courier, fixed;
 }
 
+dd {
+	margin-left: 0;
+}
 
 /* ############################## */
 /* Layout */
@@ -111,19 +114,6 @@ ul.horizontal {
 	ul.horizontal li.current {
 		font-weight: bold;
 	}
-	
-.leftCol {
-	width:		auto;
-	float:		left;
-}
-.middleCol {
-	width:		auto;
-	float:		left;
-}
-.rightCol {
-	width:		auto;
-	float:		left;
-}
 
 
 /* ############################## */
@@ -159,6 +149,45 @@ ul.versionList {
 		font-weight: bold;
 	}
 	
+ul.tags {
+	margin-left: 0;
+	padding-left: 0;
+	color: #444;
+	font-size: 10px;
+}
+	ul.tags li {
+		width: 100%;
+		overflow: auto;
+		margin-bottom: .5em;
+	}
+
+	ul.tags p {
+		margin-top: 0;
+	}
+
+	ul.tags .tagblock {
+		display: block;
+		float: left;
+		padding: 2px;
+		margin-right: .5em;
+		color: #444;
+		background: #eee;
+	}
+
+.members-overview {}
+
+	.members-overview table {
+		border-collapse: collapse;
+	}
+	
+	.members-overview tr.odd {
+		background: #eee;
+	}
+
+	.members-overview td {
+		padding: 2px;
+	}
+	
 .class-list-container ul,
 .file-list-container ul {
 	list-style: none;
@@ -172,4 +201,22 @@ div.row {
 .left h3,
 .left h4 {
 	margin-bottom: 0;
+}
+
+.member-detail {}
+	.member-detail h3 {
+		margin-bottom: 2px;
+		border-bottom: 1px dotted #aaa;
+	}
+	
+ul.parameters {
+	margin-top: 0;
+	margin-left: 0;
+	padding-left: 0;
+}
+
+.class-overview {}
+
+p.toggle {
+	margin: 0;
 }

@@ -9,6 +9,7 @@
 			contentDiv.hide();
 			$this.click(function(e) {
 				contentDiv.toggle();
+				return false;
 			});
 		});
 	});
