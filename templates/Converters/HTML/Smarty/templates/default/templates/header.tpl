@@ -17,8 +17,7 @@
 {elseif strpos($maintitle, 'trunk') !== FALSE}
 	{assign var="release" value='trunk'}
 {/if}
-<body>
-	{debug}
+<body class="{$bodyclass}">
 	<div id="header">
 		<div id="logo">
 			<a href="http://api.silverstripe.org/"><img src="{$subdir}media/ss_logo.gif" alt="SilverStripe logo" /></a>
