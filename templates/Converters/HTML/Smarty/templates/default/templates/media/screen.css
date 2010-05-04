@@ -146,12 +146,17 @@ a.anchor {
 	}
 	
 ul.versionList {
+	clear: both;
 	list-style: none;
 	padding-left: 0;
+	overflow: auto;
 }
 
 	ul.versionList li {
-		margin-left: 0;
+		display: block;
+		float: left;
+		width: 20em;
+		margin: 0 1em 1em 0;
 		padding-left: 0;
 	}
 	
