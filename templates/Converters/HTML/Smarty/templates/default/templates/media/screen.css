@@ -53,6 +53,10 @@ ul {
 	list-style: none;
 }
 
+	.desc ul {
+		list-style: disc;
+	}
+
 p {
 	text-align: left;
 }
@@ -213,9 +217,23 @@ div.row {
 }
 
 .member-detail {}
+
 	.member-detail h3 {
 		margin-bottom: 2px;
 		border-bottom: 1px dotted #aaa;
+	}
+	
+	.member-detail h4 {
+		margin: 0;
+	}
+	
+	.member-detail .note,
+	.member-detail .note * {
+		font-size: 10px;
+	}
+	
+	.member-detail .note dl {
+		margin: 0;
 	}
 	
 ul.parameters {
@@ -226,41 +244,45 @@ ul.parameters {
 
 .class-overview {}
 
+	.class-overview dt {
+		float: left;
+	}
+
 p.toggle {
 	margin: 0;
 }
 
-.access-public,
-.access-protected,
-.access-private,
-.access-public-inherited,
-.access-protected-inherited,
-.access-private-inherited {
+span.access-public,
+span.access-protected,
+span.access-private,
+span.access-public-inherited,
+span.access-protected-inherited,
+span.access-private-inherited {
 	display: inline-block;
 	width: 14px;
 	height: 14px;
 	margin-right: .5em;
 }
-	.access-public span,
-	.access-protected span,
-	.access-private span,
-	.access-public-inherited span,
-	.access-protected-inherited span,
-	.access-private-inherited span{
+	span.access-public span,
+	span.access-protected span,
+	span.access-private span,
+	span.access-public-inherited span,
+	span.access-protected-inherited span,
+	span.access-private-inherited span{
 		display: none;
 	}
 
-	.access-public {
+	span.access-public {
 		background: url(icon_public.gif) no-repeat;
 	}
-	.access-public-inherited {
+	span.access-public-inherited {
 		background: url(icon_public_parent.gif) no-repeat;
 	}
-	.access-protected,
-	.access-private {
+	span.access-protected,
+	span.access-private {
 		background: url(icon_protected.gif) no-repeat;
 	}
-	.access-protected-inherited,
-	.access-private-inherited {
+	span.access-protected-inherited,
+	span.access-private-inherited {
 		background: url(icon_protected_parent.gif) no-repeat;
 	}

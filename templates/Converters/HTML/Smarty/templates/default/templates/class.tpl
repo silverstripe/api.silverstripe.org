@@ -2,15 +2,22 @@
 
 <div class="section class-overview">
 	<dl>
+
 		<dt>Inheritance:</dt>
 		<dd>{section name=tree loop=$class_tree.classes}{$class_tree.classes[tree]} <span class="inheritance-arrow">&lt;</span> {/section}</dd>
+		
+		<br />
 		
 		<dt>Summary:</dt>
 		<dd>{$sdesc|default:''}</dd>
 		
+		<br />
+		
 		{if $tutorial}
 		<dt>{if $is_interface}Interface{else}Class{/if} Tutorial:</dt>
 		<dd>{$tutorial}</dd>
+		
+		<br />
 		{/if}
 		
 		{section name=tag loop=$tags}
@@ -27,6 +34,8 @@
 				{/section}
 			</ul>
 		</dd>
+		
+		<br />
 		{/if}
 		
 	</dl>
@@ -86,9 +95,9 @@
 	{/if}
 </div>
 
-{if count($ivars)}
+{if $ivars && count($ivars)}
 <p class="toggle">
-	<small><a href="#inherited-variables-overview">Show/hide inherited methods</a></small>
+	<small><a href="#inherited-variables-overview">Show/hide inherited variables</a></small>
 </p>
 <div class="section members-overview" id="inherited-variables-overview">
 	<h3>Inherited Variables</h3>
@@ -134,6 +143,7 @@
 			{if $methods[methods].static}
 			<tr class="{cycle values = 'odd,even'} access-{$methods[methods].access}">
 				<td>
+					{include file="access.tpl" access=$methods[methods].access}
 					<code><a href="#{$methods[methods].method_dest}">{$methods[methods].function_call}</a></code>
 				</td>
 				<td>{$methods[methods].sdesc}</td>
@@ -147,7 +157,7 @@
 	{/if}
 </div>
 
-{if count($imethods)}
+{if $imethods && count($imethods)}
 <p class="toggle">
 	<small><a href="#inherited-methods-overview">Show/hide inherited methods</a></small>
 </p>
@@ -196,9 +206,9 @@
 	{/if}
 </div>
 
-{if count($iconsts)}
+{if $iconsts && count($iconsts)}
 <p class="toggle">
-	<small><a href="#inherited-constants-overview">Show/hide inherited methods</a></small>
+	<small><a href="#inherited-constants-overview">Show/hide inherited constants</a></small>
 </p>
 <div class="section members-overview" id="inherited-constants-overview">
 	<h3>Inherited Constants</h3>

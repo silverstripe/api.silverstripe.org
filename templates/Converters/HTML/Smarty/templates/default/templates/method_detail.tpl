@@ -24,20 +24,19 @@
 		{include file="docblock.tpl" sdesc=$methods[methods].sdesc desc=$methods[methods].desc tags=$methods[methods].tags}
 	
 {if $methods[methods].descmethod}
-	<p>Overridden in child classes as:<br />
-	{section name=dm loop=$methods[methods].descmethod}
-	<dl>
-	<dt>{$methods[methods].descmethod[dm].link}</dt>
-		<dd>{$methods[methods].descmethod[dm].sdesc}</dd>
-	</dl>
-	{/section}</p>
+	<div class="note">
+		Overridden in child classes as:<br />
+		{section name=dm loop=$methods[methods].descmethod}
+			<span>{$methods[methods].descmethod[dm].link}<span>
+		{/section}
+	</div>
 {/if}
 
 {if $methods[methods].method_overrides.link}
-	<p>
+	<div class="note">
 		Overrides {$methods[methods].method_overrides.link} 	
 		({$methods[methods].method_overrides.sdesc|default:"parent method not documented"})
-	</p>
+	</div>
 {/if}
 
 {if $methods[methods].method_implements}
