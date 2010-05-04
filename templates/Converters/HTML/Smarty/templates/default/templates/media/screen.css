@@ -301,3 +301,8 @@ span.access-private-inherited {
 	span.access-private-inherited {
 		background: url(icon_protected_parent.gif) no-repeat;
 	}
+	
+#credit {
+	font-weight: normal;
+	font-size: 10px;
+}
