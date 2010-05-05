@@ -313,3 +313,13 @@ span.access-private-inherited {
 	font-weight: normal;
 	font-size: 10px;
 }
+
+#file-list-toggle {
+	float: left;
+	width: auto;
+}
+
+#file-list {
+	clear: left;
+	display: none; /* can be toggled by js */
+}

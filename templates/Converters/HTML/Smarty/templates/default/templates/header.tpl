@@ -8,6 +8,12 @@
 	<script type="text/javascript" src="{$subdir}media/app.js"></script>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" >
 </head>
+{if strpos($basedir, 'module') !== FALSE}
+	{assign var="isModule" value=true}
+{else}
+	{assign var="isModule" value=false}
+{/if}
+
 {if strpos($maintitle, '2.2') !== FALSE}
 	{assign var="release" value='2.2'}
 {elseif strpos($maintitle, '2.3') !== FALSE}
@@ -17,6 +23,7 @@
 {elseif strpos($maintitle, 'trunk') !== FALSE}
 	{assign var="release" value='trunk'}
 {/if}
+
 <body class="{$bodyclass}">
 	<div id="header">
 		<div id="logo">
@@ -37,7 +44,7 @@
 			{/if}
 	    <li><a href="{$subdir}elementindex.html" class="menu">all elements</a></li>
 		</ul>
-		
+		{if !$isModule}
 		<ul class="releases horizontal">
 			<li>Releases:</li>
 			<li class="{if $release == '2.2'}current{/if}"><a href="http://api.silverstripe.org/2.2">2.2</a></li>
@@ -45,6 +52,7 @@
 			<li class="{if $release == '2.4'}current{/if}"><a href="http://api.silverstripe.org/2.4">2.4</a></li>
 			<li class="{if $release == 'trunk'}current{/if}"><a href="http://api.silverstripe.org/trunk">trunk</a></li>
 		</ul>
+		{/if}
 	</div>
 
 	<div class="left">
@@ -75,7 +83,12 @@
 			{if $compiledfileindex}
 				<div class="file-list-container">
 			  <h3>Files:</h3>
+				<p class="toggle" id="file-list-toggle">
+					<a href="#file-list">Show/hide</a>
+				</p>
+				<div id="file-list">
 			  {eval var=$compiledfileindex}
+				</div>
 				</div>
 		  {/if}
 
