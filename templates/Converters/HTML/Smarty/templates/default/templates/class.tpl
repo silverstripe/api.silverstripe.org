@@ -62,68 +62,6 @@
 	-->
 </div>
 
-<div class="section members-overview" id="variables-overview">
-	<h3><a href="#class_vars">Variables</a></h3>
-	{if count($vars)}
-	<table>
-		<tbody>
-			{section name=vars loop=$vars}
-			{if !$vars[vars].static}
-			<tr class="{cycle values = 'odd,even'} access-{$methods[methods].access}">
-				<td>
-					{include file="access.tpl" access=$vars[vars].access}
-					<code><a href="#{$vars[vars].var_dest}">{$vars[vars].var_name}</a></code>
-				</td>
-				<td>{$vars[vars].sdesc}</td>
-			</tr>
-			{/if}
-			{/section}
-			{section name=vars loop=$vars}
-			{if $vars[vars].static}
-			<tr class="{cycle values = 'odd,even'} access-{$vars[vars].access}">
-				<td>
-					{include file="access.tpl" access=$vars[vars].access}
-					<code><a href="#{$vars[vars].var_dest}">static {$vars[vars].var_name}</a></code>
-				</td>
-				<td>{$vars[vars].sdesc}</td>
-			</tr>
-			{/if}
-			{/section}
-		</tbody>
-	</table>
-	{else}
-	<small>(none)</small>
-	{/if}
-</div>
-
-{if $ivars && count($ivars)}
-<p class="toggle">
-	<small><a href="#inherited-variables-overview">Show/hide inherited variables</a></small>
-</p>
-<div class="section members-overview" id="inherited-variables-overview">
-	<h3>Inherited Variables</h3>
-	{if count($ivars)}
-	<table>
-		<tbody>
-			{section name=ivars loop=$ivars}
-			{section name=ivars2 loop=$ivars[ivars].ivars}
-			<tr class="{cycle values = 'odd,even'} access-{$ivars[ivars].ivars[ivars2].access}-inherited">
-				<td>
-					{include file="access.tpl" access=$ivars[ivars].ivars[ivars2].access inherited=true}
-					<code>{$ivars[ivars].ivars[ivars2].link}</code>
-				</td>
-				<td>{$ivars[ivars].ivars[ivars2].ivars_sdesc} </td>
-			</tr>
-			{/section}
-			{/section}
-		</tbody>
-	</table>
-	{else}
-	<small>(none)</small>
-	{/if}
-</div>
-{/if}
-
 <div class="section members-overview" id="methods-overview">
 	<h3><a href="#class_methods">Methods</a></h3>
 	{if count($methods)}
@@ -175,6 +113,68 @@
 					<code>{$imethods[imethods].imethods[imethods2].link}</code>
 				</td>
 				<td>{$imethods[imethods].imethods[imethods2].imethods_sdesc} </td>
+			</tr>
+			{/section}
+			{/section}
+		</tbody>
+	</table>
+	{else}
+	<small>(none)</small>
+	{/if}
+</div>
+{/if}
+
+<div class="section members-overview" id="variables-overview">
+	<h3><a href="#class_vars">Variables</a></h3>
+	{if count($vars)}
+	<table>
+		<tbody>
+			{section name=vars loop=$vars}
+			{if !$vars[vars].static}
+			<tr class="{cycle values = 'odd,even'} access-{$methods[methods].access}">
+				<td>
+					{include file="access.tpl" access=$vars[vars].access}
+					<code><a href="#{$vars[vars].var_dest}">{$vars[vars].var_name}</a></code>
+				</td>
+				<td>{$vars[vars].sdesc}</td>
+			</tr>
+			{/if}
+			{/section}
+			{section name=vars loop=$vars}
+			{if $vars[vars].static}
+			<tr class="{cycle values = 'odd,even'} access-{$vars[vars].access}">
+				<td>
+					{include file="access.tpl" access=$vars[vars].access}
+					<code><a href="#{$vars[vars].var_dest}">static {$vars[vars].var_name}</a></code>
+				</td>
+				<td>{$vars[vars].sdesc}</td>
+			</tr>
+			{/if}
+			{/section}
+		</tbody>
+	</table>
+	{else}
+	<small>(none)</small>
+	{/if}
+</div>
+
+{if $ivars && count($ivars)}
+<p class="toggle">
+	<small><a href="#inherited-variables-overview">Show/hide inherited variables</a></small>
+</p>
+<div class="section members-overview" id="inherited-variables-overview">
+	<h3>Inherited Variables</h3>
+	{if count($ivars)}
+	<table>
+		<tbody>
+			{section name=ivars loop=$ivars}
+			{section name=ivars2 loop=$ivars[ivars].ivars}
+			<tr class="{cycle values = 'odd,even'} access-{$ivars[ivars].ivars[ivars2].access}-inherited">
+				<td>
+					{include file="access.tpl" access=$ivars[ivars].ivars[ivars2].access inherited=true}
+					<code>{$ivars[ivars].ivars[ivars2].link}</code>
+				</td>
+				<td>{$ivars[ivars].ivars[ivars2].ivars_sdesc} </td>
 			</tr>
 			{/section}
 			{/section}
