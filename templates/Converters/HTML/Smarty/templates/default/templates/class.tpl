@@ -64,6 +64,7 @@
 
 <div class="section members-overview" id="methods-overview">
 	<h3><a href="#class_methods">Methods</a></h3>
+	{debug}
 	{if count($methods)}
 	<table>
 		<tbody>
@@ -79,7 +80,7 @@
 			{/if}
 			{/section}
 			{section name=methods loop=$methods}
-			{if $methods[methods].static}
+			{if !$methods[methods].static}
 			<tr class="{cycle values = 'odd,even'} access-{$methods[methods].access}">
 				<td>
 					{include file="access.tpl" access=$methods[methods].access}
