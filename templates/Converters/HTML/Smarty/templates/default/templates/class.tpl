@@ -64,7 +64,6 @@
 
 <div class="section members-overview" id="methods-overview">
 	<h3><a href="#class_methods">Methods</a></h3>
-	{debug}
 	{if count($methods)}
 	<table>
 		<tbody>
