@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ignore="_config.php,main.php,static-main.php,rewritetest.php,_register_database.php,index.php,install.php,Core.php,thirdparty/,lang/,tests/,*.js,*.css,*.yml,*.ss,*.jpg,*.gif,*.png,*.inc"
-defaultargs="--templatebase templates --ignore $ignore  --output HTML:Smarty:default,XML:GotAPI:default"
+defaultargs="--templatebase templates --ignore $ignore  --output HTML:Smarty:default"
 
 cd `dirname $0`
 
