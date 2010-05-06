@@ -333,6 +333,8 @@ class HTMLSmartyConverter extends Converter
         $templ->assign('hastodos',count($this->todoList));
         $templ->assign('todolink','todolist.html');
         $templ->assign("subdir",'');
+				// Necessary to determine "is this a module?" in the template
+				$templ->assign("basedir",$this->base_dir);
         return $templ;
     }
     
