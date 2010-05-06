@@ -75,6 +75,10 @@ dd {
 	margin-left: 0;
 }
 
+.anchor-highlight {
+	background: yellow;
+}
+
 /* ############################## */
 /* Layout */
 /* ############################## */
