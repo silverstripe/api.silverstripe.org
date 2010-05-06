@@ -1,17 +1,19 @@
 #!/bin/sh
 
 ignore="_config.php,main.php,static-main.php,rewritetest.php,_register_database.php,index.php,install.php,Core.php,thirdparty/,lang/,tests/,*.js,*.css,*.yml,*.ss,*.jpg,*.gif,*.png,*.inc"
-defaultargs="--templatebase templates --ignore $ignore  --output HTML:Smarty:default"
+defaultargs="--templatebase templates --ignore $ignore  --output HTML:Smarty:default,XML:GotAPI:default"
 
 cd `dirname $0`
 
 # trunk
 svn co http://svn.silverstripe.com/open/phpinstaller/trunk src/trunk
 nice phpdoc --directory src/trunk --target trunk --title "SilverStripe trunk API Documentation" --defaultpackagename sapphire $defaultargs
+nice phpdoc --directory src/trunk --target trunk/gotapi $defaultargs --output XML:GotAPI:default
 
 # 2.4
 svn co http://svn.silverstripe.com/open/phpinstaller/branches/2.4 src/2.4
 nice phpdoc --directory src/2.4 --target 2.4 --title "SilverStripe 2.4 API Documentation" --defaultpackagename sapphire $defaultargs
+nice phpdoc --directory src/2.4 --target 2.4/gotapi $defaultargs --output XML:GotAPI:default
 
 # 2.3
 svn co http://svn.silverstripe.com/open/phpinstaller/branches/2.3 src/2.3
