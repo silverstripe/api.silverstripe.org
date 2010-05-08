@@ -1,0 +1,87 @@
+Format: 1.4
+
+
+Title: SilverStripe JavaScript API
+SubTitle: Version: trunk
+
+# You can add a footer to your documentation like this:
+# Footer: [text]
+# If you want to add a copyright notice, this would be the place to do it.
+Timestamp: Generated on month day, year
+#   m     - One or two digit month.  January is "1"
+#   mm    - Always two digit month.  January is "01"
+#   mon   - Short month word.  January is "Jan"
+#   month - Long month word.  January is "January"
+#   d     - One or two digit day.  1 is "1"
+#   dd    - Always two digit day.  1 is "01"
+#   day   - Day with letter extension.  1 is "1st"
+#   yy    - Two digit year.  2006 is "06"
+#   yyyy  - Four digit year.  2006 is "2006"
+#   year  - Four digit year.  2006 is "2006"
+
+
+# --------------------------------------------------------------------------
+# 
+# Cut and paste the lines below to change the order in which your files
+# appear on the menu.  Don't worry about adding or removing files, Natural
+# Docs will take care of that.
+# 
+# You can further organize the menu by grouping the entries.  Add a
+# "Group: [name] {" line to start a group, and add a "}" to end it.
+# 
+# You can add text and web links to the menu by adding "Text: [text]" and
+# "Link: [name] ([URL])" lines, respectively.
+# 
+# The formatting and comments are auto-generated, so don't worry about
+# neatness when editing the file.  Natural Docs will clean it up the next
+# time it is run.  When working with groups, just deal with the braces and
+# forget about the indentation and comments.
+# 
+# You can use this file on other computers even if they use different
+# directories.  As long as the command line points to the same source files,
+# Natural Docs will be able to correct the locations automatically.
+# 
+# --------------------------------------------------------------------------
+
+
+File: AssetAdmin.DragDrop.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/AssetAdmin.DragDrop.js)
+File: AssetAdmin.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/AssetAdmin.js)
+File: AssetTableField.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/AssetTableField.js)
+File: CMSMain.EditForm.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/CMSMain.EditForm.js)
+File: CMSMain.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/CMSMain.js)
+File: CMSMain.Translatable.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/CMSMain.Translatable.js)
+File: CMSMain.Tree.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/CMSMain.Tree.js)
+File: CommentTableField.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/CommentTableField.js)
+File: jquery-changetracker/vendor/jquery-1.3.2.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/jquery-changetracker/vendor/jquery-1.3.2.js)
+File: LeftAndMain.AddForm.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/LeftAndMain.AddForm.js)
+File: LeftAndMain.BatchActions.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/LeftAndMain.BatchActions.js)
+File: LeftAndMain.EditForm.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/LeftAndMain.EditForm.js)
+File: LeftAndMain.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/LeftAndMain.js)
+File: LeftAndMain.Tree.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/LeftAndMain.Tree.js)
+File: MemberImportForm.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/MemberImportForm.js)
+File: MemberTableField.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/MemberTableField.js)
+File: MemberTableField_popup.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/MemberTableField_popup.js)
+File: ModelAdmin.History.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/ModelAdmin.History.js)
+File: ModelAdmin.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/ModelAdmin.js)
+File: PageCommentInterface.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/PageCommentInterface.js)
+File: ReportAdmin.Tree.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/ReportAdmin.Tree.js)
+File: SecurityAdmin.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/SecurityAdmin.js)
+File: SecurityAdmin.Tree.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/SecurityAdmin.Tree.js)
+File: ThumbnailStripField.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/ThumbnailStripField.js)
+File: WidgetAreaEditor.js  (/Users/ingo/Silverstripe/ss2api/src/trunk/cms/javascript/WidgetAreaEditor.js)
+
+Group: Index  {
+
+   Index: Everything
+   Class Index: Classes
+   File Index: Files
+   Function Index: Functions
+   Property Index: Properties
+   Variable Index: Variables
+   }  # Group: Index
+
+
+
+##### Do not change or remove these lines. #####
+Data: 1(D3333a6GH638\`u3r8o/GH6tH8IG366hpI836H93tHN\A39E63lp/p69H8It)
+Data: 1(h3333a6GH638\`u3r8o/GH6tH8IG366hpI836H93tHN\A36pIIR8HG3lp/p69H8It)
