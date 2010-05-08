@@ -3,10 +3,10 @@
 SilverStripe API docs for the core system in different versions,
 generated through *PHPDocumentor*.
 
-The documentation is generated from svn working copies located in `svn/`.
+The documentation is generated from svn working copies located in `src/`.
 This folder is initially empty, the working copies are created through `makedocs.sh`.
 The PHP code does not have to be accessible through the website, all documents are static HTML files. 
-
+All generated content should be stored in the `htdocs/` subfolder.
 
 # Requirements
 
@@ -24,10 +24,10 @@ The PHP code does not have to be accessible through the website, all documents a
 
  * Add command to `makedoc.sh`
  * Check if any new folders/files need to be added to the `--ignore` parameter
- * Add a link to `index.html`
+ * Add a link to `htdocs/index.html`
  * Add a link to `templates/Converters/HTML/Smarty/templates/PHP/templates/header.tpl` (in `<ul class="releases">`)
  * If you're using `publishsite`, add the new folder to the `.publishinfo` excluded folders list
    `--excluded-folders=`
  * Run `makedoc.sh` and confirm the phpdoc command running through properly
- * If the release is our (new) stable release, change the "/current" redirection in `.htaccess` and `.htaccess_live`
+ * If the release is our (new) stable release, change the "/current" redirection in `htdocs/.htaccess` and `htdocs/.htaccess_live`
  * Note: Don't commit the generated files, they dont need to be versioned
