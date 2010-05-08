@@ -1,9 +1,12 @@
 #!/bin/sh
 
+# copy "master" files from phpDocumentor templates for re-usage in index.html
+cp templates/Converters/HTML/Smarty/templates/default/templates/media/* htdocs/index-files
+
+# phpDocumentor settings
 ignore="_config.php,main.php,static-main.php,rewritetest.php,_register_database.php,index.php,install.php,Core.php,thirdparty/,lang/,tests/,*.js,*.css,*.yml,*.ss,*.jpg,*.gif,*.png,*.inc"
 defaultargs="--templatebase templates --ignore $ignore  --output HTML:Smarty:default"
-
-cd `dirname $0`
+cd `dirname $0` # workaround for missing templatebase
 
 # trunk
 svn co http://svn.silverstripe.com/open/phpinstaller/trunk src/trunk
