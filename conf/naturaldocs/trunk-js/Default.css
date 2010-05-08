@@ -44,10 +44,6 @@ blockquote {
 	top: 0;
 	width: 31ex;
 }
-.ContentPage .Firefox #Menu,
-.IndexPage .Firefox #Menu {
-	width: 200px;
-}
 .MTitle {
 	border-bottom: 1px dotted #000000;
 	font-size: 12pt;
@@ -195,7 +191,8 @@ iframe#MSearchResults {
 	font-size: 9pt;
 	margin-left: 31ex;
 }
-.ContentPage .Firefox #Content {
+.ContentPage #Content,
+#Index {
 	margin-left: 200px;
 }
 .CTopic {

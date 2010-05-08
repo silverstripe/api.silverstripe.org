@@ -1,7 +1,7 @@
 Format: 1.4
 
 
-Title: SilverStripe JavaScript API
+Title: JavaScript API
 SubTitle: Version: trunk
 
 # You can add a footer to your documentation like this:
