@@ -46,15 +46,14 @@ blockquote {
 }
 .ContentPage .Firefox #Menu,
 .IndexPage .Firefox #Menu {
-	width: 27ex;
+	width: 200px;
 }
 .MTitle {
 	border-bottom: 1px dotted #000000;
-	font-size: 16pt;
+	font-size: 12pt;
 	font-weight: bold;
 	margin-bottom: 15px;
 	padding: 5px 10px 15px 10px;
-	text-align: center;
 }
 .MSubTitle {
 	font-size: 9pt;
@@ -197,23 +196,19 @@ iframe#MSearchResults {
 	margin-left: 31ex;
 }
 .ContentPage .Firefox #Content {
-	margin-left: 27ex;
+	margin-left: 200px;
 }
 .CTopic {
 	font-size: 10pt;
 	margin-bottom: 3em;
 }
 .CTitle {
-	border-color: #A0A0A0;
-	border-style: solid;
-	border-width: 0 0 1px 0;
+	border-bottom: 1px dotted #aaa;
 	font-size: 12pt;
 	font-weight: bold;
 }
 .CGroup .CTitle {
-	border-color: #000000;
-	border-width: 0 0 2px 0;
-	font-size: 16pt;
+	font-size: 14pt;
 	margin-left: 0;
 	margin-right: 0;
 	padding-left: 15px;
@@ -225,10 +220,10 @@ iframe#MSearchResults {
  .CDatabaseTable .CTitle,
  .CSection .CTitle {
 	border-bottom: 1px dotted #aaa;
-	font-size: 18pt;
+	font-size: 16pt;
 }
 #MainTopic .CTitle {
-	font-size: 19px;
+	font-size: 16px;
 }
 .CToolTip {
 	background-color: #FFFFE0;
@@ -256,8 +251,11 @@ iframe#MSearchResults {
 	font-weight: bold;
 	margin: 1.5em 0 .5em 0;
 }
+.CBody {
+	padding-left: 10px;
+}
 .CBody pre {
-	font: 10pt "Courier New", Courier, monospace;
+	font: 10pt Monaco, "Courier New", Courier, monospace;
 	margin: 1em 0;
 }
 .CBody ul {
@@ -266,11 +264,11 @@ iframe#MSearchResults {
 	padding-right: 15px;
 }
 .CDescriptionList {
-	margin: .5em 5ex 0 5ex;
+	margin: .5em 5ex 0 10px;
 }
 .CDLEntry {
 	color: #808080;
-	font: 10pt "Courier New", Courier, monospace;
+	font: 10pt Monaco, "Courier New", Courier, monospace;
 	padding-bottom: .25em;
 	white-space: nowrap;
 }
@@ -301,8 +299,47 @@ a.CImageLink:link,
 	color: #808080;
 }
 .Prototype {
-	border-style: solid;
-	border-width: 1px;
-	margin: 0 5ex 1.5em 5ex;
-	padding: 5px 3ex;
+	padding: 5px;
+	background: #eee;
+}
+
+.Prototype * {
+	font: 10px Monaco, "Courier New", Courier, monospace;
+}
+
+.SMarked {
+	background: #eee;
+}
+
+.SFunction .SEntry,
+.SVariable .SEntry {
+	font: 10px Monaco, "Courier New", Courier, monospace;
+	padding: 2px;
+}
+
+.SGroup td,
+.SClass td {
+	padding-top: 1em;
+	padding-bottom: .5em;
+}
+
+.SGroup a,
+.SClass a {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.SGroup a:link,
+.SGroup a:hover,
+.SGroup a:active,
+.SClass a:link,
+.SClass a:hover,
+.SClass a:active {
+	color: black;
+}
+
+#Footer {
+	text-align: right;
+	font-weight: normal;
+	font-size: 10px;
 }
