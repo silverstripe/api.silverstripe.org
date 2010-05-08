@@ -10,7 +10,7 @@ svn co http://svn.silverstripe.com/open/phpinstaller/trunk src/trunk
 nice phpdoc --directory src/trunk --target htdocs/trunk --title "SilverStripe trunk API Documentation" --defaultpackagename sapphire $defaultargs
 nice phpdoc --directory src/trunk --target htdocs/trunk/gotapi $defaultargs --output XML:GotAPI:default
 mkdir htdocs/trunk-js/
-nice lib/naturaldocs/NaturalDocs -i src/trunk/cms/javascript -i src/trunk/sapphire/javascript -o HTML htdocs/trunk-js -p tmp/
+nice lib/naturaldocs/NaturalDocs -i src/trunk/cms/javascript -i src/trunk/sapphire/javascript -o HTML htdocs/trunk-js -p conf/naturaldocs/trunk-js --rebuild
 
 # 2.4
 svn co http://svn.silverstripe.com/open/phpinstaller/branches/2.4 src/2.4
