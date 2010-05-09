@@ -14,9 +14,9 @@ nice phpdoc --directory src/trunk --target htdocs/trunk --title "SilverStripe tr
 nice phpdoc --directory src/trunk --target htdocs/trunk/gotapi $defaultargs --output XML:GotAPI:default
 
 # trunk-js
-mkdir htdocs/trunk-js/
-nice lib/naturaldocs/NaturalDocs --input src/trunk/cms/javascript --input src/trunk/sapphire/javascript --output HTML htdocs/trunk-js --project conf/naturaldocs/trunk-js --style Default screen --rebuild
-cp templates/Converters/HTML/Smarty/templates/default/templates/media/*.gif htdocs/trunk-js/styles/
+mkdir -p htdocs/js/trunk/
+nice lib/naturaldocs/NaturalDocs --input src/trunk/cms/javascript --input src/trunk/sapphire/javascript --output HTML htdocs/js/trunk --project conf/naturaldocs/trunk-js --style Default screen --rebuild
+cp templates/Converters/HTML/Smarty/templates/default/templates/media/*.gif htdocs/js/trunk/styles/
 
 # 2.4
 svn co http://svn.silverstripe.com/open/phpinstaller/branches/2.4 src/2.4
