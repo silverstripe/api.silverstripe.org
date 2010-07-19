@@ -1,4 +1,10 @@
 <?php
+/**
+ * Alternative MySQL based search for the API.
+ * By default, Sphinx is used for more accurate results.
+ * The simple MySQL LIKE calls are still handy for 
+ * suggestions though.
+ */
 class SSAPISearch {
 
 	protected $params = array();
