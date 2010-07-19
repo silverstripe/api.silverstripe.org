@@ -24,6 +24,16 @@ class SSAPISearchTest extends SapphireTest {
 		$this->assertEquals($class1->ID, $results->First()->ID);
 	}
 	
+	function testSearchResultOffset() {
+		$class1 = $this->objFromFixture('SSAPIProperty', 'class1');
+		$class1old = $this->objFromFixture('SSAPIProperty', 'class1old');
+		
+		$s = new SSAPISearch(array('q' => 'class1', 'offset' => 1));
+		$results = $s->getResults();
+		$this->assertEquals(1, $results->Count());
+		$this->assertEquals($class1old->ID, $results->First()->ID);
+	}
+	
 	function testSearchResultWithVersionLimit() {
 		$class1 = $this->objFromFixture('SSAPIProperty', 'class1');
 		
@@ -32,5 +42,12 @@ class SSAPISearchTest extends SapphireTest {
 		$this->assertType('DataObjectSet', $results);
 		$this->assertEquals(1, $results->Count());
 		$this->assertEquals($class1->ID, $results->First()->ID);
+	}
+	
+	function testGetVersions() {
+		$this->assertEquals(
+			array('1.0', '1.1'),
+			SSAPIProperty::get_versions()
+		);
 	}
 }

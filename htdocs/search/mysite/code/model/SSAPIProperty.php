@@ -20,4 +20,11 @@ class SSAPIProperty extends DataObject {
 		'Type' => true,
 		'VersionString' => true
 	);
+	
+	/**
+	 * @return Array
+	 */
+	static function get_versions() {
+		return DB::query('SELECT "VersionString" FROM "SSAPIProperty" GROUP BY "VersionString"')->column();
+	}
 }
