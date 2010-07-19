@@ -18,7 +18,7 @@ class Page_Controller extends ContentController {
 		Requirements::themedCSS('form'); 
 		
 		// Add link elements
-		$opensearchLinkTemplate = '<link rel="search" type="application/opensearchdescription+xml" href="/opensearch/definition/?version=%s" title="%s" />';
+		$opensearchLinkTemplate = '<link rel="search" type="application/opensearchdescription+xml" href="' . Director::absoluteBaseUrl() . 'opensearch/description/?version=%s" title="%s" />';
 		$versions = SSAPIProperty::get_versions();
 		if($versions) foreach($versions as $version) {
 			Requirements::insertHeadTags(sprintf(
