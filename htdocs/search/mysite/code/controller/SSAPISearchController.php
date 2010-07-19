@@ -45,8 +45,8 @@ class SSAPISearchController extends Controller {
 				'SDesc' => 2
 			)
 		);
-		if(@$data['offset']) $opts['start'] = $data['offset'];
-		if(@$data['limit']) $opts['pagesize'] = $data['limit'];
+		if(@$data['offset']) $opts['start'] = (int)$data['offset'];
+		if(@$data['limit']) $opts['pagesize'] = (int)$data['limit'];
 		$searchResultSpec = SphinxSearch::search(
 			'SSAPIProperty', 
 			$data['q'], 
