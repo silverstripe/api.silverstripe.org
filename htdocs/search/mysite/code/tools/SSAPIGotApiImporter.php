@@ -32,6 +32,8 @@ class SSAPIGotApiImporterController extends CliController {
  * 
  * @see http://www.gotapi.com/contribute/index.html
  * @author Ingo Schommer
+ * 
+ * @todo Allow arbitrary depth of properties according to gotAPI spec.
  */
 class SSAPIGotApiImporter {
 
@@ -53,43 +55,55 @@ class SSAPIGotApiImporter {
 		
 		$xml = simplexml_load_file($this->filePath);
 		if($xml->page) {
+			// Clear out existing entries
+			DB::query(sprintf('DELETE FROM "SSAPIProperty" WHERE "VersionString" = \'%s\'', $this->version));
+			
+			$i = 0;
 			foreach($xml->page as $class) {
 				$ids[] = $this->importProperty($class);
 				// nested into properties
 				if($class->page) foreach($class->page as $propertyOrMethod) {
-					$ids[] = $this->importProperty($propertyOrMethod);
+					$ids[] = $this->importProperty($propertyOrMethod, $class);
 				}
+				$i++;
 			}
 		}
 		
-		$obsoletes = DataObject::get(
-			'SSAPIProperty',
-			sprintf(
-				'"VersionString" = \'%s\' AND "ID" NOT IN (\'%s\')', 
-				Convert::raw2sql($this->version),
-				implode(',', $ids)
-			)
-		);
-		if($obsoletes) {
-			foreach($obsoletes as $obsolete) {
-				$obsolete->delete();
-			}
-			Debug::message(sprintf('Deleted %d obsolete properties', $obsoletes->Count()));
-		}		
+		// TODO This currently finds all objects, perhaps the ID string is too long?
+		// $obsoletes = DataObject::get(
+		// 	'SSAPIProperty',
+		// 	sprintf(
+		// 		'"VersionString" = \'%s\' AND "ID" NOT IN (\'%s\')', 
+		// 		Convert::raw2sql($this->version),
+		// 		implode(',', $ids)
+		// 	)
+		// );
+		// if($obsoletes) {
+		// 	foreach($obsoletes as $obsolete) {
+		// 		$obsolete->delete();
+		// 	}
+		// 	Debug::message(sprintf('Deleted %d obsolete properties', $obsoletes->Count()));
+		// }		
 	}
 	
 	/**
 	 * @param SimpleXMLElement $propertyXML
 	 * @return Int database ID
 	 */
-	function importProperty($propertyXML) {
-		$title = (string)$propertyXML['title'];
+	function importProperty($propertyXML, $parentXML = null) {
+		$name = (string)$propertyXML['title'];
 		$link = (string)$propertyXML['link'];
 		$type = (string)$propertyXML['type'];
 		
+		if($parentXML) {
+			$title = sprintf('%s > %s', (string)$parentXML['title'], $name);
+		} else {
+			$title = $name;
+		}
+		
 		$sql = sprintf(
-			'"Title" = \'%s\' AND "Type" = \'%s\'', 
-			Convert::raw2sql($title),
+			'"Name" = \'%s\' AND "Type" = \'%s\'', 
+			Convert::raw2sql($name),
 			// Assumes that types in gotAPI and internal datamodel matches
 			Convert::raw2sql($type)
 		);
@@ -99,16 +113,19 @@ class SSAPIGotApiImporter {
 			$sql
 		);
 		if($propObj) {
-			Debug::message(sprintf('Found property for "%s" (Type: %s)', $title, $type));
+			Debug::message(sprintf('Found property for "%s" (Type: %s)', $name, $type));
 		} else {
 			$propObj = new SSAPIProperty(array(
-				'Title' => $title,
+				'Name' => $name,
 				'Type' => $type
 			));
-			Debug::message(sprintf('Creating new property for "%s" (Type: %s)', $title, $type));
+			Debug::message(sprintf('Creating new property for "%s" (Type: %s)', $name, $type));
 		}
 		$propObj->URL = $link;
+		$propObj->Title = $title;
 		$propObj->VersionString = $this->version;
 		$propObj->write();
+		
+		return $propObj->ID;
 	}
 }
