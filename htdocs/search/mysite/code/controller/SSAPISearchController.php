@@ -4,9 +4,13 @@ class SSAPISearchController extends Controller {
 	protected $template = 'BlankPage';
 	
 	function Link($action = null) {
-		return Controller::join_links('SSAPISearchController', $action);
+		return Controller::join_links('opensearch', $action);
 	}
 
+	/**
+	 * This is a placeholder form, the request is usually formulated through
+	 * an OpenSearch client.
+	 */
 	function Form() {
 		$form = new Form(
 			$this, 
