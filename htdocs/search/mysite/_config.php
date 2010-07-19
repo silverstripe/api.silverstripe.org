@@ -15,3 +15,7 @@ SSViewer::set_theme('ss2apisearch');
 
 // enable nested URLs for this site (e.g. page/sub-page/)
 SiteTree::enable_nested_urls();
+
+Director::addRules(51, array(
+	'opensearch/$Action/$ID/$OtherID' => 'SSAPISearchController'
+));
