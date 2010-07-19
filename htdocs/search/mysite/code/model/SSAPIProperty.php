@@ -13,12 +13,24 @@ class SSAPIProperty extends DataObject {
 		'Title' => 'Text', // Fully qualified title (e.g. "MyClass::myfunction()")
 		'Type' => "Enum('class,method,property')",
 		'URL' => 'Text', // Absolute URLs so we can easily reuse them in search results (can include anchors)
+		'SDesc' => 'Text',
+		'Desc' => 'Text',
 		'VersionString' => 'Varchar' // Can't use "Version" because of Versioned extension. Example: "2.4"
 	);
 	
 	static $indexes = array(
 		'Type' => true,
 		'VersionString' => true
+	);
+	
+	static $extensions = array(
+		'SphinxSearchable'
+	);
+
+	static $sphinx = array(
+		"search_fields" => array("Name", 'Title', 'SDesc', 'Desc'),
+		"sort_fields" => array("Name"),
+		"mode" => "xmlpipe"
 	);
 	
 	/**

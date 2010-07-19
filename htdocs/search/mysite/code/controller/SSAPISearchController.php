@@ -34,7 +34,25 @@ class SSAPISearchController extends Controller {
 		if(!in_array(@$data['format'], $validFormats)) throw new InvalidArgumentException('Invalid "format"');
 		
 		// Execute search
-		$s = new SSAPISearch($data);
+		// $s = new SSAPISearch($data);
+		// $results = $s->getResults();
+		
+		$opts = array(
+			'field_weights' => array(
+				'Name' => 5,
+				'Title' => 1,
+				'Desc' => 2,
+				'SDesc' => 2
+			)
+		);
+		if(@$data['offset']) $opts['start'] = $data['offset'];
+		if(@$data['limit']) $opts['pagesize'] = $data['limit'];
+		$searchResultSpec = SphinxSearch::search(
+			'SSAPIProperty', 
+			$data['q'], 
+			$opts
+		);
+		$results = $searchResultSpec->Matches;
 		
 		$lastUpdated = DB::query('SELECT MAX("LastEdited") FROM "SSAPIProperty" LIMIT 1')->value();
 		
@@ -45,7 +63,7 @@ class SSAPISearchController extends Controller {
 			return $this->customise(array(
 				'LastUpdated' => DBField::create('SS_DateTime', $lastUpdated)->Format('c'),
 				'Query' => Convert::raw2xml($data['q']),
-				'Results' => $s->getResults()
+				'Results' => $results
 			))->renderWith($template);
 		} elseif($data['format'] == 'html') {
 			$template = 'OpenSearchResultList_HTML';
@@ -53,7 +71,7 @@ class SSAPISearchController extends Controller {
 			$body = $this->customise(array(
 				'LastUpdated' => DBField::create('SS_DateTime', $lastUpdated)->Format('c'),
 				'Query' => Convert::raw2xml($data['q']),
-				'Results' => $s->getResults()
+				'Results' => $results
 			))->renderWith($template);
 			return $this->customise(array(
 				'Content' => $body
