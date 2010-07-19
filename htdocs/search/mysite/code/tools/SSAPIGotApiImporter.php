@@ -125,6 +125,7 @@ class SSAPIGotApiImporter {
 		}
 		$propObj->URL = $link;
 		$propObj->Title = $title;
+		$propObj->Class = ($parentXML) ? (string)$parentXML['title'] : $title;
 		$propObj->VersionString = $this->version;
 		$propObj->SDesc = (string)$propertyXML->sdesc;
 		$propObj->Desc = (string)$propertyXML->desc;

@@ -10,6 +10,7 @@
 class SSAPIProperty extends DataObject {
 	static $db = array(
 		'Name' => 'Text', // Name of attribute (e.g. "myfunction()")
+		'Class' => 'Text',
 		'Title' => 'Text', // Fully qualified title (e.g. "MyClass::myfunction()")
 		'Type' => "Enum('class,method,property')",
 		'URL' => 'Text', // Absolute URLs so we can easily reuse them in search results (can include anchors)

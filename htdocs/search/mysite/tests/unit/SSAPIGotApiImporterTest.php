@@ -11,12 +11,20 @@ class SSAPIGotApiImporterTest extends SapphireTest {
 			array('TestClass1', 'TestClass2'),
 			$classes->column('Name')
 		);
+		$this->assertEquals(
+			array('TestClass1', 'TestClass2'),
+			$classes->column('Class')
+		);
 		
 		$properties = DataObject::get('SSAPIProperty', '"Type" = \'property\'');
 		$this->assertEquals(1, $properties->Count());
 		$this->assertEquals(
 			array('$prop'),
 			$properties->column('Name')
+		);
+		$this->assertEquals(
+			array('TestClass1'),
+			$properties->column('Class')
 		);
 		$this->assertEquals(
 			array('vardb Short Desc'),
