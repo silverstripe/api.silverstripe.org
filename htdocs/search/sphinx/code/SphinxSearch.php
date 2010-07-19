@@ -70,6 +70,7 @@ class SphinxSearch extends Object {
 	 *      - when sortmode is "fields", this can be a string containing a single field to sort ascending, or can be an array with
 	 *        field names as keys and "asc" or "desc" as value.
 	 *      - when sortmode is "eval" this should be a string, and is passed straight to sphinx.
+	 *   field_weights array - See http://sphinxsearch.com/docs/current.html#api-func-setfieldweights
 	 * 
 	 * Additionally, SphinxVariants may understand other options. These are understood out of the box (only apply to DataObjects with these decorators, of course):
 	 *   
@@ -98,7 +99,8 @@ class SphinxSearch extends Object {
 			'suggestions' => true,
 			'include_child_classes' => true,
 			'sortmode' => 'relevance',
-			'sortarg' => null
+			'sortarg' => null,
+			'field_weights' => array()
 		),$args);
 
 		/* If we want to search children, add the child classes to the list of classes to search */
@@ -126,6 +128,10 @@ class SphinxSearch extends Object {
 		/* Get connection */
 		$con = $sphinx->connection();
 		$con->SetMatchMode(SPH_MATCH_EXTENDED2);
+		
+		if ($args['field_weights']) {
+			$con->SetFieldWeights($args['field_weights']);
+		}
 
 		$packedSort = false;
 		$sortSelectFields = array(); // extra fields for the select field list, to support sort
