@@ -1,0 +1,8 @@
+--- 
+format: 1
+handler: 
+  commit: 9b303c057121efa2af956878d303c88064b8867f
+  branch: master
+lock: false
+repository_class: Piston::Git::Repository
+repository_url: git@github.com:chillu/opensearchclient.git
