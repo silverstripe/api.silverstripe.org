@@ -22,8 +22,10 @@ class OpenSearchTestHTTPClient extends OpenSearchHTTPClient {
 				$response = $this->getResults();
 				break;
 			case 'http://test.com/?q=test&pw=0&format=atom':
+				$response = $this->getResults(array('domain' => 'http://test.com'));
+				break;
 			case 'http://test2.com/?q=test&pw=0&format=atom':
-				$response = $this->getResults();
+				$response = $this->getResults(array('domain' => 'http://test2.com'));
 				break;
 			default:
 				throw new InvalidArgumentException(sprintf('Unknown URL: %s', $request->getURL()));
@@ -77,13 +79,15 @@ XML;
 			'totalResults' => 100,
 			'startIndex' => 0,
 			'itemsPerPage' => 20,
-			'searchTerms' => 'New York History'
+			'searchTerms' => 'New York History',
+			'domain' => 'http://test.com'
 		), (array)$data);
+		
 		return <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">
 	<title>Example.com Search: New York history</title> 
-	<link href="http://example.com/New+York+history"/>
+	<link href="{$data['domain']}/New+York+history"/>
 	<updated>2003-12-13T18:30:02Z</updated>
 	<author> 
 		<name>Example.com, Inc.</name>
@@ -95,7 +99,7 @@ XML;
 	<opensearch:Query role="request" searchTerms="{$data['searchTerms']}" startPage="1" />
 	<entry>
 	  <title>Test result 1</title>
-	  <link href="http://www.columbia.edu/cu/lweb/eguids/amerihist/nyc.html"/>
+	  <link href="{$data['domain']}/result1"/>
 	  <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
 	  <updated>2003-12-13T18:30:02Z</updated>
 	  <content type="text">
@@ -104,7 +108,7 @@ XML;
 	</entry>
 	<entry>
 	  <title>Test result 2</title>
-	  <link href="http://www.columbia.edu/cu/lweb/eguids/amerihist/nyc.html"/>
+	  <link href="{$data['domain']}/result2"/>
 	  <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
 	  <updated>2003-12-13T18:30:02Z</updated>
 	  <content type="text">

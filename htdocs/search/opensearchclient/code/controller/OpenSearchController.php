@@ -77,7 +77,7 @@ class OpenSearchController extends Controller {
 			'Form',
 			new FieldSet(
 				new TextField('q', false),
-				new CheckboxSetField('descriptions', false, $descMap)
+				new CheckboxSetField('descriptions[]', false, $descMap)
 			),
 			new FieldSet(
 				new FormAction('doSearch', _t('OpenSearchController.Search', 'Search'))
@@ -99,7 +99,6 @@ class OpenSearchController extends Controller {
 				
 				$descriptions[$uid] = self::$descriptions[$uid];
 			}
-			
 		} else {
 			$descriptions = self::$descriptions;
 		}
@@ -119,6 +118,16 @@ class OpenSearchController extends Controller {
 		return $this->customise(array(
 			'ResultsBySource' => $resultsBySource
 		))->renderWith(array('OpenSearchResults', 'Page'));
+	}
+	
+	/**
+	 * Shortcut for {@link doSearch()}.
+	 * 
+	 * @param SS_HTTPRequest $request
+	 * @return SS_HTTPResponse
+	 */
+	function search($request) {
+		return $this->doSearch($request->requestVars());
 	}
 		
 	/**
