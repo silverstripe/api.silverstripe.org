@@ -1,0 +1,9 @@
+<pages>
+	<page type="class" title="TestClass1" link="http://api.silverstripe.org/TestClass1.html">
+		<page type="property" title="$prop" link="http://api.silverstripe.org/TestClass1.html#var$db" />
+		<page type="method" title="testMethod1"  link="http://api.silverstripe.org/TestClass1.html#methoddoPublish" />
+		<page type="method" title="testMethod2"  link="http://api.silverstripe.org/TestClass1.html#methodfieldLabels" />
+	</page>
+	<page type="class" title="TestClass2" link="http://api.silverstripe.org/TestClass2.html">
+	</page>
+</pages>
