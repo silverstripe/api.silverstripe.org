@@ -279,9 +279,30 @@
 	<a name="class_consts"></a>
 	<h2>Class Constants</h2>
 	{include file="const.tpl"}
-	{/if}
-</div>
+	{/if}                                                                    
+	
+	<div id="comments">           
+		<h2>Comments</h2>
+		
+		{literal}
+		<p class="notice">
+			Please use comments for <strong>notes, tips and corrections</strong> about the described 
+	functionality.<br />
+			Use the <strong><a href="http://silverstripe.com/silverstripe-forum">Silverstripe Forum</a></strong> to ask questions. 
+		</p>
+		<script type="text/javascript">
+			// URLs should unique for a class name, independent of version
+			disqus_url = "http://api.silverstripe.org/{/literal}{$class_name}{literal}";
+			disqus_title = "SilverStripe API: {/literal}{$class_name}{literal}";
+		</script>
+		<div id="disqus_thread"></div>
+		<script type="text/javascript" src="http://disqus.com/forums/silverstripe-doc/embed.js"></script>
+		<noscript><a href="http://silverstripe-doc.disqus.com/?url=ref">View the forum thread.</a></noscript>
+		<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+		{/literal}
+	 </div>
 
-</div> <!-- closing div#right -->
+</div> <!-- closing div#right -->        
 
-{include file="footer.tpl"}
+</body>
+</html>

@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>{$title}</title>
-	<link rel="stylesheet" type="text/css" href="{$subdir}media/screen.css">
+	<link rel="stylesheet" type="text/css" href="http://localhost/ss2doc/lib/tpl/silverstripe/shared.css"></link>
+	<link rel="stylesheet" type="text/css" href="{$subdir}media/screen.css"></link>
 	<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
 	<script type="text/javascript" src="{$subdir}media/app.js"></script>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" >
@@ -23,10 +24,15 @@
 	{assign var="release" value='trunk'}
 {/if}
 
-<body class="{$bodyclass}">
-	<div id="header">
-		<div id="logo">
-			<a href="http://api.silverstripe.org/"><img src="{$subdir}media/ss_logo.gif" alt="SilverStripe logo" /></a>
+<body class="{$bodyclass} phpDocumentor">   
+	<div id="Container">
+	<div id="Header">
+		<div id="Logo">
+			<h1>
+				<a href="http://api.silverstripe.org/">
+					API Documentation
+				</a>
+			</h1>
 		</div>
 		
 		<ul class="packages horizontal">
@@ -107,10 +113,10 @@
 		</div>
 		{/if}
 
-	</div>
+	</div>                                        
 
 	<div class="right">
-		{if !$hasel}{assign var="hasel" value=false}{/if}
+		{if !$hasel}{assign var="hasel" value=false}{/if}        
 		{if $hasel}
 		<h1>{$eltype|capitalize}: {$class_name}</h1>
 		<p><small>Source Location: {$source_location}</small></p>
