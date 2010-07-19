@@ -13,6 +13,12 @@ These files are ge
 We originally planned to use this service particularly to avoid building our own
 search solution, but it turned out to be a dead and unresponsive project.
 
+## Setup
+
+The module uses Sphinx search, which needs its own cron job:
+
+	sapphire/sake Sphinx/reindex
+
 ## Usage: Import
 
 Import through CLI: 
