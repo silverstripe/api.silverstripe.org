@@ -1,7 +1,7 @@
 --- 
 format: 1
 handler: 
-  piston:remote-revision: 106586
+  piston:remote-revision: 107452
   piston:uuid: 467b73ca-7a2a-4603-9d3b-597d59a354a9
 lock: false
 repository_class: Piston::Svn::Repository

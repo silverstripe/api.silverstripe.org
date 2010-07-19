@@ -54,6 +54,13 @@ class SphinxIndexingTest extends SapphireTest {
 		// Check for basic existance of things in the config file
 		$this->assertTrue(`grep "source BaseSrc" "$conf"` != "", "Config file has base source");
 		$this->assertTrue(`grep "index BaseIdx" "$conf"` != "", "Config file has base index");
+
+		// Check for defaults for indexer and searchd
+		$this->assertTrue(`grep "^indexer [{]\$" "$conf"` != "", "Config file has indexer statement");
+		$this->assertTrue(`grep "^searchd [{]\$" "$conf"` != "", "Config file has indexer statement");
+		$this->assertTrue(`grep "^\tmax_children = 30$" "$conf"` != "", "Config file has max_children");
+		$this->assertTrue(`grep "^\tlog = .*" "$conf"` != "", "Config file has log");
+		$this->assertTrue(`grep "^\tmem_limit = .*" "$conf"` != "", "Config file has mem limit clause");
 	}
 
 	// A few checks that we see variant info that we expect to see.
@@ -67,6 +74,24 @@ class SphinxIndexingTest extends SapphireTest {
 		$this->assertTrue(`grep "source SphinxTestBaseLiveSrc : BaseSrc" "$conf"` != "", "Config file has SphinxTestBase live index");
 		$this->assertTrue(`grep "source SphinxTestBaseDeltaSrc : BaseSrc" "$conf"` != "", "Config file has SphinxTestBase delta index");
 		$this->assertTrue(`grep "source SphinxTestBaseLiveDeltaSrc : BaseSrc" "$conf"` != "", "Config file has SphinxTestBase delta live index");
+	}
+
+	// Test CRC32 generation. For SQL-server, top bit is stripped. Checks
+	// crcs for names that have high bit set and cleared.
+	function testCRC32() {
+		// low bit clear, same crc on any db
+		$this->assertEquals(SphinxSearch::unsignedcrc("Test"), "2018365746",
+			"Check CRC for class name with low bit clear");
+		$db = DB::getConn();
+		if ($db instanceof MSSQLDatabase ||
+			$db instanceof MSSQLAzureDatabase)
+			$this->assertEquals(SphinxSearch::unsignedcrc("Foo"), "876487617",
+				"Check CRC for class name with high bit set, MSSQL");
+		else
+			$this->assertEquals(
+				SphinxSearch::unsignedcrc("Foo"), "3023971265",
+				"Check CRC for class name with high bit set, non-MSSQL"
+			);
 	}
 
 	function testSourceSQL() {

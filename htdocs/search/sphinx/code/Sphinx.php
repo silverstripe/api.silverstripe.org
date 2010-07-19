@@ -19,9 +19,23 @@ class Sphinx extends Controller {
 		'diagnose'
 	);
 	
-	/** Directory that the sphinx binaries (searchd, indexer, etc.) are in. Add override to mysite/_config.php if they are in a custom location */
+	/** Assoc array mapping sphinx binary name to full path to the binary,
+	  * calcualted in constructor.
+	  */
+	protected $BINPath = array(); // key: binary's name; value: path to binary
+	
+	/** Directory or :-separated directories that the sphinx binaries (searchd, indexer, etc.) are in. Add override to mysite/_config.php if they are in a custom location */
 	static $binary_location = '';
 	
+	/** Names of the sphinx binaries we care about */
+    static $binaries = array( 'indexer', 'searchd', 'search' );
+    
+    /** Common paths under Linux & FreeBSD */
+	const USUAL_PATHS = '/usr/bin:/usr/local/bin:/usr/local/sbin:/opt/local/bin';
+	
+	/** Paths we searched to find binaries, for diagnostics */
+	private $_diagnostic_paths = array();
+    
 	/** Override where the indexes and other run-time data is stored. By default, uses subfolders of TEMP_FOLDER/sphinx (normally /tmp/silverstripe-cache-sitepath/sphinx) */
 	static $var_path = null;
 	static $idx_path = null;
@@ -35,7 +49,52 @@ class Sphinx extends Controller {
 
 	/** What stop words list to use. null => default list. array('word1','word2') => those words. path as string => that file of words. false => no stopwords list */
 	static $stop_words = null;
-	
+
+	// Default options for indexer app
+	protected static $indexer_options = array(
+		"mem_limit" => "256M"
+	);
+
+	/**
+	 * Setter for indexer options. This is merged with (and overrides)
+	 * the defaults.
+     */ 
+	static function set_indexer_options($options) {
+		self::$indexer_options = array_merge(self::$indexer_options, $options);
+	}
+
+	/**
+	 * Get the indexer options currently in effect
+	 */
+	static function get_indexer_options($options) {
+		return self::$indexer_options;
+	}
+
+	/**
+	 * Default settings for searchd.
+	 */
+	protected static $searchd_options = array(
+		"max_children" => "30"
+	);
+
+	/**
+	 * Sets options for searchd, which get written to the sphinx configuration
+	 * file. If the following properties are provided, they override
+	 * what sphinx generates (so only set these if you really know what
+	 * you're doing):
+	 *  - listen
+	 *  - pid
+	 *  - log
+	 *  - query_log
+	 */
+	static function set_searchd_options($options) {
+		self::$searchd_options = array_merge(self::$searchd_options, $options);
+	}
+
+	static function get_searchd_options() {
+		return self::$searchd_options;
+	}
+
 	/** Generate configuration from either static variables or default values, and preps $this to contain configuration values, to be used in templates */
 	function __construct() {
 		global $databaseConfig;
@@ -83,12 +142,27 @@ class Sphinx extends Controller {
 		$port = defined('SS_SPHINX_TCP_PORT') ? SS_SPHINX_TCP_PORT : self::$tcp_port;
 		$this->Listen = $port ? "127.0.0.1:$port" : "{$this->VARPath}/searchd.sock";
 		
-		// Binary path
-		if     (defined('SS_SPHINX_BINARY_LOCATION'))  $this->BINPath = SS_SPHINX_BINARY_LOCATION;       // By constant from _ss_environment.php
-		elseif ($this->stat('binary_location'))        $this->BINPath =  $this->stat('binary_location'); // By static from _config.php
-		elseif (file_exists('/usr/bin/indexer'))       $this->BINPath = '/usr/bin';                      // By searching common directories
-		elseif (file_exists('/usr/local/bin/indexer')) $this->BINPath = '/usr/local/bin';
-		else                                           $this->BINPath = '.';                             // Hope it's in path
+		// Work out where the binaries are.
+		$this->BINPath = array();
+		$paths = array();
+		if ($this->stat('binary_location'))
+			$paths = explode( ':', $this->stat('binary_location')); // By static from _config.php
+		elseif (defined('SS_SPHINX_BINARY_LOCATION'))
+			$paths = explode( ':', SS_SPHINX_BINARY_LOCATION );     // By constant from _ss_environment.php
+		$paths = array_merge( $paths, explode( ':', self::USUAL_PATHS ) );
+		$this->_diagnostic_paths = $paths;
+		
+		// Find all the binary paths and populate BINPath
+		foreach ( $this->stat('binaries') as $file ) {
+			$this->BINPath[$file] = false;
+		    foreach ( $paths as $path ) {
+		    	$abs_path =  $path . '/' . $file;
+		        if ( file_exists($abs_path) ) {
+		            $this->BINPath[$file] = $abs_path;
+		            break;
+		        }
+		    }
+		}
 		
 		// An array that maps class names to arrays of Sphinx_Index objects.
 		$this->indexes = array();
@@ -124,7 +198,7 @@ class Sphinx extends Controller {
 	
 	/** Accessor to get the location of a sphinx binary */
 	function bin($prog='') {
-		return ( $this->BINPath ? $this->BINPath . '/' : '' ) . $prog;
+		return ( $this->BINPath[$prog] ? $this->BINPath[$prog] : $prog );
 	}
 	
 	/**
@@ -266,18 +340,94 @@ class Sphinx extends Controller {
 		
 		SSViewer::set_source_file_comments(false);
 		$res = array();
-		
+
+		// base source
 		$res[] = $this->renderWith(Director::baseFolder() . '/sphinx/conf/source.ss');
-		$res[] = $this->renderWith(Director::baseFolder() . '/sphinx/conf/index.ss');
-			
+
+		// base index
+		$this->addBaseIndexConfig(&$res);
+
 		foreach ($this->indexes() as $index) $res[] = $index->config();
-		
-		$res[] = $this->renderWith(Director::baseFolder() . '/sphinx/conf/apps.ss');
-		
+
+		// Add the indexer options
+		$res[] = "indexer {";
+		foreach (self::$indexer_options as $key => $value) $res[] = "\t$key = $value";
+		$res[] = "}\n";
+
+		// Add the searchd options. We need to set some dynamic properties
+		// if not overridden.
+		$res[] = "searchd {";
+		if (!isset(self::$searchd_options["listen"]))
+			self::$searchd_options["listen"] = $this->Listen;
+		if (!isset(self::$searchd_options["pid_file"]))
+			self::$searchd_options["pid_file"] = $this->PIDFile;
+		if (!isset(self::$searchd_options["log"]))
+			self::$searchd_options["log"] = $this->VARPath . "/searchd.log";
+		if (!isset(self::$searchd_options["query_log"]))
+			self::$searchd_options["query_log"] = $this->VARPath . "/query.log";
+		foreach (self::$searchd_options as $key => $value) $res[] = "\t$key = $value";
+		$res[] = "}";
+
 		if (!file_exists($this->VARPath)) mkdir($this->VARPath, 0770);
 		if (!file_exists($this->IDXPath)) mkdir($this->IDXPath, 0770);
 		
 		file_put_contents("{$this->VARPath}/sphinx.conf", implode("\n", $res));
+	}
+
+	/**
+	 * Used by template for config to determine if the database credentials
+	 * should be written. Returns true if the database is supported natively by
+	 * sphinx, and at least one of the sources uses SQL-mode.
+	 */
+	function DatabaseConfigRequired() {
+		if (!$this->SupportedDatabase) return false;
+		foreach ($this->indexes() as $index)
+			if ($index->requiredDirectDBConnection()) return true;
+		return false;
+	}
+
+	/**
+	 * Add lines the configuration array $res for the contents of the
+	 * base index. This comes from defaults for the base index, with overrides.
+	 * This is rendered by template, which contains the default charset_table
+	 * if none is set. All other properties are rendered using the template
+	 * engine, which gets the props out of the base_index_options static.
+	 * $this->CharsetTable and $this->BaseIndexOptions are set here for
+	 * rendering use only.
+	 */
+	protected function addBaseIndexConfig(&$res) {
+		$this->CharsetTable = null;
+		$this->BaseIndexOptions = new DataObjectSet();
+		$ar = array();
+		foreach (self::$base_index_options as $key => $value) {
+			if ($key == "charset_table") $this->CharsetTable = $value;
+			else if ($key == "stopwords") $this->StopWords = $value;
+			else $this->BaseIndexOptions->push(new ArrayData(array("Key" => $key, "Value" => $value)));
+		}
+
+		$res[] = $this->renderWith(Director::baseFolder() . '/sphinx/conf/index.ss');
+	}
+
+	/**
+	 * Default settings for the base index. charset_type,
+	 * charset_table and stopwords are handled separately.
+	 */
+	protected static $base_index_options = array(
+		"morphology" => "stem_en",
+		"phrase_boundary" => "., ?, !, U+2026 # horizontal ellipsis",
+		"html_strip" => 1,
+		"html_index_attrs" => "img=alt,title; a=title;",
+		"inplace_enable" => 1,
+		"index_exact_words" => 1,
+		"charset_type" => "utf-8"
+	);
+
+	static function set_base_index_options($options) {
+		self::$base_index_options = array_merge(self::$base_index_options, $options);
+	}
+
+	static function get_base_index_options() {
+		return self::$base_index_options;
 	}
 
 	/**
@@ -307,8 +457,12 @@ class Sphinx extends Controller {
 		if (!SapphireTest::is_running_test())
 			$indexingOutput = `{$this->bin('indexer')} --config {$this->VARPath}/sphinx.conf $rotate $idxlist &> /dev/stdout`;
 
-		// We can't seem to be able to rely on exit status code, so we have to do this
-		if(!preg_match("/\nERROR:/", $indexingOutput)) {
+		// We can't seem to be able to rely on exit status code, so we have to
+		// detect error conditions the hard way.
+		$hasError = preg_match("/\nERROR:/", $indexingOutput) ||
+					preg_match("/Segmentation fault/", $indexingOutput);
+
+		if(!$hasError) {
 			// Generate word lists
 			$p = new PureSpell();
 			$p->load_dictionary("{$this->VARPath}/sphinx.psdic");
@@ -496,12 +650,18 @@ class Sphinx extends Controller {
 		//		$this->PIDFile = self::$pid_file ? self::$pid_file : $this->VARPath . '/searchd.pid';
 
 		// Check if the sphinx binaries are present on the host
-		$notices[] = "Sphinx binary location: " . $this->BINPath;
-		foreach (array("indexer", "searchd", "search") as $file) if (!file_exists($this->BINPath . "/$file")) $errors[] = array(
-																		"message" => "Cannot find the sphinx '$file' binary",
-																		"solutions" => array(
-																			"Ensure that sphinx binaries are installed in $this->BINPath"
-																		));
+        $notices[] = "Sphinx binary locations: " . implode( ', ', array_values( $this->BINPath ) );
+		foreach ( $this->stat('binaries') as $file ) {
+			if ( !$this->BINPath[$file] ) {
+				$errors[] = array(
+					"message"	=> "Cannot find the sphinx '$file' binary",
+					"solutions" => array(
+						"Ensure that sphinx binaries are installed as appropriate in these directories: "
+							. implode( ', ', $this->_diagnostic_paths )
+					)
+				);
+			}
+		}
 
 		// Check if file extraction programs are present. Warnings only. Should only test if there are classes
 		// decorated with the file extractor.
@@ -784,7 +944,20 @@ class Sphinx_Index extends ViewableData {
 			} 
 		}
 	}
-	
+
+	/**
+	 * Return true if any of the sources for this index require a direct
+	 * connection to the database inside sphinx. This can be used to determine
+	 * if the database connection properties are required in the config
+	 * file.
+	 */
+	function requiredDirectDBConnection() {
+		$required = false;
+		foreach ($this->Sources as $source)
+			if ($source instanceof Sphinx_Source_SQL) $required = true;
+		return $required;
+	}
+
 	function config() {
 		$out = array();
 		foreach ($this->Sources as $source) $out[] = $source->config();
