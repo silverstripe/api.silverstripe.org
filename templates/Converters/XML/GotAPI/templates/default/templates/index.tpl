@@ -1,12 +1,19 @@
 <pages>
 {foreach key=name item=class from=$classes}
-	<page type="class" title="{$name}" link="{$class.url}">
-{foreach item=prop from=`$class.properties`}
-{if $prop->type == 'method'}
-		<page type="method" title="{$prop->name}"  link="{$class.url}{literal}#method{/literal}{$prop->name}" />
-{elseif $prop->type == 'var'}
-		<page type="property" title="{$prop->name}" link="{$class.url}{literal}#var{/literal}{$prop->name}" />
-{/if}
+	<page type="class" title="{$name}" link="{$class.url}" path="">
+		<sdesc><![CDATA[{$class.sdesc}]]></sdesc>
+		<desc><![CDATA[{$class.desc}]]></desc>
+{foreach item=prop from=`$class.methods`}
+		<page type="method" title="{$prop.function_name}"  link="{$prop.url}" path="">
+			<sdesc><![CDATA[{$prop.sdesc}]]></sdesc>
+			<desc><![CDATA[{$prop.desc}]]></desc>
+		</page>
+{/foreach}
+{foreach item=prop from=`$class.vars`}
+		<page type="property" title="{$prop.var_name}" link="{$prop.url}" path="">
+			<sdesc><![CDATA[{$prop.sdesc}]]></sdesc>
+			<desc><![CDATA[{$prop.desc}]]></desc>
+		</page>
 {/foreach}
 	</page>
 {/foreach}

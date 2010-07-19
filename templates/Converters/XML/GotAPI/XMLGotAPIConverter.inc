@@ -3,7 +3,13 @@ require_once(dirname(__FILE__) . '/../../HTML/Smarty/HTMLSmartyConverter.inc');
 
 /**
  * Copied from HTMLSmartyConverter to generate a simple
- * gotapi.com XML document.
+ * gotapi.com XML document. The XML markup has been enhanced
+ * to fit the SilverStripe API search (including new properties
+ * for descriptions etc.), it is currently not used for GotAPI any longer.
+ * 
+ * Caution: This class is a pretty ugly hack, basically I couldn't be bothered
+ * learning phpDocumentor's crazy API properly.
+ * 
  * 
  * @see http://www.gotapi.com/contribute/index.html
  * @author Ingo Schommer, SilverStripe Ltd.
@@ -83,35 +89,58 @@ class XMLGotAPIConverter extends HTMLSmartyConverter
 	function formatLeftIndex() {
 		return;
 	}
+	
+	protected $ss2api_class_data = array();
+	
+	function convertClass(&$element) {
+		parent::convertClass($element);
+
+		// Hideous hack to keep class data for the XML index
+		$this->ss2api_class_data[$element->name] = array_merge(
+			$this->class_data->get_template_vars(),
+			array('url' => $this->returnSee($element))
+		);
+	}
+	
+	function convertMethod(&$element) {
+		parent::convertMethod($element);
+
+		// Hideous hack to keep class data for the XML index
+		$this->ss2api_class_data[$element->class]['methods'] = $this->class_data->get_template_vars('methods');
+	}
+	
+	function convertVar(&$element) {
+		parent::convertVar($element);
+
+		// Hideous hack to keep class data for the XML index
+		$this->ss2api_class_data[$element->class]['vars'] = $this->class_data->get_template_vars('vars');
+	}
+	
 
 	function Output($title) {
 		$templ = &$this->newSmarty();
 		$this->setTargetDir($this->base_dir);
 		$templ->template_dir = realpath($this->smarty_dir . PATH_DELIMITER . 'templates');
-		$classes = array();
-		foreach($this->class_contents as $packageName => $package) {
-			foreach($package as $subpackageName => $subpackage) {
-				foreach($subpackage as $className => $class) {
-					// create link (similar to convertClass())
-					$url = $this->base_domain . $this->base_dir;
-					if($packageName) $url .= '/' . $packageName;
-					if($subpackageName) $url .= '/' . $subpackageName;
-					$url .= '/' . $className . '.html';
-					
-					$classes[$className] = array(
-						'url' => $url,
-						'desc' => $class['###main'],
-						'properties' => $class
-					);
-				}
-			}
-		}
+		// index.xml is supposed to be generated in /gotapi subfolder,
+		// while all target *.html files are one level up
+		$baseUrl = $this->base_domain . $this->base_dir . '/../';
 		
-		asort($classes);
+		foreach($this->ss2api_class_data as $className => &$class) {
+			$class['url'] = preg_replace('/<a href="(.*)">.*<\/a>/', '\\1', str_replace('{$subdir}', $baseUrl, $class['url']));
+			
+			foreach($class['methods'] as &$method) {
+				$method['url'] = str_replace('{$subdir}', $baseUrl, $method['id']);
+			}
+			
+			foreach($class['vars'] as &$var) {
+				$var['url'] = str_replace('{$subdir}', $baseUrl, $var['id']);
+			}		
+		}
+		asort($this->ss2api_class_data);
 
 		$templ->assign('baseurl', $this->base_domain . $this->base_dir);
-		$templ->assign('classes',$classes);
-		// var_dump($this->class_contents);
+		$templ->assign('classes',$this->ss2api_class_data);
+		
 		$this->writefile('index.xml',$templ->fetch('index.tpl'));
 	}
 	
