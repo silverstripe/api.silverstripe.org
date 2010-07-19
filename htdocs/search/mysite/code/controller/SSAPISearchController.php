@@ -18,7 +18,7 @@ class SSAPISearchController extends Controller {
 			new FieldSet(
 				new TextField('q', 'Term'),
 				$versionsField = new DropdownField('version', 'Version', SSAPIProperty::get_versions()),
-				new HiddenField('format', false, 'atom')
+				new HiddenField('format', false, 'html')
 			),
 			new FieldSet(
 				new FormAction('doSearch', 'Search')
@@ -29,26 +29,65 @@ class SSAPISearchController extends Controller {
 		return $form;
 	}
 	
-	function doSearch($data, $form) {
-		$validFormats = array('atom');
+	function doSearch($data, $form = null) {
+		$validFormats = array('atom', 'html');
 		if(!in_array(@$data['format'], $validFormats)) throw new InvalidArgumentException('Invalid "format"');
 		
 		// Execute search
 		$s = new SSAPISearch($data);
 		
+		$lastUpdated = DB::query('SELECT MAX("LastEdited") FROM "SSAPIProperty" LIMIT 1')->value();
+		
 		// Choose template
 		if($data['format'] == 'atom') {
 			$template = 'OpenSearchResultList_Atom';
-		}
+			$this->getResponse()->addHeader('Content-Type', 'application/atom+xml');
+			return $this->customise(array(
+				'LastUpdated' => DBField::create('SS_DateTime', $lastUpdated)->Format('c'),
+				'Query' => Convert::raw2xml($data['q']),
+				'Results' => $s->getResults()
+			))->renderWith($template);
+		} elseif($data['format'] == 'html') {
+			$template = 'OpenSearchResultList_HTML';
+			$this->getResponse()->addHeader('Content-Type', 'text/html');
+			$body = $this->customise(array(
+				'LastUpdated' => DBField::create('SS_DateTime', $lastUpdated)->Format('c'),
+				'Query' => Convert::raw2xml($data['q']),
+				'Results' => $s->getResults()
+			))->renderWith($template);
+			return $this->customise(array(
+				'Content' => $body
+			))->renderWith('Page');
+		} 
 		
-		$lastUpdated = DB::query('SELECT MAX("LastEdited") FROM "SSAPIProperty" LIMIT 1')->value();
 		
-		$this->getResponse()->addHeader('Content-Type', 'application/atom+xml');
-		return $this->customise(array(
-			'LastUpdated' => DBField::create('SS_DateTime', $lastUpdated)->Format('c'),
-			'Query' => Convert::raw2xml($data['q']),
-			'Results' => $s->getResults()
-		))->renderWith($template);
+	}
+	
+	function search($request) {
+		return $this->doSearch($request->getVars());
+	}
+	
+	/**
+	 * @see https://developer.mozilla.org/en/Supporting_search_suggestions_in_search_plugins
+	 */
+	function suggestions($request) {
+		$data = $request->getVars();
+		
+		$validFormats = array('json');
+		if(!in_array(@$data['format'], $validFormats)) throw new InvalidArgumentException('Invalid "format"');
+		
+		// Hardcode suggestion length
+		$data['limit'] = 5;
+		
+		// Execute search
+		$s = new SSAPISearch($data);
+		$results = $s->getResults();
+		$resultsNames = $results->column('Name');
+		
+		return Convert::raw2json(array(
+			$data['q'],
+			$resultsNames
+		));
 	}
 	
 	function description($request) {
