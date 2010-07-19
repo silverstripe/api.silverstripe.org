@@ -83,7 +83,9 @@ class SSAPIGotApiImporter {
 		// 		$obsolete->delete();
 		// 	}
 		// 	Debug::message(sprintf('Deleted %d obsolete properties', $obsoletes->Count()));
-		// }		
+		// }
+		
+		return $ids;
 	}
 	
 	/**
