@@ -15,12 +15,17 @@ class SSAPILookupControllerTest extends FunctionalTest {
 	
 	function testIndex() {
 		$prop1 = $this->objFromFixture('SSAPIProperty', 'prop1');
+		$method1 = $this->objFromFixture('SSAPIProperty', 'method1');
 		$class1 = $this->objFromFixture('SSAPIProperty', 'class1');
 		$class1old = $this->objFromFixture('SSAPIProperty', 'class1old');
 		
 		$response = $this->get('lookup/?q=Class1');
 		$this->assertEquals(302, $response->getStatusCode());
 		$this->assertEquals($class1->URL, $response->getHeader('Location'));
+		
+		$response = $this->get('lookup/?q=Class1::Method1()');
+		$this->assertEquals(302, $response->getStatusCode());
+		$this->assertEquals($method1->URL, $response->getHeader('Location'));
 		
 		$response = $this->get('lookup/?q=Unknown');
 		$this->assertEquals(404, $response->getStatusCode());

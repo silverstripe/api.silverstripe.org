@@ -6,7 +6,6 @@ class SSAPILookupController extends Controller {
 		
 		$obj = SSAPILookup::lookup($request->getVar('q'), $request->getVar('version'));
 		if($obj) {
-			var_dump($obj->URL);die();
 			return $this->redirect($obj->URL, 302);
 		} else {
 			// TODO Redirect to search
@@ -26,6 +25,7 @@ class SSAPILookup {
 		$parts = self::parse($str);
 		
 		$filter = sprintf('"Class" = \'%s\'', Convert::raw2sql($parts['class']));
+		$filter .= sprintf(' AND "Type" = \'%s\'', Convert::raw2sql($parts['type']));
 		if($parts['property']) $filter .= sprintf(' AND "Name" = \'%s\'', Convert::raw2sql($parts['property']));
 		else $filter .= sprintf(' AND "Name" = \'%s\'', Convert::raw2sql($parts['class']));
 		if($version) $filter .= sprintf(' AND "VersionString" = \'%s\'', Convert::raw2sql($version));
