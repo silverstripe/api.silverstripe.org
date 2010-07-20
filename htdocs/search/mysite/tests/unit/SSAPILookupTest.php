@@ -33,12 +33,13 @@ class SSAPILookupTest extends SapphireTest {
 	
 	function testLookup() {
 		$prop1 = $this->objFromFixture('SSAPIProperty', 'prop1');
+		$method1 = $this->objFromFixture('SSAPIProperty', 'method1');
 		$class1 = $this->objFromFixture('SSAPIProperty', 'class1');
 		$class1old = $this->objFromFixture('SSAPIProperty', 'class1old');
 
 		$this->assertEquals($class1, SSAPILookup::lookup('Class1'));
 		$this->assertEquals($prop1, SSAPILookup::lookup('Class1::Prop1'));
-		$this->assertEquals($prop1, SSAPILookup::lookup('Class1::Prop1()'));
+		$this->assertEquals($method1, SSAPILookup::lookup('Class1::Method1()'));
 		$this->assertEquals($class1old, SSAPILookup::lookup('Class1', '1.0'));
 	}
 	
