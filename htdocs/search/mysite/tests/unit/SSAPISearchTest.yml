@@ -27,3 +27,10 @@ SSAPIProperty:
     Type: property
     VersionString: '1.1'
     URL: http://myapi.com/1.1/prop1
+  method1:
+    Title: Class1 > Method1
+    Name: Method1
+    Class: Class1
+    Type: method
+    VersionString: '1.1'
+    URL: http://myapi.com/1.1/method1

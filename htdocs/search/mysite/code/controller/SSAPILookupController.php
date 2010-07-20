@@ -39,6 +39,7 @@ class SSAPILookup {
 	 */
 	static function parse($str) {
 		$result = array();
+		$origStr = $str;
 		
 		// Sanitize
 		$str = str_replace(array('()', '$'), '', $str);
@@ -48,9 +49,11 @@ class SSAPILookup {
 		if(count($parts) == 2) {
 			$result['class'] = $parts[0];
 			$result['property'] = $parts[1];
+			$result['type'] = (strpos($origStr, '()') !== FALSE) ? 'method' : 'property';
 		} else {
 			$result['class'] = $str;
 			$result['property'] = '';
+			$result['type'] = 'class';
 		}
 		
 		return $result;

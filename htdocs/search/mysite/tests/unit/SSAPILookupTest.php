@@ -5,23 +5,28 @@ class SSAPILookupTest extends SapphireTest {
 	
 	function testParse() {
 		$this->assertEquals(
-			array('class' => 'MyClass', 'property' => null), 
+			array('class' => 'MyClass', 'property' => null, 'type' => 'class'), 
 			SSAPILookup::parse('MyClass')
 		);
 		
 		$this->assertEquals(
-			array('class' => 'MyClass', 'property' => 'myprop'), 
+			array('class' => 'MyClass', 'property' => 'myprop', 'type' => 'property'), 
 			SSAPILookup::parse('MyClass::myprop')
 		);
 		
 		$this->assertEquals(
-			array('class' => 'MyClass', 'property' => 'myprop'), 
-			SSAPILookup::parse('MyClass::$myprop()')
+			array('class' => 'MyClass', 'property' => 'myprop', 'type' => 'property'), 
+			SSAPILookup::parse('MyClass::$myprop')
 		);
 		
 		$this->assertEquals(
-			array('class' => 'MyClass', 'property' => 'myprop'), 
-			SSAPILookup::parse('MyClass->myprop()')
+			array('class' => 'MyClass', 'property' => 'mymethod', 'type' => 'method'), 
+			SSAPILookup::parse('MyClass->mymethod()')
+		);
+		
+		$this->assertEquals(
+			array('class' => 'MyClass', 'property' => 'mymethod', 'type' => 'method'), 
+			SSAPILookup::parse('MyClass::mymethod()')
 		);
 		
 	}
