@@ -22,7 +22,7 @@ Director::addRules(51, array(
 	'globalsearch//$Action/$ID' => 'OpenSearchController' // this might be spun off to a new project
 ));
 
-Sphinx::$var_path = BASE_PATH . '/mysite/conf';
+// Sphinx::$var_path = BASE_PATH . '/mysite/conf';
 
 OpenSearchController::register_description('ssapi_trunk', new OpenSearchDescription(Director::absoluteBaseURL() . '/opensearch/description/?version=trunk'));
 // OpenSearchController::register_description('ssdoc', new OpenSearchDescription('http://doc.silverstripe.org/lib/exe/opensearch.php'));
