@@ -5,6 +5,18 @@ $project = 'mysite';
 global $database;
 $database = 'SS_ss2apisearch';
 
+/**
+ * Include _ss_environment.php files
+ */
+$envFiles = array('_ss_environment.php', '../_ss_environment.php', '../../_ss_environment.php', '../../../_ss_environment.php','../../../../_ss_environment.php');
+foreach($envFiles as $envFile) {
+	if(@file_exists($envFile)) {
+		define('SS_ENVIRONMENT_FILE', $envFile);
+		include_once($envFile);
+		break;
+	}
+}
+
 require_once('conf/ConfigureFromEnv.php');
 
 MySQLDatabase::set_connection_charset('utf8');
