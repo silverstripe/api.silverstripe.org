@@ -47,7 +47,7 @@ class XMLGotAPIConverter extends HTMLSmartyConverter
 
 	var $name = 'GotAPI';
 	
-	var $base_domain = 'http://api.silverstripe.org/';
+	var $base_domain = 'http://api.silverstripe.org';
 
 	function XMLGotAPIConverter(&$allp, &$packp, &$classes, &$procpages, $po, $pp, $qm, $targetDir, $templateDir, $title) {
 
@@ -118,16 +118,21 @@ class XMLGotAPIConverter extends HTMLSmartyConverter
 	
 
 	function Output($title) {
+		$baseUrl = '';
+		foreach($_SERVER['argv'] as $arg) {
+			if(preg_match('/^baseurl=(.*)/', $arg, $matches)) {
+				$baseUrl = $matches[1];
+			}
+		}
+		if(!$baseUrl) die('Please add "baseurl=<url>" to the CLI execution');
+
 		$templ = &$this->newSmarty();
 		$this->setTargetDir($this->base_dir);
 		$templ->template_dir = realpath($this->smarty_dir . PATH_DELIMITER . 'templates');
-		// index.xml is supposed to be generated in /gotapi subfolder,
-		// while all target *.html files are one level up
-		$baseUrl = $this->base_domain . $this->base_dir . '/../';
 		
 		foreach($this->ss2api_class_data as $className => &$class) {
-			$class['url'] = preg_replace('/<a href="(.*)">.*<\/a>/', '\\1', str_replace('{$subdir}', $baseUrl, $class['url']));
-			
+
+			$class['url'] = preg_replace('/<a href="(.*)">.*<\/a>/', '\\1', str_replace('{$subdir}', $baseUrl, $class['url']));			
 			foreach($class['methods'] as &$method) {
 				$method['url'] = str_replace('{$subdir}', $baseUrl, $method['id']);
 			}

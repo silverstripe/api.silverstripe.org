@@ -11,7 +11,7 @@ cd `dirname $0` # workaround for missing templatebase
 # trunk
 svn co http://svn.silverstripe.com/open/phpinstaller/trunk src/trunk
 nice phpdoc --directory src/trunk --target htdocs/trunk --title "SilverStripe trunk API Documentation" --defaultpackagename sapphire $defaultargs
-nice phpdoc --directory src/trunk --target htdocs/trunk/gotapi $defaultargs --output XML:GotAPI:default
+nice phpdoc --directory src/trunk --target htdocs/trunk/gotapi $defaultargs --output XML:GotAPI:default baseurl='http://api.silverstripe.org/trunk/'
 php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/trunk/gotapi/index.xml" version=trunk
 
 # trunk-js
@@ -22,18 +22,18 @@ cp templates/Converters/HTML/Smarty/templates/default/templates/media/*.gif htdo
 # 2.4
 svn co http://svn.silverstripe.com/open/phpinstaller/branches/2.4 src/2.4
 nice phpdoc --directory src/2.4 --target htdocs/2.4 --title "SilverStripe 2.4 API Documentation" --defaultpackagename sapphire $defaultargs
-nice phpdoc --directory src/2.4 --target htdocs/2.4/gotapi $defaultargs --output XML:GotAPI:default
+nice phpdoc --directory src/2.4 --target htdocs/2.4/gotapi $defaultargs --output XML:GotAPI:default baseurl='http://api.silverstripe.org/2.4/'
 php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/2.4/gotapi/index.xml" version=2.4
 
 # 2.3
 svn co http://svn.silverstripe.com/open/phpinstaller/branches/2.3 src/2.3
 nice phpdoc --directory src/2.3 $output --target htdocs/2.3 --title "SilverStripe 2.3 API Documentation" --defaultpackagename sapphire $defaultargs
-php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/2.3/gotapi/index.xml" version=2.3
+php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/2.3/gotapi/index.xml" version=2.3 baseurl='http://api.silverstripe.org/2.3/'
 
 # 2.2
 svn co http://svn.silverstripe.com/open/phpinstaller/branches/2.2 src/2.2
 nice phpdoc --directory src/2.2 $output --target htdocs/2.2 --title "SilverStripe 2.2 API Documentation" --defaultpackagename sapphire $defaultargs
-php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/2.2/gotapi/index.xml" version=2.2
+php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/2.2/gotapi/index.xml" version=2.2 baseurl='http://api.silverstripe.org/2.2/'
 
 # modules: auth_openid
 svn co http://svn.silverstripe.com/open/modulesvn/auth_openid/trunk src/modules/auth_openid/trunk
