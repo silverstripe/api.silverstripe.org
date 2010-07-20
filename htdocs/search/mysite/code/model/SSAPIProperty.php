@@ -20,19 +20,24 @@ class SSAPIProperty extends DataObject {
 	);
 	
 	static $indexes = array(
+		'Name_SDesc_Desc' => array('type' => 'fulltext', 'value' => '"Name","SDesc","Desc"'),
+		// 'Name' => array('type' => 'fulltext', 'value' => 'Name'),
+		// 'Class' => array('type' => 'fulltext', 'value' => 'Class'),
+		// 'SDesc' => array('type' => 'fulltext', 'value' => 'SDesc'),
+		// 'Desc' => array('type' => 'fulltext', 'value' => 'Desc'),
 		'Type' => true,
 		'VersionString' => true
 	);
 	
-	static $extensions = array(
-		'SphinxSearchable'
-	);
+	// static $extensions = array(
+	// 	'SphinxSearchable'
+	// );
 
-	static $sphinx = array(
-		"search_fields" => array("Name", 'Title', 'SDesc', 'Desc'),
-		"sort_fields" => array("Name"),
-		"mode" => "xmlpipe"
-	);
+	// static $sphinx = array(
+	// 	"search_fields" => array("Name", 'Title', 'SDesc', 'Desc'),
+	// 	"sort_fields" => array("Name"),
+	// 	"mode" => "xmlpipe"
+	// );
 	
 	/**
 	 * @return Array

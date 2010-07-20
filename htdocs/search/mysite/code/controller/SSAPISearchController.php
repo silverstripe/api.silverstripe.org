@@ -34,25 +34,29 @@ class SSAPISearchController extends Controller {
 		if(!in_array(@$data['format'], $validFormats)) throw new InvalidArgumentException('Invalid "format"');
 		
 		// Execute search
-		// $s = new SSAPISearch($data);
-		// $results = $s->getResults();
+		$s = new SSAPISearch($data);
+		$results = $s->getResults();
 		
-		$opts = array(
-			'field_weights' => array(
-				'Name' => 5,
-				'Title' => 1,
-				'Desc' => 2,
-				'SDesc' => 2
-			)
-		);
-		if(@$data['offset']) $opts['start'] = (int)$data['offset'];
-		if(@$data['limit']) $opts['pagesize'] = (int)$data['limit'];
-		$searchResultSpec = SphinxSearch::search(
-			'SSAPIProperty', 
-			$data['q'], 
-			$opts
-		);
-		$results = $searchResultSpec->Matches;
+		// TODO Sphinx search is a pain to set up, doesn't have infixes, etc.
+		// MySQL fulltext is actually better here, we don't want to search natural language primarily.
+		
+		// $opts = array(
+		// 	'field_weights' => array(
+		// 		'Name' => 5,
+		// 		'Title' => 1,
+		// 		'Desc' => 2,
+		// 		'SDesc' => 2
+		// 	)
+		// );
+		// if(@$data['offset']) $opts['start'] = (int)$data['offset'];
+		// if(@$data['limit']) $opts['pagesize'] = (int)$data['limit'];
+
+		// $searchResultSpec = SphinxSearch::search(
+		// 	'SSAPIProperty', 
+		// 	$data['q'], 
+		// 	$opts
+		// );
+		// $results = $searchResultSpec->Matches;
 		
 		$lastUpdated = DB::query('SELECT MAX("LastEdited") FROM "SSAPIProperty" LIMIT 1')->value();
 		
@@ -99,6 +103,7 @@ class SSAPISearchController extends Controller {
 		
 		// Execute search
 		$s = new SSAPISearch($data);
+		$s->useBooleanSearch = false;
 		$results = $s->getResults();
 		$resultsNames = $results->column('Name');
 		

@@ -14,6 +14,11 @@ class SSAPISearch {
 	protected $maxLimit = 100;
 	
 	/**
+	 * @param Boolean
+	 */
+	public $useBooleanSearch = true;
+	
+	/**
 	 * @param $params 'offset', 'limit', 'q'
 	 */
 	function __construct($params) {
@@ -40,17 +45,45 @@ class SSAPISearch {
 	}
 	
 	protected function getQuery() {
-		$filter = sprintf('"Name" LIKE \'%%%s%%\'', Convert::raw2sql($this->params['q']));
-		if(@$this->params['version']) $filter .= sprintf(' AND "VersionString" = \'%s\'', Convert::raw2sql($this->params['version']));
-		$sort = (@$this->params['sort']) ? Convert::raw2sql($this->params['sort']) : null;
-		$q = singleton('SSAPIProperty')->buildSQL(
-			$filter,
-			$sort,
-			array(
-				'start' => $this->getOffset(),
-				'limit' => $this->getLimit()
-			)
-		);
+		$SQL_q = Convert::raw2sql($this->params['q']);
+		
+		if($this->useBooleanSearch) {
+			$filter = sprintf('MATCH("Name","SDesc","Desc") AGAINST (\'%s\' IN BOOLEAN MODE)', $SQL_q);
+			// $filter = sprintf('"Name" LIKE \'%%%s%%\'', Convert::raw2sql($this->params['q']));
+			if(@$this->params['version']) $filter .= sprintf(' AND "VersionString" = \'%s\'', Convert::raw2sql($this->params['version']));
+			$sort = (@$this->params['sort']) ? Convert::raw2sql($this->params['sort']) : '"Relevance" DESC';
+			// $sort = (@$this->params['sort']) ? Convert::raw2sql($this->params['sort']) : null;
+			$q = singleton('SSAPIProperty')->buildSQL(
+				$filter,
+				$sort,
+				array(
+					'start' => $this->getOffset(),
+					'limit' => $this->getLimit()
+				)
+			);
+			$q->select[] = sprintf(
+				'(
+					(1.3 * (MATCH("Name") AGAINST (\'%s\' IN BOOLEAN MODE))) 
+					+ (0.6 * (MATCH("Name","SDesc","Desc") AGAINST (\'%s\' IN BOOLEAN MODE)))
+				) AS "Relevance"',
+				$SQL_q,
+				$SQL_q
+			);
+			$q->having[] = '"Relevance" > 0';
+		} else {
+			$filter = sprintf('"Name" LIKE \'%%%s%%\'', Convert::raw2sql($this->params['q']));
+			if(@$this->params['version']) $filter .= sprintf(' AND "VersionString" = \'%s\'', Convert::raw2sql($this->params['version']));
+			$sort = (@$this->params['sort']) ? Convert::raw2sql($this->params['sort']) : null;
+			$q = singleton('SSAPIProperty')->buildSQL(
+				$filter,
+				$sort,
+				array(
+					'start' => $this->getOffset(),
+					'limit' => $this->getLimit()
+				)
+			);
+		}
+		
 		
 		return $q;
 	}
