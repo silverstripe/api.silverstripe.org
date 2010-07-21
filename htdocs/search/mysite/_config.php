@@ -6,12 +6,14 @@ global $database;
 $database = 'SS_ss2apisearch';
 
 // Look for more folders upwards than Core.php
-$envFiles = array('_ss_environment.php', '../_ss_environment.php', '../../_ss_environment.php', '../../../_ss_environment.php','../../../../_ss_environment.php','../../../../../_ss_environment.php');
-foreach($envFiles as $envFile) {
-	if(@file_exists($envFile)) {
-		define('SS_ENVIRONMENT_FILE', $envFile);
-		include_once($envFile);
-		break;
+if(!defined('SS_ENVIRONMENT_FILE')) {
+	$envFiles = array('../../../../_ss_environment.php','../../../../../_ss_environment.php');
+	foreach($envFiles as $envFile) {
+		if(@file_exists($envFile)) {
+			define('SS_ENVIRONMENT_FILE', $envFile);
+			include_once($envFile);
+			break;
+		}
 	}
 }
 
