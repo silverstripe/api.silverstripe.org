@@ -97,12 +97,6 @@ class SSAPIGotApiImporter {
 		$link = (string)$propertyXML['link'];
 		$type = (string)$propertyXML['type'];
 		
-		if($parentXML) {
-			$title = sprintf('%s > %s', (string)$parentXML['title'], $name);
-		} else {
-			$title = $name;
-		}
-		
 		$sql = sprintf(
 			'"Name" = \'%s\' AND "Type" = \'%s\'', 
 			Convert::raw2sql($name),
@@ -124,12 +118,12 @@ class SSAPIGotApiImporter {
 			Debug::message(sprintf('Creating new property for "%s" (Type: %s)', $name, $type));
 		}
 		$propObj->URL = $link;
-		$propObj->Title = $title;
-		$propObj->Class = ($parentXML) ? (string)$parentXML['title'] : $title;
+		$propObj->Class = ($parentXML) ? (string)$parentXML['title'] : $name;
 		$propObj->VersionString = $this->version;
 		$propObj->SDesc = (string)$propertyXML->sdesc;
 		$propObj->Desc = (string)$propertyXML->desc;
 		$propObj->Static = (isset($propertyXML['static'])) ? (bool)(string)$propertyXML['static'] : false;
+		$propObj->Title = $propObj->generateTitle();
 		$propObj->write();
 		
 		return $propObj->ID;

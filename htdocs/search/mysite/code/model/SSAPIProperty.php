@@ -46,4 +46,23 @@ class SSAPIProperty extends DataObject {
 	static function get_versions() {
 		return DB::query('SELECT "VersionString" FROM "SSAPIProperty" GROUP BY "VersionString"')->column();
 	}
+	
+	function generateTitle() {
+		$name = preg_replace('/^\$/', '', $this->Name);
+		if($this->Type == 'class') {
+			return $this->Name;
+		} elseif($this->Type == 'method') {
+			return sprintf('%s%s%s()', 
+				$this->Class, 
+				($this->Static) ? '::' : '->',
+				$name
+			);
+		} else {
+			return sprintf('%s%s%s', 
+				$this->Class, 
+				($this->Static) ? '::$' : '->',
+				$name
+			);
+		}
+	}
 }
