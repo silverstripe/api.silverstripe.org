@@ -129,6 +129,7 @@ class SSAPIGotApiImporter {
 		$propObj->VersionString = $this->version;
 		$propObj->SDesc = (string)$propertyXML->sdesc;
 		$propObj->Desc = (string)$propertyXML->desc;
+		$propObj->Static = (isset($propertyXML['static'])) ? (bool)(string)$propertyXML['static'] : false;
 		$propObj->write();
 		
 		return $propObj->ID;

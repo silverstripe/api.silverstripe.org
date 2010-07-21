@@ -16,7 +16,8 @@ class SSAPIProperty extends DataObject {
 		'URL' => 'Text', // Absolute URLs so we can easily reuse them in search results (can include anchors)
 		'SDesc' => 'Text',
 		'Desc' => 'Text',
-		'VersionString' => 'Varchar' // Can't use "Version" because of Versioned extension. Example: "2.4"
+		'VersionString' => 'Varchar', // Can't use "Version" because of Versioned extension. Example: "2.4"
+		'Static' => 'Boolean' // only applies for properties, not classes
 	);
 	
 	static $indexes = array(

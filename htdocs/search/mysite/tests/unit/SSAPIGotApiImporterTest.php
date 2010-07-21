@@ -18,28 +18,22 @@ class SSAPIGotApiImporterTest extends SapphireTest {
 		
 		$properties = DataObject::get('SSAPIProperty', '"Type" = \'property\'');
 		$this->assertEquals(1, $properties->Count());
-		$this->assertEquals(
-			array('$prop'),
-			$properties->column('Name')
-		);
-		$this->assertEquals(
-			array('TestClass1'),
-			$properties->column('Class')
-		);
-		$this->assertEquals(
-			array('vardb Short Desc'),
-			$properties->column('SDesc')
-		);
-		$this->assertEquals(
-			array('vardb Long Desc'),
-			$properties->column('Desc')
-		);
+		$property = $properties->First();
+		$this->assertEquals('$prop', $property->Name);
+		$this->assertEquals('TestClass1', $property->Class);
+		$this->assertEquals('vardb Short Desc', $property->SDesc);
+		$this->assertEquals('vardb Long Desc', $property->Desc);
+		$this->assertEquals("1", $property->Static);
 		
 		$methods = DataObject::get('SSAPIProperty', '"Type" = \'method\'');
 		$this->assertEquals(2, $methods->Count());
 		$this->assertEquals(
 			array('testMethod1', 'testMethod2'),
 			$methods->column('Name')
+		);
+		$this->assertEquals(
+			array('0', '0'),
+			$methods->column('Static')
 		);
 	}
 }
