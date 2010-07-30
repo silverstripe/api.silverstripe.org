@@ -53,7 +53,16 @@ class SSAPIGotApiImporter {
 	function run() {
 		$ids = array();
 		
-		$xml = simplexml_load_file($this->filePath);
+		libxml_use_internal_errors(true);
+		$xmlStr = file_get_contents($this->filePath);
+		// file should be UTF8, but who knows ... stop libxml from complaining
+		$xmlStr = utf8_encode($xmlStr);
+		$xml = simplexml_load_string($xmlStr);
+		if(!$xml) {
+			var_dump(libxml_get_errors());
+			return false;
+		}
+		
 		if($xml->page) {
 			// Clear out existing entries
 			DB::query(sprintf('DELETE FROM "SSAPIProperty" WHERE "VersionString" = \'%s\'', $this->version));
