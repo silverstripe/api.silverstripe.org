@@ -96,24 +96,37 @@ class XMLGotAPIConverter extends HTMLSmartyConverter
 		parent::convertClass($element);
 
 		// Hideous hack to keep class data for the XML index
+		$filter = array('sdesc', 'desc', 'static', 'access', 'var_name', 'id', 'params', 'path');
+		$vars = $this->class_data->get_template_vars();
+		$vars = array_filter_by_keys($vars, $filter);
 		$this->ss2api_class_data[$element->name] = array_merge(
-			$this->class_data->get_template_vars(),
-			array('url' => $this->returnSee($element))
+			$vars,
+			array('url' => $this->returnSee($element), 'vars' => array(), 'methods' => array())
 		);
 	}
 	
 	function convertMethod(&$element) {
 		parent::convertMethod($element);
-
+		
 		// Hideous hack to keep class data for the XML index
-		$this->ss2api_class_data[$element->class]['methods'] = $this->class_data->get_template_vars('methods');
+		$filter = array('sdesc', 'desc', 'static', 'access', 'function_name', 'id', 'params', 'path');
+		$methods = $this->class_data->get_template_vars('methods');
+		if($methods) for($i=0; $i<count($methods); $i++) {
+			$methods[$i] = array_filter_by_keys($methods[$i], $filter);
+		}
+		$this->ss2api_class_data[$element->class]['methods'] = (array)$methods;
 	}
 	
 	function convertVar(&$element) {
 		parent::convertVar($element);
 
 		// Hideous hack to keep class data for the XML index
-		$this->ss2api_class_data[$element->class]['vars'] = $this->class_data->get_template_vars('vars');
+		$filter = array('sdesc', 'desc', 'static', 'access', 'var_name', 'id', 'params', 'path');
+		$vars = $this->class_data->get_template_vars('vars');
+		if($vars) for($i=0; $i<count($vars); $i++) {
+			$vars[$i] = array_filter_by_keys($vars[$i], $filter);
+		}
+		$this->ss2api_class_data[$element->class]['vars'] = (array)$vars;
 	}
 	
 
@@ -184,4 +197,15 @@ class XMLGotAPIConverter extends HTMLSmartyConverter
 		// CUSTOM Removed media copying, not necessary here
 	}
 	
+}
+
+/**
+ * @return Array
+ */
+function array_filter_by_keys($arr, $includeKeys) {
+	foreach($arr as $k => $v) {
+		if(!in_array($k, $includeKeys)) unset($arr[$k]);
+	}
+	
+	return $arr;
 }
