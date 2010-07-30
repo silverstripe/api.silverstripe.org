@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <pages>
 {foreach key=name item=class from=$classes}
 	<page type="class" title="{$name}" link="{$class.url}" path="">
