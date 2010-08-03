@@ -1,3 +1,142 @@
+/* ######################################## */
+/* Layout */
+/* ######################################## */
+
+body {
+	background:url(images/bg.gif) repeat-x top center;
+  margin-top: 0;
+  padding-top: 10px;
+}             
+
+#Header {
+	clear: left;
+	overflow: auto;
+	margin-bottom: 15px;
+}   
+
+	#Logo {
+		float: left;
+	}    
+	
+	#Logo h1 {
+		border: none;   
+		color: #666;
+	}           
+	  
+		#Logo h1 a,
+		#Logo h1 a:link,
+		#Logo h1 a:hover, 
+		#Logo h1 a:active {
+			display: block;
+			width: 200px;
+			padding-top: 35px;
+			background:url(images/ss_logo.gif) no-repeat top left;
+			color: #666;    
+			text-decoration: none;
+		}
+		
+#Search {
+	float: right;
+}
+
+#Footer {         
+	border-top: 1px solid #aaa; 
+	margin-top: 20px;   
+	padding-top: 10px;
+	padding-bottom: 40px;
+}      
+
+	#Footer a img {
+	    opacity: 0.5;
+	    border:0
+	}
+
+	#Footer a:hover img {
+	    opacity: 1;
+	}
+	
+	#Comments {
+		margin-top: 10em;
+	}                  
+	
+
+/* ######################################## */
+/* Typography */
+/* ######################################## */
+
+body, th, td {
+ font: normal 13px 'Bitstream Vera Sans',Helvetica, Arial, sans-serif;
+}
+h1 { 
+	font-size: 19px; 
+	margin: .15em 1em 0.5em 0 
+}
+h2 { 
+	font-size: 16px 
+}
+h3 { 
+	font-size: 14px 
+}
+       
+a:link, a:visited, a:hover {
+ text-decoration: underline;
+ color: #0B89E2;
+}
+
+hr { 
+	border: none;  
+	border-top: 1px solid #ccb; 
+	margin: 2em 0;
+}
+
+address { 
+	font-style: normal 
+}
+
+img { 
+	border: none 
+}
+
+#Comments * {
+	color: #333;
+}
+
+/* phpDocumentor */
+.phpDocumentor .src-code,
+.phpDocumentor .code,
+.phpDocumentor ol,
+/* Dokuwiki */
+.dokuwiki pre.pre, 
+.dokuwiki pre.code,
+.dokuwiki pre.file {
+	padding: .5em;
+  background-color: #f5f5f5;
+	border: 1px solid #ccc9a4;
+	font-family: 'Monaco', 'Courier New', Courier, monospace;
+}
+
+.phpDocumentor  .src-line,
+.dokuwiki code {
+
+}
+
+/* ######################################## */
+/* Content */
+/* ######################################## */          
+
+.message {
+	padding: 10px;
+}
+.notice {
+	background-color: #FFFBCF;
+	font-weight: bold;
+}
+.warning {
+	color: red;
+	background-color: #334B66;
+	font-weight: bold;
+}
+
 /* ############################## */
 /* Typography */
 /* ############################## */

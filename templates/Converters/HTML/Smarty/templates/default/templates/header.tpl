@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>{$title}</title>
-	<link rel="stylesheet" type="text/css" href="http://localhost/ss2doc/lib/tpl/silverstripe/shared.css"></link>
 	<link rel="stylesheet" type="text/css" href="{$subdir}media/screen.css"></link>
 	<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
 	<script type="text/javascript" src="{$subdir}media/app.js"></script>
