@@ -3,7 +3,6 @@
 /* ######################################## */
 
 body {
-	background:url(bg.gif) repeat-x top center;
   margin-top: 0;
   padding-top: 10px;
 }             
@@ -28,8 +27,8 @@ body {
 		#Logo h1 a:hover, 
 		#Logo h1 a:active {
 			display: block;
-			width: 200px;
-			padding-top: 35px;
+			width: 300px;
+			padding-top: 85px;
 			background:url(ss_logo.gif) no-repeat top left;
 			color: #666;    
 			text-decoration: none;
