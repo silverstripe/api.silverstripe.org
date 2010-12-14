@@ -293,9 +293,10 @@
 		
 		<div id="disqus_thread"></div>
 		<script type="text/javascript">
-		    var disqus_shortname = 'silverstripe-doc'; 
+		    var disqus_shortname = 'silverstripe-api'; 
 		    var disqus_identifier = '{/literal}{$class_name}{literal}';
-		    var disqus_url = 'http://api.silverstripe.org/{/literal}{$class_name}{literal}';
+				// TODO Doesnt work on new account (migrated from 'silverstripe-doc' to 'silverstripe-api')
+		    //var disqus_url = 'http://api.silverstripe.org/{/literal}{$class_name}{literal}';
 				var disqus_title = "SilverStripe API: {/literal}{$class_name}{literal}";
 
 		    (function() {
