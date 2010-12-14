@@ -17,7 +17,7 @@ All generated content should be stored in the `htdocs/` subfolder.
 
  * Set `memory_limit = 1024M` in your PhpDocumentor.ini (see [http://manual.phpdoc.org/HTMLframesConverter/phpedit/phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#using.phpdocumentorini](phpDoc.org)).
  * Ensure `makedoc.sh` is executable by the webserver user
- * Ensure the webroot is writeable by the webserver user
+ * Ensure the webroot is writeable and executable by the webserver user (executable is a requirement by `realpath()` used in Smarty...)
  * Run the `makedoc.sh` script as a cronjob, usually a nightly run at 3am is fine:
 	`0 3 * * * /sites/ss2api/www/makedoc.sh`
  * If used on a domain different from http://api.silverstripe.org, please set `$base_domain` in `templates/Converters/XML/GotAPI/templates/default/XMLGotAPIConverter.inc`
