@@ -290,14 +290,21 @@
 	functionality.<br />
 			Use the <strong><a href="http://silverstripe.com/silverstripe-forum">Silverstripe Forum</a></strong> to ask questions. 
 		</p>
-		<script type="text/javascript">
-			// URLs should unique for a class name, independent of version
-			disqus_url = "http://api.silverstripe.org/{/literal}{$class_name}{literal}";
-			disqus_title = "SilverStripe API: {/literal}{$class_name}{literal}";
-		</script>
+		
 		<div id="disqus_thread"></div>
-		<script type="text/javascript" src="http://disqus.com/forums/silverstripe-doc/embed.js"></script>
-		<noscript><a href="http://silverstripe-doc.disqus.com/?url=ref">View the forum thread.</a></noscript>
+		<script type="text/javascript">
+		    var disqus_shortname = 'silverstripe-doc'; 
+		    var disqus_identifier = '{/literal}{$class_name}{literal}';
+		    var disqus_url = 'http://api.silverstripe.org/{/literal}{$class_name}{literal}';
+				var disqus_title = "SilverStripe API: {/literal}{$class_name}{literal}";
+
+		    (function() {
+		        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		    })();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 		<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 		{/literal}
 	 </div>
