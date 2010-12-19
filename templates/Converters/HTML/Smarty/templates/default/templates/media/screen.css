@@ -128,7 +128,7 @@ img {
 }
 .notice {
 	background-color: #FFFBCF;
-	font-weight: bold;
+	padding: .5em;
 }
 .warning {
 	color: red;

@@ -286,10 +286,9 @@
 		
 		{literal}
 		<p class="notice">
-			Please use comments for <strong>tips and corrections</strong> about the described 
-	functionality.<br />
-			Use the <strong><a href="http://silverstripe.com/silverstripe-forum">Silverstripe Forum</a></strong> to ask questions. <br />
-			Comments are moderated, we reserve the right to remove comments that are inappropriate or are no longer relevant.
+			<strong>Comment policy:</strong> Please use comments for <strong>tips and corrections</strong> about the described 
+	functionality. Comments are moderated, we reserve the right to remove comments that are inappropriate or are no longer relevant. <br />
+			Use the <strong><a href="http://silverstripe.com/silverstripe-forum">Silverstripe Forum</a></strong> to ask questions.
 		</p>
 		
 		<div id="disqus_thread"></div>
