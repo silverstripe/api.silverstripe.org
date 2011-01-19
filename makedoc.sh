@@ -47,10 +47,6 @@ nice phpdoc --directory src/modules/blog/trunk --target htdocs/modules/blog/trun
 svn co http://svn.silverstripe.com/open/modules/cmsworkflow/trunk src/modules/cmsworkflow/trunk
 nice phpdoc --directory src/modules/cmsworkflow/trunk --target htdocs/modules/cmsworkflow/trunk --title "SilverStripe cmsworkflow module trunk API Documentation" --defaultpackagename cmsworkflow $defaultargs
 
-# modules: ecommerce
-svn co http://svn.silverstripe.com/open/modules/ecommerce/trunk src/modules/ecommerce/trunk
-nice phpdoc --directory src/modules/ecommerce/trunk --target htdocs/modules/ecommerce/trunk --title "SilverStripe ecommerce module trunk API Documentation" --defaultpackagename ecommerce $defaultargs
-
 # modules: forum
 svn co http://svn.silverstripe.com/open/modules/forum/trunk src/modules/forum/trunk
 nice phpdoc --directory src/modules/forum/trunk --target htdocs/modules/forum/trunk --title "SilverStripe forum module trunk API Documentation" --defaultpackagename forum $defaultargs
