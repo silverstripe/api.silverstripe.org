@@ -312,5 +312,4 @@
 
 </div> <!-- closing div#right -->        
 
-</body>
-</html>
+{include file="footer.tpl"}
