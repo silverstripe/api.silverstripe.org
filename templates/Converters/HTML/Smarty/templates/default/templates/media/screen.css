@@ -131,9 +131,7 @@ img {
 	padding: .5em;
 }
 .warning {
-	color: red;
-	background-color: #334B66;
-	font-weight: bold;
+	background-color: #FFDFDF;
 }
 
 /* ############################## */
@@ -535,4 +533,12 @@ span.access-private-inherited {
 #file-list {
 	clear: left;
 	display: none; /* can be toggled by js */
+}
+
+/* ######################################## */
+/* Tags */
+/* ######################################## */
+ul.tags li {
+	width: auto;
+	padding: 0.3em 0;
 }

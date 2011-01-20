@@ -21,25 +21,21 @@
 		<p>{if $is_interface}Interface{else}Class{/if} Tutorial: {$tutorial}</p>
 		{/if}
 		
-		{section name=tag loop=$tags}
-			{if $tags[tag].keyword eq "author"}{assign var="hasauthors" value=true}{/if}
-		{/section}
-		{if $hasauthors}
-		<dt>Author(s):</dt>
-		<dd>
-			<ul>
-				{section name=tag loop=$tags}
-					{if $tags[tag].keyword eq "author"}
-					<li>{$tags[tag].data}</li>
-					{/if}
-				{/section}
+		{if $tags}
+			<ul class="tags">
+			{section name=tag loop=$tags}
+				{if $tags[tag].keyword eq "deprecated"}
+					{assign var="tagclass" value="warning"}
+				{else}
+					{assign var="tagclass" value="bla"}
+				{/if}
+				<li class="{$tagclass}">
+					<em>@{$tags[tag].keyword}</em> {$tags[tag].data}
+				</li>
+			{/section}
 			</ul>
-		</dd>
-		
-		<br />
 		{/if}
 		
-	</dl>
 
 	<!-- 
 	<h4>Version:</h4>
