@@ -407,6 +407,10 @@ ul.tags {
 		color: #444;
 		background: #eee;
 	}
+	
+	ul.tags li.warning .tagblock {
+		background: none;
+	}
 
 .members-overview {}
 
@@ -533,12 +537,4 @@ span.access-private-inherited {
 #file-list {
 	clear: left;
 	display: none; /* can be toggled by js */
-}
-
-/* ######################################## */
-/* Tags */
-/* ######################################## */
-ul.tags li {
-	width: auto;
-	padding: 0.3em 0;
 }

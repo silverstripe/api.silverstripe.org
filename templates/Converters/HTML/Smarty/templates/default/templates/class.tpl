@@ -21,41 +21,6 @@
 		<p>{if $is_interface}Interface{else}Class{/if} Tutorial: {$tutorial}</p>
 		{/if}
 		
-		{if $tags}
-			<ul class="tags">
-			{section name=tag loop=$tags}
-				{if $tags[tag].keyword eq "deprecated"}
-					{assign var="tagclass" value="warning"}
-				{else}
-					{assign var="tagclass" value="bla"}
-				{/if}
-				<li class="{$tagclass}">
-					<em>@{$tags[tag].keyword}</em> {$tags[tag].data}
-				</li>
-			{/section}
-			</ul>
-		{/if}
-		
-
-	<!-- 
-	<h4>Version:</h4>
-	<ul>
-		{section name=tag loop=$tags}
-			{if $tags[tag].keyword eq "version"}
-			<li>{$tags[tag].data}</li>
-			{/if}
-		{/section}
-	</ul>
-	<h4>Copyright:</h4>
-	<ul>
-		{section name=tag loop=$tags}
-			{if $tags[tag].keyword eq "copyright"}
-			<li>{$tags[tag].data}</li>
-			{/if}
-		{/section}
-	</li>
-	</div>
-	-->
 </div>
 
 <div class="section members-overview" id="methods-overview">

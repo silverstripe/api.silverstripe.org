@@ -10,8 +10,13 @@
 <ul class="tags">
 {section name=tag loop=$tags}
 	{if $tags[tag].keyword != 'access'}
-	<li>
-		<strong class="tagblock">{$tags[tag].keyword}</strong>
+	{if $tags[tag].keyword eq "deprecated"}
+		{assign var="tagclass" value="warning"}
+	{else}
+		{assign var="tagclass" value=""}
+	{/if}
+	<li class="{$tagclass}">
+		<strong class="tagblock">@{$tags[tag].keyword}</strong>
 		{$tags[tag].data}
 	</li>
 	{/if}
