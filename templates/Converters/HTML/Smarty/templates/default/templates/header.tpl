@@ -5,7 +5,10 @@
 	<link rel="stylesheet" type="text/css" href="{$subdir}media/screen.css"></link>
 	<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
 	<script type="text/javascript" src="{$subdir}media/app.js"></script>
+	<script type="text/javascript" src="http://silverstripe.org/toolbar/javascript/toolbar.min.js?site=api&amp;searchShow=false"></script>
+	<link rel="stylesheet" type="text/css" href="http://silverstripe.org/toolbar/css/toolbar.css" />	
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" >
+
 </head>
 {if strpos($basedir, 'module') !== FALSE}
 	{assign var="isModule" value=true}

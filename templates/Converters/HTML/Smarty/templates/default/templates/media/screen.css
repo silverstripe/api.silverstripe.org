@@ -3,10 +3,10 @@
 /* ######################################## */
 
 body {
-  margin-top: 0;
-  padding-top: 10px;
+  margin: 0;
 }             
 
+#Container { padding: 16px; }
 #Header {
 	clear: left;
 	overflow: auto;
