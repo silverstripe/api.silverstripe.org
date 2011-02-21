@@ -9,7 +9,17 @@ defaultargs="--templatebase templates --ignore $ignore  --output HTML:Smarty:def
 cd `dirname $0` # workaround for missing templatebase
 
 # trunk
-svn co http://svn.silverstripe.com/open/phpinstaller/trunk src/trunk
+if [ -d src/trunk/cms/.git ]; then
+	(cd src/trunk/cms && git pull)
+else
+	git clone git://github.com/silverstripe/silverstripe-cms.git src/trunk/cms
+fi
+if [ -d src/trunk/sapphire/.git ]; then
+	(cd src/trunk/sapphire && git pull)
+else
+	git clone git://github.com/silverstripe/sapphire.git src/trunk/sapphire
+fi
+
 nice phpdoc --directory src/trunk --target htdocs/trunk --title "SilverStripe trunk API Documentation" --defaultpackagename sapphire $defaultargs
 nice phpdoc --directory src/trunk --target htdocs/trunk/gotapi $defaultargs --output XML:GotAPI:default baseurl='http://api.silverstripe.org/trunk/'
 php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/trunk/gotapi/index.xml" version=trunk
@@ -20,69 +30,132 @@ nice lib/naturaldocs/NaturalDocs --input src/trunk/cms/javascript --input src/tr
 cp templates/Converters/HTML/Smarty/templates/default/templates/media/*.gif htdocs/js/trunk/styles/
 
 # 2.4
-svn co http://svn.silverstripe.com/open/phpinstaller/branches/2.4 src/2.4
+if [ -d src/2.4/cms/.git ]; then
+	(cd src/2.4/cms && git pull)
+else
+	git clone --branch 2.4 git://github.com/silverstripe/silverstripe-cms.git src/2.4/cms
+fi
+if [ -d src/2.4/sapphire/.git ]; then
+	(cd src/2.4/sapphire && git pull)
+else
+	git clone --branch 2.4 git://github.com/silverstripe/sapphire.git src/2.4/sapphire
+fi
 nice phpdoc --directory src/2.4 --target htdocs/2.4 --title "SilverStripe 2.4 API Documentation" --defaultpackagename sapphire $defaultargs
 nice phpdoc --directory src/2.4 --target htdocs/2.4/gotapi $defaultargs --output XML:GotAPI:default baseurl='http://api.silverstripe.org/2.4/'
 php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/2.4/gotapi/index.xml" version=2.4
 
 # 2.3
-svn co http://svn.silverstripe.com/open/phpinstaller/branches/2.3 src/2.3
+if [ -d src/2.3/cms/.git ]; then
+	(cd src/2.3/cms && git pull)
+else
+	git clone --branch 2.3 git://github.com/silverstripe/silverstripe-cms.git src/2.3/cms
+fi
+if [ -d src/2.3/sapphire/.git ]; then
+	(cd src/2.3/sapphire && git pull)
+else
+	git clone --branch 2.3 git://github.com/silverstripe/sapphire.git src/2.3/sapphire
+fi
 nice phpdoc --directory src/2.3 $output --target htdocs/2.3 --title "SilverStripe 2.3 API Documentation" --defaultpackagename sapphire $defaultargs
 php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/2.3/gotapi/index.xml" version=2.3 baseurl='http://api.silverstripe.org/2.3/'
 
 # 2.2
-svn co http://svn.silverstripe.com/open/phpinstaller/branches/2.2 src/2.2
+if [ -d src/2.2/cms/.git ]; then
+	(cd src/2.2/cms && git pull)
+else
+	git clone --branch 2.2 git://github.com/silverstripe/silverstripe-cms.git src/2.2/cms
+fi
+if [ -d src/2.2/sapphire/.git ]; then
+	(cd src/2.2/sapphire && git pull)
+else
+	git clone --branch 2.2 git://github.com/silverstripe/sapphire.git src/2.4/sapphire
+fi
 nice phpdoc --directory src/2.2 $output --target htdocs/2.2 --title "SilverStripe 2.2 API Documentation" --defaultpackagename sapphire $defaultargs
 php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/2.2/gotapi/index.xml" version=2.2 baseurl='http://api.silverstripe.org/2.2/'
 
-# modules: auth_openid
-svn co http://svn.silverstripe.com/open/modulesvn/auth_openid/trunk src/modules/auth_openid/trunk
-nice phpdoc --directory src/modules/auth_openid/trunk --target htdocs/modules/auth_openid/trunk --title "SilverStripe auth_openid module trunk API Documentation" --defaultpackagename auth_openid $defaultargs
-
 # modules: blog
-svn co http://svn.silverstripe.com/open/modules/blog/trunk src/modules/blog/trunk
+if [ -d src/modules/blog/trunk/.git ]; then
+	(cd src/modules/blog/trunk && git pull)
+else
+	git clone git://github.com/silverstripe/silverstripe-blog.git src/modules/blog/trunk
+fi
 nice phpdoc --directory src/modules/blog/trunk --target htdocs/modules/blog/trunk --title "SilverStripe blog module trunk API Documentation" --defaultpackagename blog $defaultargs
 
 # modules: cmsworkflow
-svn co http://svn.silverstripe.com/open/modules/cmsworkflow/trunk src/modules/cmsworkflow/trunk
+if [ -d src/modules/cmsworkflow/trunk/.git ]; then
+	(cd src/modules/cmsworkflow/trunk && git pull)
+else
+	git clone git://github.com/silverstripe/silverstripe-cmsworkflow.git src/modules/cmsworkflow/trunk
+fi
 nice phpdoc --directory src/modules/cmsworkflow/trunk --target htdocs/modules/cmsworkflow/trunk --title "SilverStripe cmsworkflow module trunk API Documentation" --defaultpackagename cmsworkflow $defaultargs
 
 # modules: forum
-svn co http://svn.silverstripe.com/open/modules/forum/trunk src/modules/forum/trunk
+if [ -d src/modules/forum/trunk/.git ]; then
+	(cd src/modules/forum/trunk && git pull)
+else
+	git clone git://github.com/silverstripe/silverstripe-forum.git src/modules/forum/trunk
+fi
 nice phpdoc --directory src/modules/forum/trunk --target htdocs/modules/forum/trunk --title "SilverStripe forum module trunk API Documentation" --defaultpackagename forum $defaultargs
 
-# modules: googlesitemaps
-svn co http://svn.silverstripe.com/open/modules/googlesitemaps/trunk src/modules/googlesitemaps/trunk
-nice phpdoc --directory src/modules/googlesitemaps/trunk --target htdocs/modules/googlesitemaps/trunk --title "SilverStripe googlesitemaps module trunk API Documentation" --defaultpackagename googlesitemaps $defaultargs
-
 # modules: mssql
-svn co http://svn.silverstripe.com/open/modules/mssql/trunk src/modules/mssql/trunk
+if [ -d src/modules/mssql/trunk/.git ]; then
+	(cd src/modules/mssql/trunk && git pull)
+else
+	git clone git://github.com/silverstripe/silverstripe-mssql.git src/modules/mssql/trunk
+fi
 nice phpdoc --directory src/modules/mssql/trunk --target htdocs/modules/mssql/trunk --title "SilverStripe mssql module trunk API Documentation" --defaultpackagename mssql $defaultargs
 
 # modules: multiform
-svn co http://svn.silverstripe.com/open/modules/multiform/trunk src/modules/multiform/trunk
+if [ -d src/modules/cmsworkflow/trunk/.git ]; then
+	(cd src/modules/cmsworkflow/trunk && git pull)
+else
+	git clone git://github.com/silverstripe/silverstripe-cmsworkflow.git src/modules/cmsworkflow/trunk
+fi
 nice phpdoc --directory src/modules/multiform/trunk --target htdocs/modules/multiform/trunk --title "SilverStripe multiform module trunk API Documentation" --defaultpackagename multiform $defaultargs
 
 # modules: postgresql
-svn co http://svn.silverstripe.com/open/modules/postgresql/trunk src/modules/postgresql/trunk
+if [ -d src/modules/postgresql/trunk/.git ]; then
+	(cd src/modules/postgresql/trunk && git pull)
+else
+	git clone git://github.com/silverstripe/silverstripe-postgresql.git src/modules/postgresql/trunk
+fi
 nice phpdoc --directory src/modules/postgresql/trunk --target htdocs/modules/postgresql/trunk --title "SilverStripe postgresql module trunk API Documentation" --defaultpackagename postgresql $defaultargs
 
 # modules: recaptcha
-svn co http://svn.silverstripe.com/open/modules/recaptcha/trunk src/modules/recaptcha/trunk
+if [ -d src/modules/recaptcha/trunk/.git ]; then
+	(cd src/modules/recaptcha/trunk && git pull)
+else
+	git clone git://github.com/chillu/recaptcha.git src/modules/recaptcha/trunk
+fi
 nice phpdoc --directory src/modules/recaptcha/trunk --target htdocs/modules/recaptcha/trunk --title "SilverStripe recaptcha module trunk API Documentation" --defaultpackagename recaptcha $defaultargs
 
 # modules: subsites
-svn co http://svn.silverstripe.com/open/modules/subsites/trunk src/modules/subsites/trunk
+if [ -d src/modules/subsites/trunk/.git ]; then
+	(cd src/modules/subsites/trunk && git pull)
+else
+	git clone git://github.com/silverstripe/silverstripe-subsites.git src/modules/subsites/trunk
+fi
 nice phpdoc --directory src/modules/subsites/trunk --target htdocs/modules/subsites/trunk --title "SilverStripe subsites module trunk API Documentation" --defaultpackagename subsites $defaultargs
 
 # modules: sqlite3
-svn co http://svn.silverstripe.com/open/modules/sqlite3/trunk src/modules/sqlite3/trunk
+if [ -d src/modules/sqlite3/trunk/.git ]; then
+	(cd src/modules/sqlite3/trunk && git pull)
+else
+	git clone git://github.com/silverstripe/silverstripe-sqlite3.git src/modules/sqlite3/trunk
+fi
 nice phpdoc --directory src/modules/sqlite3/trunk --target htdocs/modules/sqlite3/trunk --title "SilverStripe sqlite3 module trunk API Documentation" --defaultpackagename sqlite3 $defaultargs
 
 # modules: tagfield
-svn co http://svn.silverstripe.com/open/modules/tagfield/trunk src/modules/tagfield/trunk
+if [ -d src/modules/tagfield/trunk/.git ]; then
+	(cd src/modules/tagfield/trunk && git pull)
+else
+	git clone git://github.com/chillu/tagfield.git src/modules/tagfield/trunk
+fi
 nice phpdoc --directory src/modules/tagfield/trunk --target htdocs/modules/tagfield/trunk --title "SilverStripe tagfield module trunk API Documentation" --defaultpackagename tagfield $defaultargs
 
 # modules: userforms
-svn co http://svn.silverstripe.com/open/modules/userforms/trunk src/modules/userforms/trunk
+if [ -d src/modules/userforms/trunk/.git ]; then
+	(cd src/modules/userforms/trunk && git pull)
+else
+	git clone git://github.com/silverstripe/silverstripe-userforms.git src/modules/userforms/trunk
+fi
 nice phpdoc --directory src/modules/userforms/trunk --target htdocs/modules/userforms/trunk --title "SilverStripe userforms module trunk API Documentation" --defaultpackagename userforms $defaultargs
