@@ -34,6 +34,9 @@ the file LICENSE.md that was distributed with this source code.
 	<script type="text/javascript" src="http://silverstripe.org/toolbar/javascript/toolbar.min.js?site=api&amp;searchShow=true"></script>
 	<link rel="stylesheet" type="text/css" href="http://silverstripe.org/toolbar/css/toolbar.css" />
 
+	{var customCss = 'resources/custom.css'}
+	<link rel="stylesheet" type="text/css" href="{$customCss|staticFile}" />
+
 	<script n:if="$config->googleAnalytics" type="text/javascript">
 		var _gaq = _gaq || [];
 		_gaq.push(['_setAccount', {$config->googleAnalytics}]);

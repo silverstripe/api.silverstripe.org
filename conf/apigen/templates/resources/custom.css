@@ -1,0 +1,7 @@
+body.has-ss-globaltoolbar {
+	padding-top: 91px; /* make room for bootstrap header */
+}
+
+.navbar-fixed-top {
+	top: 51px;  /* make room for global toolbar */
+}
