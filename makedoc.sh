@@ -39,34 +39,6 @@ nice phpdoc --directory src/2.4 --target htdocs/2.4 --title "SilverStripe 2.4 AP
 nice phpdoc --directory src/2.4 --target htdocs/2.4/gotapi $defaultargs --output XML:GotAPI:default baseurl='http://api.silverstripe.org/2.4/'
 php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/2.4/gotapi/index.xml" version=2.4
 
-# 2.3
-if [ -d src/2.3/cms/.git ]; then
-	(cd src/2.3/cms && git pull)
-else
-	git clone --branch 2.3 git://github.com/silverstripe/silverstripe-cms.git src/2.3/cms
-fi
-if [ -d src/2.3/sapphire/.git ]; then
-	(cd src/2.3/sapphire && git pull)
-else
-	git clone --branch 2.3 git://github.com/silverstripe/sapphire.git src/2.3/sapphire
-fi
-nice phpdoc --directory src/2.3 $output --target htdocs/2.3 --title "SilverStripe 2.3 API Documentation" --defaultpackagename sapphire $defaultargs
-php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/2.3/gotapi/index.xml" version=2.3 baseurl='http://api.silverstripe.org/2.3/'
-
-# 2.2
-if [ -d src/2.2/cms/.git ]; then
-	(cd src/2.2/cms && git pull)
-else
-	git clone --branch 2.2 git://github.com/silverstripe/silverstripe-cms.git src/2.2/cms
-fi
-if [ -d src/2.2/sapphire/.git ]; then
-	(cd src/2.2/sapphire && git pull)
-else
-	git clone --branch 2.2 git://github.com/silverstripe/sapphire.git src/2.4/sapphire
-fi
-nice phpdoc --directory src/2.2 $output --target htdocs/2.2 --title "SilverStripe 2.2 API Documentation" --defaultpackagename sapphire $defaultargs
-php htdocs/search/sapphire/cli-script.php SSAPIGotApiImporterController file="`pwd`/htdocs/2.2/gotapi/index.xml" version=2.2 baseurl='http://api.silverstripe.org/2.2/'
-
 # modules: blog
 if [ -d src/modules/blog/trunk/.git ]; then
 	(cd src/modules/blog/trunk && git pull)
