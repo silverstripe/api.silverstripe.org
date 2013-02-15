@@ -30,6 +30,10 @@ the file LICENSE.md that was distributed with this source code.
 	<link rel="stylesheet" type="text/css" media="all" href="{$styleCss|staticFile}">
 	<link n:if="$config->googleCseId" rel="search" type="application/opensearchdescription+xml" title="{$config->title}" href="{$config->baseUrl}/opensearch.xml">
 
+	{* CUSTOM: Toolbar support *}
+	<script type="text/javascript" src="http://silverstripe.org/toolbar/javascript/toolbar.min.js?site=api&amp;searchShow=true"></script>
+	<link rel="stylesheet" type="text/css" href="http://silverstripe.org/toolbar/css/toolbar.css" />
+
 	<script n:if="$config->googleAnalytics" type="text/javascript">
 		var _gaq = _gaq || [];
 		_gaq.push(['_setAccount', {$config->googleAnalytics}]);
