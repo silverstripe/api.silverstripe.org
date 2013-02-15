@@ -24,6 +24,11 @@ the file LICENSE.md that was distributed with this source code.
 	{var elementListJs = 'elementlist.js'}
 	<script type="text/javascript" src="{$elementListJs|staticFile}"></script>
 	{var styleCss = 'resources/style.css'}
+
+	{* CUSTOM: Toolbar support *}
+	<script type="text/javascript" src="http://silverstripe.org/toolbar/javascript/toolbar.min.js?site=api&amp;searchShow=true"></script>
+	<link rel="stylesheet" type="text/css" href="http://silverstripe.org/toolbar/css/toolbar.css" />
+	
 	<link rel="stylesheet" type="text/css" media="all" href="{$styleCss|staticFile}">
 	<link n:if="$config->googleCseId" rel="search" type="application/opensearchdescription+xml" title="{$config->title}" href="{$config->baseUrl}/opensearch.xml">
 
