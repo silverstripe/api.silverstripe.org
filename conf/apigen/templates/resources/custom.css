@@ -1,7 +1,24 @@
+a {
+	color: #0b467f;
+}
+
+.alert-info {
+	background-color: #a8ccef;
+	border-color: #93b2d1;
+}
+
+.navbar-inner {
+	background: #0d121f;
+}
+
 body.has-ss-globaltoolbar {
 	padding-top: 91px; /* make room for bootstrap header */
 }
 
 .navbar-fixed-top {
 	top: 51px;  /* make room for global toolbar */
+}
+
+#splitter {
+	background-color: #0b467f;
 }
