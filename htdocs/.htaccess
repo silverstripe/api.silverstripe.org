@@ -1,14 +1,19 @@
 RewriteEngine On
+
 # Most of the /default package contents have shifted to /sapphire since api.ss.org was
 # last published in March 09
 RewriteRule ^(default)/(.*) /current/sapphire/$2 [R=301]
+
 # Rewrite old api.silverstripe.org links (without release specific subfolders)
 # to default to /trunk
 RewriteRule ^(sapphire|cms|forms|default)/(.*) /current/$1/$2 [R=301]
+
 # "Symlink" a "current" folder to the latest release
 RewriteRule ^current/?(.*)? /2.4/$1 [R=301]
-# Rewrite old ecommerce links
-RewriteRule ^ecommerce/?(.*)? /modules/ecommerce/trunk/$1 [R=301]
+
+# Lookup script (used to be a SS app, now just a simple script)
+RewriteCond %{REQUEST_URI} !^/search/lookup\.php
+RewriteRule ^search/lookup /search/lookup.php [L,R=301,QSA]
 
 # Rewrite PHPDocumentor links for apigen
 RewriteCond %{REQUEST_FILENAME} !^class-
