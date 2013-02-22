@@ -14,3 +14,5 @@ autocomplete: [classes, constants, functions, methods]
 deprecated: Yes
 
 templateConfig: templates/config.neon
+
+googleAnalytics: UA-84547-9
