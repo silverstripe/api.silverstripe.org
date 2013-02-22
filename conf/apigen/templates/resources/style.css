@@ -236,25 +236,6 @@ pre code {
 	min-width: 350px;
 }
 
-/* Navigation */
-.navbar-fixed-top .container {
-	width: auto;
-	padding: 0 1em;
-}
-
-.navbar .nav > li > span {
-	display: block;
-	color: #999999;
-	line-height: 19px;
-	padding: 10px 10px 11px;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-}
-
-.navbar .nav > li.active > span {
-	background-color: #222222;
-	color: #ffffff;
-}
-
 /* Content */
 #content {
 	clear: both;
