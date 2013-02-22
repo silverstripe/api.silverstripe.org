@@ -85,10 +85,10 @@ fi
 nice apigen --config conf/apigen/apigen.neon --source src/modules/mssql/master --destination htdocs/modules/mssql/master --title "SilverStripe mssql module trunk API Docs"
 
 # modules: multiform
-if [ -d src/modules/cmsworkflow/master/.git ]; then
-	(cd src/modules/cmsworkflow/master && git pull)
+if [ -d src/modules/multiform/master/.git ]; then
+	(cd src/modules/multiform/master && git pull)
 else
-	git clone --depth=100 git://github.com/silverstripe/silverstripe-cmsworkflow.git src/modules/cmsworkflow/master
+	git clone --depth=100 git://github.com/silverstripe/silverstripe-multiform.git src/modules/multiform/master
 fi
 nice apigen --config conf/apigen/apigen.neon --source src/modules/multiform/master --destination htdocs/modules/multiform/master --title "SilverStripe multiform module trunk API Docs"
 
@@ -104,7 +104,7 @@ nice apigen --config conf/apigen/apigen.neon --source src/modules/postgresql/mas
 if [ -d src/modules/recaptcha/master/.git ]; then
 	(cd src/modules/recaptcha/master && git pull)
 else
-	git clone --depth=100 git://github.com/chillu/recaptcha.git src/modules/recaptcha/master
+	git clone --depth=100 git://github.com/chillu/silverstripe-recaptcha.git src/modules/recaptcha/master
 fi
 nice apigen --config conf/apigen/apigen.neon --source src/modules/recaptcha/master --destination htdocs/modules/recaptcha/master --title "SilverStripe recaptcha module trunk API Docs"
 
@@ -120,7 +120,7 @@ nice apigen --config conf/apigen/apigen.neon --source src/modules/subsites/maste
 if [ -d src/modules/sqlite3/master/.git ]; then
 	(cd src/modules/sqlite3/master && git pull)
 else
-	git clone --depth=100 git://github.com/silverstripe/silverstripe-sqlite3.git src/modules/sqlite3/master
+	git clone --depth=100 git://github.com/silverstripe-labs/silverstripe-sqlite3.git src/modules/sqlite3/master
 fi
 nice apigen --config conf/apigen/apigen.neon --source src/modules/sqlite3/master --destination htdocs/modules/sqlite3/master --title "SilverStripe sqlite3 module trunk API Docs"
 
@@ -128,7 +128,7 @@ nice apigen --config conf/apigen/apigen.neon --source src/modules/sqlite3/master
 if [ -d src/modules/tagfield/master/.git ]; then
 	(cd src/modules/tagfield/master && git pull)
 else
-	git clone --depth=100 git://github.com/chillu/tagfield.git src/modules/tagfield/master
+	git clone --depth=100 git://github.com/chillu/silverstripe-tagfield.git src/modules/tagfield/master
 fi
 nice apigen --config conf/apigen/apigen.neon --source src/modules/tagfield/master --destination htdocs/modules/tagfield/master --title "SilverStripe tagfield module trunk API Docs"
 
