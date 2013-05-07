@@ -2,14 +2,6 @@ a {
 	color: #0b467f;
 }
 
-body.has-ss-globaltoolbar {
-	padding-top: 91px; /* make room for bootstrap header */
-}
-
-.navbar-fixed-top {
-	top: 51px;  /* make room for global toolbar */
-}
-
 #splitter {
 	background-color: #0b467f;
 }
