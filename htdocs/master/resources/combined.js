@@ -1127,7 +1127,7 @@ $(function() {
 			.click(function() {
 				var $this = $(this);
 				$('.short', $this).hide();
-				$('.detailed', $this).show();
+				$('.detailed', $this).show().css("visibility", "visible");
 			});
 	}
 
