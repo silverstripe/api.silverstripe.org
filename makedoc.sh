@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Move to the base folder
+cd $(dirname "$0");
+
 # master
 if [ -d src/master/cms/.git ]; then
 	(cd src/master/cms && git pull)
