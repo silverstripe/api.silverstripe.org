@@ -509,3 +509,8 @@ span.l a.l:hover, span.l a.l:active, span.l a.l:focus {
 #rightInner.medium .name, #rightInner.medium .attributes {
 	white-space: normal;
 }
+
+/* Global Toolbar - left align, better fits with layout */
+#ss-globaltoolbar .inner {
+	margin: 0 0 0 10px !important;
+}
