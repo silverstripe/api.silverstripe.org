@@ -16,3 +16,5 @@ deprecated: Yes
 templateConfig: templates/config.neon
 
 googleAnalytics: UA-84547-9
+
+download: yes
