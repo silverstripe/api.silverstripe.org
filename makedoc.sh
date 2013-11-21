@@ -3,7 +3,7 @@
 # Move to the base folder
 cd $(dirname "$0");
 
-APIGEN_BIN='apigen'
+APIGEN_BIN=${APIGEN_BIN:-apigen}
 
 # master
 if [ -d src/master/cms/.git ]; then
