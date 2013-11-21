@@ -7,12 +7,12 @@ APIGEN_BIN='apigen'
 
 # master
 if [ -d src/master/cms/.git ]; then
-	(cd src/master/cms && git pull)
+	(cd src/master/cms && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 --depth=100 git://github.com/silverstripe/silverstripe-cms.git src/master/cms
 fi
 if [ -d src/master/sapphire/.git ]; then
-	(cd src/master/sapphire && git pull)
+	(cd src/master/sapphire && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 --depth=100 git://github.com/silverstripe/sapphire.git src/master/sapphire
 fi
@@ -20,12 +20,12 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/master --destinat
 
 # 3.1
 if [ -d src/3.1/cms/.git ]; then
-	(cd src/3.1/cms && git pull)
+	(cd src/3.1/cms && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 --branch 3.1 git://github.com/silverstripe/silverstripe-cms.git src/3.1/cms
 fi
 if [ -d src/3.1/sapphire/.git ]; then
-	(cd src/3.1/sapphire && git pull)
+	(cd src/3.1/sapphire && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 --branch 3.1 git://github.com/silverstripe/sapphire.git src/3.1/sapphire
 fi
@@ -33,12 +33,12 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/3.1 --destination
 
 # 3.0
 if [ -d src/3.0/cms/.git ]; then
-	(cd src/3.0/cms && git pull)
+	(cd src/3.0/cms && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 --branch 3.1 git://github.com/silverstripe/silverstripe-cms.git src/3.0/cms
 fi
 if [ -d src/3.0/sapphire/.git ]; then
-	(cd src/3.0/sapphire && git pull)
+	(cd src/3.0/sapphire && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 --branch 3.0 git://github.com/silverstripe/sapphire.git src/3.0/sapphire
 fi
@@ -46,12 +46,12 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/3.0 --destination
 
 # 2.4
 if [ -d src/2.4/cms/.git ]; then
-	(cd src/2.4/cms && git pull)
+	(cd src/2.4/cms && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 --branch 2.4 git://github.com/silverstripe/silverstripe-cms.git src/2.4/cms
 fi
 if [ -d src/2.4/sapphire/.git ]; then
-	(cd src/2.4/sapphire && git pull)
+	(cd src/2.4/sapphire && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 --branch 2.4 git://github.com/silverstripe/sapphire.git src/2.4/sapphire
 fi
@@ -59,7 +59,7 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/2.4 --destination
 
 # modules: blog
 if [ -d src/modules/blog/master/.git ]; then
-	(cd src/modules/blog/master && git pull)
+	(cd src/modules/blog/master && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 git://github.com/silverstripe/silverstripe-blog.git src/modules/blog/master
 fi
@@ -67,7 +67,7 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/modules/blog/mast
 
 # modules: cmsworkflow
 if [ -d src/modules/cmsworkflow/master/.git ]; then
-	(cd src/modules/cmsworkflow/master && git pull)
+	(cd src/modules/cmsworkflow/master && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 git://github.com/silverstripe/silverstripe-cmsworkflow.git src/modules/cmsworkflow/master
 fi
@@ -75,7 +75,7 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/modules/cmsworkfl
 
 # modules: forum
 if [ -d src/modules/forum/master/.git ]; then
-	(cd src/modules/forum/master && git pull)
+	(cd src/modules/forum/master && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 git://github.com/silverstripe/silverstripe-forum.git src/modules/forum/master
 fi
@@ -83,7 +83,7 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/modules/forum/mas
 
 # modules: mssql
 if [ -d src/modules/mssql/master/.git ]; then
-	(cd src/modules/mssql/master && git pull)
+	(cd src/modules/mssql/master && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 git://github.com/silverstripe/silverstripe-mssql.git src/modules/mssql/master
 fi
@@ -91,7 +91,7 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/modules/mssql/mas
 
 # modules: multiform
 if [ -d src/modules/multiform/master/.git ]; then
-	(cd src/modules/multiform/master && git pull)
+	(cd src/modules/multiform/master && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 git://github.com/silverstripe/silverstripe-multiform.git src/modules/multiform/master
 fi
@@ -99,7 +99,7 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/modules/multiform
 
 # modules: postgresql
 if [ -d src/modules/postgresql/master/.git ]; then
-	(cd src/modules/postgresql/master && git pull)
+	(cd src/modules/postgresql/master && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 git://github.com/silverstripe/silverstripe-postgresql.git src/modules/postgresql/master
 fi
@@ -107,7 +107,7 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/modules/postgresq
 
 # modules: recaptcha
 if [ -d src/modules/recaptcha/master/.git ]; then
-	(cd src/modules/recaptcha/master && git pull)
+	(cd src/modules/recaptcha/master && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 git://github.com/chillu/silverstripe-recaptcha.git src/modules/recaptcha/master
 fi
@@ -115,7 +115,7 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/modules/recaptcha
 
 # modules: subsites
 if [ -d src/modules/subsites/master/.git ]; then
-	(cd src/modules/subsites/master && git pull)
+	(cd src/modules/subsites/master && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 git://github.com/silverstripe/silverstripe-subsites.git src/modules/subsites/master
 fi
@@ -123,7 +123,7 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/modules/subsites/
 
 # modules: sqlite3
 if [ -d src/modules/sqlite3/master/.git ]; then
-	(cd src/modules/sqlite3/master && git pull)
+	(cd src/modules/sqlite3/master && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 git://github.com/silverstripe-labs/silverstripe-sqlite3.git src/modules/sqlite3/master
 fi
@@ -131,7 +131,7 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/modules/sqlite3/m
 
 # modules: tagfield
 if [ -d src/modules/tagfield/master/.git ]; then
-	(cd src/modules/tagfield/master && git pull)
+	(cd src/modules/tagfield/master && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 git://github.com/chillu/silverstripe-tagfield.git src/modules/tagfield/master
 fi
@@ -139,7 +139,7 @@ nice $APIGEN_BIN --config conf/apigen/apigen.neon --source src/modules/tagfield/
 
 # modules: userforms
 if [ -d src/modules/userforms/master/.git ]; then
-	(cd src/modules/userforms/master && git pull)
+	(cd src/modules/userforms/master && git reset --hard HEAD && git pull)
 else
 	git clone --depth=100 git://github.com/silverstripe/silverstripe-userforms.git src/modules/userforms/master
 fi
