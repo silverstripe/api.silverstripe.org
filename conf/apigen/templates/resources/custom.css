@@ -23,9 +23,11 @@ body.has-ss-globaltoolbar {
 }
 
 .navbar-fixed-top {
-	padding-top: 45px; /* make room for bootstrap header */
+	margin-top: 104px; /* make room for bootstrap header */
 	position: absolute;
 }
+header {margin-bottom: 45px;}
+
 
 .navbar-inner {
 	border-top: 1px solid #444;

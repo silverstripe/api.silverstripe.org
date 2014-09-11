@@ -1,6 +1,6 @@
 
 var ApiGen = ApiGen || {};
-ApiGen.config = {"require":{"min":"2.8.0"},"resources":{"resources":"resources"},"templates":{"common":{"overview.latte":"index.html","combined.js.latte":"resources\/combined.js","elementlist.js.latte":"elementlist.js","404.latte":"404.html"},"optional":{"sitemap":{"filename":"sitemap.xml","template":"sitemap.xml.latte"},"opensearch":{"filename":"opensearch.xml","template":"opensearch.xml.latte"},"robots":{"filename":"robots.txt","template":"robots.txt.latte"}},"main":{"package":{"filename":"package-%s.html","template":"package.latte"},"namespace":{"filename":"namespace-%s.html","template":"namespace.latte"},"class":{"filename":"class-%s.html","template":"class.latte"},"constant":{"filename":"constant-%s.html","template":"constant.latte"},"function":{"filename":"function-%s.html","template":"function.latte"},"source":{"filename":"source-%s.html","template":"source.latte"},"tree":{"filename":"tree.html","template":"tree.latte"},"deprecated":{"filename":"deprecated.html","template":"deprecated.latte"},"todo":{"filename":"todo.html","template":"todo.latte"}}},"options":{"elementDetailsCollapsed":true,"elementsOrder":"natural"},"config":"\/Users\/ingo\/Silverstripe\/ss2api\/conf\/apigen\/templates\/config.neon"};
+ApiGen.config = {"require":{"min":"2.8.0"},"resources":{"resources":"resources"},"templates":{"common":{"overview.latte":"index.html","combined.js.latte":"resources\/combined.js","elementlist.js.latte":"elementlist.js","404.latte":"404.html"},"optional":{"sitemap":{"filename":"sitemap.xml","template":"sitemap.xml.latte"},"opensearch":{"filename":"opensearch.xml","template":"opensearch.xml.latte"},"robots":{"filename":"robots.txt","template":"robots.txt.latte"}},"main":{"package":{"filename":"package-%s.html","template":"package.latte"},"namespace":{"filename":"namespace-%s.html","template":"namespace.latte"},"class":{"filename":"class-%s.html","template":"class.latte"},"constant":{"filename":"constant-%s.html","template":"constant.latte"},"function":{"filename":"function-%s.html","template":"function.latte"},"source":{"filename":"source-%s.html","template":"source.latte"},"tree":{"filename":"tree.html","template":"tree.latte"},"deprecated":{"filename":"deprecated.html","template":"deprecated.latte"},"todo":{"filename":"todo.html","template":"todo.latte"}}},"options":{"elementDetailsCollapsed":true,"elementsOrder":"natural"},"config":"\/Users\/aaroncarlino\/Sites\/api\/conf\/apigen\/templates\/config.neon"};
 
 
 /*! jQuery v1.7 jquery.com | jquery.org/license */
@@ -1278,10 +1278,10 @@ $(function() {
     return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
 	};
 	// Set current version title based on path (easier than generating version-specific templates in ApiGen)
-	var title, path = document.location.pathname.replace(/\/$/, '');
+	var path = document.location.pathname.replace(/\/$/, ''), title;
 	$('#versions .dropdown-menu a').each(function() {
-		var matcher = new RegExp('^' + RegExp.escape($(this).attr('href')));
-		if(matcher.test(path)) {
+		var matcher = new RegExp('^' + RegExp.escape(path));
+		if(matcher.test($(this).attr('href'))) {
 			title = $(this).text();
 		} 
 	});
