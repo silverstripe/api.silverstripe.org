@@ -14,27 +14,20 @@ a {
 		text-decoration: underline;
 	}
 
+#ss-globaltoolbar {
+
+}
+
 body.has-ss-globaltoolbar {
 	padding-top: 84px;
 }
 
-.navbar.navbar-fixed-top {
-	position: relative;
-	top: 0;
-	margin-bottom: 0;
-	margin-top: 0;
+.navbar-fixed-top {
+	margin-top: 104px; /* make room for bootstrap header */
+	position: absolute;
 }
+header {margin-bottom: 45px;}
 
-header {
-	margin-bottom: 0;
-	background-color: #f5f5f5;
-}
-
-#navWrapper .gsc-input input.gsc-input {
-	line-height: 100%;
-	font-size: 32px;
-	height: auto;
-}
 
 .navbar-inner {
 	border-top: 1px solid #444;
