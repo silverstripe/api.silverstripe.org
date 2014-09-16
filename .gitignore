@@ -1,4 +1,4 @@
-src/
+/src/
 /htdocs/2.4/
 /htdocs/trunk/
 /htdocs/master/
@@ -7,3 +7,4 @@ src/
 /htdocs/modules/
 /htdocs/search/mysite/conf/
 /htdocs/search/sphinx/
+/vendor/
