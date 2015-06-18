@@ -33,7 +33,7 @@ function checkout {
 #
 #===============================================================================
 function generate {
-	vendor/bin/apigen generate --config conf/apigen/apigen.neon --source src/$1 --destination htdocs/$1 --title \"$2\"
+	vendor/bin/apigen generate --config conf/apigen/apigen.neon --source src/$1 --destination htdocs/$1 --title "$2"
 }
 
 # master
