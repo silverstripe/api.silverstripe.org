@@ -20,7 +20,7 @@ function checkout {
 	if [ -d src/$2/$3/.git ]; then
 		(cd src/$2/$3 && git reset --hard HEAD && git pull)
 	else
-		git clone --depth=100 --depth=100 $1 src/$2/$3
+		git clone --depth=100 --branch=$2 $1 src/$2/$3
 	fi
 }
 
