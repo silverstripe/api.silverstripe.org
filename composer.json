@@ -9,6 +9,12 @@
         }
     ],
     "require": {
-        "apigen/apigen": "2.8.1"
-    }
+        "apigen/apigen": "2.8.x-dev"
+    },
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "git@github.com:silverstripe-labs/ApiGen.git"
+		}
+	]
 }

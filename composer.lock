@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1e98dd5af4ea67008ce1d8af33f24040",
+    "hash": "8473e4f4ff354f4791932c040080bfee",
     "packages": [
         {
             "name": "andrewsville/php-token-reflection",
@@ -54,16 +54,16 @@
         },
         {
             "name": "apigen/apigen",
-            "version": "v2.8.1",
+            "version": "2.8.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/apigen/apigen.git",
-                "reference": "bca0954e92621a48c6870be57115026a8d032706"
+                "url": "https://github.com/silverstripe-labs/ApiGen.git",
+                "reference": "a589f78fd2a6fcd0205f11cdb761f5784a97784f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apigen/apigen/zipball/bca0954e92621a48c6870be57115026a8d032706",
-                "reference": "bca0954e92621a48c6870be57115026a8d032706",
+                "url": "https://api.github.com/repos/silverstripe-labs/ApiGen/zipball/a589f78fd2a6fcd0205f11cdb761f5784a97784f",
+                "reference": "a589f78fd2a6fcd0205f11cdb761f5784a97784f",
                 "shasum": ""
             },
             "require": {
@@ -82,11 +82,12 @@
                 "ext-zlib": "*"
             },
             "bin": [
-                "apigen"
+                "bin/apigen"
             ],
             "type": "project",
             "extra": {
                 "branch-alias": {
+                    "dev-master": "2.8.0",
                     "dev-develop": "3.0.0-dev"
                 }
             },
@@ -95,22 +96,21 @@
                     "ApiGen": "./"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
             "authors": [
                 {
-                    "name": "David Grudl",
-                    "homepage": "http://davidgrudl.com"
+                    "name": "Jaroslav Hanslík",
+                    "homepage": "https://github.com/kukulich"
                 },
                 {
                     "name": "Ondřej Nešpor",
                     "homepage": "https://github.com/andrewsville"
                 },
                 {
-                    "name": "Jaroslav Hanslík",
-                    "homepage": "https://github.com/kukulich"
+                    "name": "David Grudl",
+                    "homepage": "http://davidgrudl.com"
                 }
             ],
             "description": "API documentation generator for PHP 5.3+",
@@ -120,10 +120,15 @@
                 "docblock",
                 "documentation",
                 "generator",
-                "phpDocumentor",
-                "phpdoc"
+                "phpdoc",
+                "phpdocumentor"
             ],
-            "time": "2014-09-01 18:06:36"
+            "support": {
+                "issues": "https://github.com/apigen/apigen/issues",
+                "forum": "https://groups.google.com/group/apigen",
+                "source": "https://github.com/apigen/apigen"
+            },
+            "time": "2015-06-18 05:40:18"
         },
         {
             "name": "kukulich/fshl",
@@ -169,16 +174,16 @@
         },
         {
             "name": "nette/nette",
-            "version": "v2.1.5",
+            "version": "v2.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/nette.git",
-                "reference": "ba6ce49492700fb36ea97e4c3ad9a6dcef068362"
+                "reference": "9a63c0a12b9c2160c21ab30881427bdaaabdd142"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/ba6ce49492700fb36ea97e4c3ad9a6dcef068362",
-                "reference": "ba6ce49492700fb36ea97e4c3ad9a6dcef068362",
+                "url": "https://api.github.com/repos/nette/nette/zipball/9a63c0a12b9c2160c21ab30881427bdaaabdd142",
+                "reference": "9a63c0a12b9c2160c21ab30881427bdaaabdd142",
                 "shasum": ""
             },
             "require": {
@@ -186,8 +191,30 @@
                 "ext-tokenizer": "*",
                 "php": ">=5.3.1"
             },
+            "replace": {
+                "latte/latte": "self.version",
+                "nette/application": "self.version",
+                "nette/bootstrap": "self.version",
+                "nette/caching": "self.version",
+                "nette/component-model": "self.version",
+                "nette/database": "self.version",
+                "nette/di": "self.version",
+                "nette/finder": "self.version",
+                "nette/forms": "self.version",
+                "nette/http": "self.version",
+                "nette/mail": "self.version",
+                "nette/neon": "self.version",
+                "nette/php-generator": "self.version",
+                "nette/reflection": "self.version",
+                "nette/robot-loader": "self.version",
+                "nette/safe-stream": "self.version",
+                "nette/security": "self.version",
+                "nette/tokenizer": "self.version",
+                "nette/utils": "self.version",
+                "tracy/tracy": "self.version"
+            },
             "require-dev": {
-                "nette/tester": "~1.1"
+                "nette/tester": "~1.3"
             },
             "suggest": {
                 "ext-fileinfo": "",
@@ -231,7 +258,7 @@
                 "mvc",
                 "templating"
             ],
-            "time": "2014-08-28 11:11:29"
+            "time": "2015-05-06 21:05:47"
         },
         {
             "name": "texy/texy",
@@ -293,8 +320,11 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "apigen/apigen": 20
+    },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
 }
