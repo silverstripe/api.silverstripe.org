@@ -8,3 +8,7 @@
 /htdocs/search/mysite/conf/
 /htdocs/search/sphinx/
 /vendor/
+
+.idea/
+Thumbs.db
+.DS_Store
