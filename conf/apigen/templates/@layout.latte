@@ -20,7 +20,7 @@ the file LICENSE.md that was distributed with this source code.
 	<meta name="generator" content="{$generator} {$version}">
 	<meta name="robots" content="noindex" n:if="!$robots">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	
+
 	<title>{include #title}{if 'overview' !== $active && $config->title} | {$config->title}{/if}</title>
 	{var typeKitJS = '//use.typekit.net/emt4dhq.js'}
 	<script type="text/javascript" src="{$typeKitJS|staticFile}"></script>
@@ -44,7 +44,7 @@ the file LICENSE.md that was distributed with this source code.
 	<link n:if="$config->googleCseId" rel="search" type="application/opensearchdescription+xml" title="{$config->title}" href="{$config->baseUrl}/opensearch.xml">
 
 	{* CUSTOM: Toolbar support *}
-	<link rel="stylesheet" type="text/css" href="http://www.silverstripe.org/themes/ssv3/css/toolbar.css" />
+	<link rel="stylesheet" type="text/css" href="//www.silverstripe.org/themes/ssv3/css/toolbar.css" />
 
 	{* CUSTOM: CSS *}
 	{var customCss = 'resources/custom.css'}
@@ -78,13 +78,13 @@ the file LICENSE.md that was distributed with this source code.
 							<a href="#" class="search-close" title="Close search">
 							    <svg version="1.1" id="CloseIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 									 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-								<polygon class="close-svg" points="459.6,97.6 414.4,52.4 256,210.7 97.6,52.4 52.4,97.6 210.7,256 52.4,414.4 97.6,459.6 256,301.3 
+								<polygon class="close-svg" points="459.6,97.6 414.4,52.4 256,210.7 97.6,52.4 52.4,97.6 210.7,256 52.4,414.4 97.6,459.6 256,301.3
 									414.4,459.6 459.6,414.4 301.3,256 "/>
 								</svg>
 							</a>
-							<gcse:searchbox-only resultsUrl="http://www.silverstripe.org/search/" enableAutoComplete="true" title="Search SilverStripe" placeholder="Search SilverStripe"></gcse:searchbox-only>
+							<gcse:searchbox-only resultsUrl="//www.silverstripe.org/search/" enableAutoComplete="true" title="Search SilverStripe" placeholder="Search SilverStripe"></gcse:searchbox-only>
 						</div>
-					</div>					
+					</div>
 				</div>
 			</div>
 		</header>
@@ -229,15 +229,15 @@ the file LICENSE.md that was distributed with this source code.
 	<div id="rightInner">
 	{include #content}
 
-	<div id="comments">           
+	<div id="comments">
 		<h2>Comments</h2>
-		
+
 		<div class="alert alert-block">
-			<strong>Comment policy:</strong> Please use comments for <strong>tips and corrections</strong> about the described 
+			<strong>Comment policy:</strong> Please use comments for <strong>tips and corrections</strong> about the described
 	functionality. Comments are moderated, we reserve the right to remove comments that are inappropriate or are no longer relevant. <br />
-			Use the <strong><a href="http://silverstripe.com/silverstripe-forum">Silverstripe Forum</a></strong> to ask questions.
+			Use the <strong><a href="//www.silverstripe.org/community/forums/">Silverstripe Forum</a></strong> to ask questions.
 		</div>
-		
+
 		<div id="disqus_thread"></div>
 		<script type="text/javascript">
 			{ifset $class}
@@ -245,7 +245,7 @@ the file LICENSE.md that was distributed with this source code.
 					{var $classname = $class->shortName}
 				{/if}
 			{/ifset}
-		    var disqus_shortname = 'silverstripe-api'; 
+		    var disqus_shortname = 'silverstripe-api';
 			{ifset $classname}
 				var disqus_identifier = '{!$classname}';
 				// TODO Doesnt work on new account (migrated from 'silverstripe-doc' to 'silverstripe-api')
@@ -258,13 +258,13 @@ the file LICENSE.md that was distributed with this source code.
 
 		    (function() {
 		        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-		        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+		        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
 		        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 		    })();
 		</script>
 		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 		<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-		
+
 	 </div>
 
 	</div>
