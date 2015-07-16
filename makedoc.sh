@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Move to the base folder
 cd $(dirname "$0");
