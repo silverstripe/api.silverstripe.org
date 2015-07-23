@@ -227,46 +227,16 @@ the file LICENSE.md that was distributed with this source code.
 
 <div id="right">
 	<div id="rightInner">
-	{include #content}
-
-	<div id="comments">
-		<h2>Comments</h2>
-
+		{include #content}
+		
 		<div class="alert alert-block">
-			<strong>Comment policy:</strong> Please use comments for <strong>tips and corrections</strong> about the described
-	functionality. Comments are moderated, we reserve the right to remove comments that are inappropriate or are no longer relevant. <br />
-			Use the <strong><a href="//www.silverstripe.org/community/forums/">Silverstripe Forum</a></strong> to ask questions.
-		</div>
-
-		<div id="disqus_thread"></div>
-		<script type="text/javascript">
-			{ifset $class}
-				{if $class->shortName}
-					{var $classname = $class->shortName}
-				{/if}
-			{/ifset}
-		    var disqus_shortname = 'silverstripe-api';
-			{ifset $classname}
-				var disqus_identifier = '{!$classname}';
-				// TODO Doesnt work on new account (migrated from 'silverstripe-doc' to 'silverstripe-api')
-				//var disqus_url = 'http://api.silverstripe.org/{!$classname}';
-				var disqus_title = "SilverStripe API: {!$classname}";
-			{else}
-				var disqus_identifier = 'global';
-				var disqus_title = "SilverStripe API";
-			{/ifset}
-
-		    (function() {
-		        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-		        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-		        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		    })();
-		</script>
-		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-
-	 </div>
-
+			[Raise a SilverStripe Framework issue/bug](https://github.com/silverstripe/silverstripe-framework/issues/new)
+			<br/>
+-			[Raise a SilverStripe CMS issue/bug](https://github.com/silverstripe/silverstripe-cms/issues/new)
+			<br/>
+-			Please use the <strong><a href="//www.silverstripe.org/community/forums/">Silverstripe Forums</a></strong> to ask development related questions.
+-		</div>
+		
 	</div>
 
 	<div id="footer">
