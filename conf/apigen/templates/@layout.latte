@@ -14,7 +14,7 @@ the file LICENSE.md that was distributed with this source code.
 <!DOCTYPE html>
 <html>
 <head>
-{? $globalNav = file_get_contents('http://www.silverstripe.org/assets/global-nav-api.html');}
+{? $globalNav = file_get_contents('http://sssites-ssorg-uat.sites.silverstripe.com/assets/global-nav-api.html');}
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="generator" content="{$generator} {$version}">
@@ -44,7 +44,7 @@ the file LICENSE.md that was distributed with this source code.
 	<link n:if="$config->googleCseId" rel="search" type="application/opensearchdescription+xml" title="{$config->title}" href="{$config->baseUrl}/opensearch.xml">
 
 	{* CUSTOM: Toolbar support *}
-	<link rel="stylesheet" type="text/css" href="//www.silverstripe.org/themes/ssv3/css/toolbar.css" />
+	<link rel="stylesheet" type="text/css" href="//sssites-ssorg-uat.sites.silverstripe.com/themes/ssv3/css/toolbar.min.css" />
 
 	{* CUSTOM: CSS *}
 	{var customCss = 'resources/custom.css'}
@@ -68,11 +68,11 @@ the file LICENSE.md that was distributed with this source code.
 
 <body class="theme-theme1">
 
-		<header data-0="background-position: 50% 50%;" data-544="background-position: 50% -30%;">
-			<div class="global-nav header-mask">
+		<header class="site-header" data-0="background-position: 50% 50%;" data-544="background-position: 50% -30%;">
+			<div class="header-mask">
 				<div id="navWrapper">
 					{!$globalNav}
-					<div class="container">
+					<div class="container component-search">
 						<span id="SearchAnchor"><!-- search box anchor --></span>
 						<div class="search-pane search-pane-desktop" id="desktopSearch">
 							<a href="#" class="search-close" title="Close search">
