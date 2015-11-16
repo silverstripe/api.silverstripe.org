@@ -23,6 +23,27 @@ the file LICENSE.md that was distributed with this source code.
 
 	<title>{include #title}{if 'overview' !== $active && $config->title} | {$config->title}{/if}</title>
 	{var typeKitJS = '//use.typekit.net/emt4dhq.js'}
+
+	<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
+	<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+	<link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+	<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="/manifest.json"> <!-- Controls which icon to use for Android Chrome -->
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#005b94">
+	<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+	<meta name="theme-color" content="#1b354c">
+
 	<script type="text/javascript" src="{$typeKitJS|staticFile}"></script>
 	<script type="text/javascript">
 		try{
@@ -77,11 +98,11 @@ the file LICENSE.md that was distributed with this source code.
 
 <body class="theme-theme1">
 
-		<header data-0="background-position: 50% 50%;" data-544="background-position: 50% -30%;">
+		<header class="site-header" data-0="background-position: 50% 50%;" data-544="background-position: 50% -30%;">
 			<div class="global-nav header-mask">
 				<div id="navWrapper">
 					{!$globalNav}
-					<div class="container">
+					<div class="container component-search">
 						<span id="SearchAnchor"><!-- search box anchor --></span>
 						<div class="search-pane search-pane-desktop" id="desktopSearch">
 							<a href="#" class="search-close" title="Close search">
@@ -236,46 +257,16 @@ the file LICENSE.md that was distributed with this source code.
 
 <div id="right">
 	<div id="rightInner">
-	{include #content}
-
-	<div id="comments">
-		<h2>Comments</h2>
-
+		{include #content}
+		
 		<div class="alert alert-block">
-			<strong>Comment policy:</strong> Please use comments for <strong>tips and corrections</strong> about the described
-	functionality. Comments are moderated, we reserve the right to remove comments that are inappropriate or are no longer relevant. <br />
-			Use the <strong><a href="//www.silverstripe.org/community/forums/">Silverstripe Forum</a></strong> to ask questions.
-		</div>
-
-		<div id="disqus_thread"></div>
-		<script type="text/javascript">
-			{ifset $class}
-				{if $class->shortName}
-					{var $classname = $class->shortName}
-				{/if}
-			{/ifset}
-		    var disqus_shortname = 'silverstripe-api';
-			{ifset $classname}
-				var disqus_identifier = '{!$classname}';
-				// TODO Doesnt work on new account (migrated from 'silverstripe-doc' to 'silverstripe-api')
-				//var disqus_url = 'http://api.silverstripe.org/{!$classname}';
-				var disqus_title = "SilverStripe API: {!$classname}";
-			{else}
-				var disqus_identifier = 'global';
-				var disqus_title = "SilverStripe API";
-			{/ifset}
-
-		    (function() {
-		        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-		        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-		        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		    })();
-		</script>
-		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-
-	 </div>
-
+			[Raise a SilverStripe Framework issue/bug](https://github.com/silverstripe/silverstripe-framework/issues/new)
+			<br/>
+-			[Raise a SilverStripe CMS issue/bug](https://github.com/silverstripe/silverstripe-cms/issues/new)
+			<br/>
+-			Please use the <strong><a href="//www.silverstripe.org/community/forums/">Silverstripe Forums</a></strong> to ask development related questions.
+-		</div>
+		
 	</div>
 
 	<div id="footer">
