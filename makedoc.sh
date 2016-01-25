@@ -43,6 +43,13 @@ checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' 'master' 's
 checkout 'git://github.com/silverstripe-labs/silverstripe-reports.git' 'master' 'reports'
 generate 'master' 'SilverStripe master API Docs'
 
+# 3.3
+checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.3' 'cms'
+checkout 'git://github.com/silverstripe/sapphire.git' '3.3' 'sapphire'
+checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' '3.3' 'siteconfig'
+checkout 'git://github.com/silverstripe-labs/silverstripe-reports.git' '3.3' 'reports'
+generate '3.3' 'SilverStripe 3.3 API Docs'
+
 # 3.2
 checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.2' 'cms'
 checkout 'git://github.com/silverstripe/sapphire.git' '3.2' 'sapphire'
