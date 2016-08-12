@@ -1,10 +1,10 @@
 RewriteEngine On
 
 # "Symlink" a "current" folder to the latest release
-RewriteRule ^current/?(.*)? /3.3/$1 [R=301]
+RewriteRule ^current/?(.*)? /3.4/$1 [R=301]
 
 # "Symlink" the root to the latest release (with "moved temporarily")
-RewriteRule ^/?$ /3.3/ [R=302,L]
+RewriteRule ^/?$ /3.4/ [R=302,L]
 
 # Lookup script (used to be a SS app, now just a simple script)
 RewriteCond %{REQUEST_URI} !^/search/lookup\.php
