@@ -1,10 +1,5 @@
 /src/
 /htdocs/2.4/
-/htdocs/trunk/
 /htdocs/master/
-/htdocs/3.0/
-/htdocs/3.1/
-/htdocs/modules/
-/htdocs/search/mysite/conf/
-/htdocs/search/sphinx/
+/htdocs/3.*/
 /vendor/

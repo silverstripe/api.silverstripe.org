@@ -3,21 +3,22 @@
 SilverStripe API docs for the core system in different versions,
 generated through [APIGen](http://apigen.org/).
 
-The documentation is generated from working copies located in `src/`.
-This folder is initially empty, the working copies are created through `makedocs.sh`.
-The PHP code does not have to be accessible through the website, all documents are static HTML files. 
-All generated content should be stored in the `htdocs/` subfolder.
+ - The documentation is generated from working copies located in `src/`. This folder is initially empty, the working copies are created through `makedocs.sh`.
+ - The PHP code does not have to be accessible through the website, all documents are static HTML files. 
+ - All generated content to be viewed publicly should be stored in the `htdocs/` subfolder.
+ - Set up your vhost to serve from `htdocs` folder.
 
 ## Requirements
 
  * Git
- * [APIGen](http://apigen.org/)
+ * Composer
  * PHP 5 (for the symbol lookup only)
 
 ## Installation
 
- * [Install APIGen](http://apigen.org/##installation)
- * Ensure `makedoc.sh` is executable by the webserver user
+ 1. Clone the repo to your local development environment
+ 2. Run `composer install` which will install apigen
+ 3. Run `makedoc.sh` to build the static API docs (will take some time and generates ~900Mb new files)
 
 ## Usage
 
@@ -28,15 +29,20 @@ All generated content should be stored in the `htdocs/` subfolder.
  * Configure the Google CSE and Analytics keys in `conf/apigen/apigen.neon`
 
 ### Add a New Version
-
- * Add command to `makedoc.sh`
- * Check if any new folders/files need to be added to the `--ignore` parameter
- * Add a link to `htdocs/index.html`
- * TODO Describe where to add a link to templates
- * If you're using `publishsite`, add the new folder to the `.publishinfo` excluded folders list `--excluded-folders=`
+ * Copy a version section block in `makedoc.sh` and update the version number
+ * Update the .gitignore to ignore any new files generated in `htdocs` (you don't want to commit the static generated files!)
  * Run `makedoc.sh` and confirm the generation runs through properly
- * If the release is our (new) stable release, change the "/current" redirection in `htdocs/.htaccess` and `htdocs/.htaccess_live`
- * Note: Don't commit the generated files, they dont need to be versioned
+ * Make a commit of the updated `makedoc.sh`
+ * Update the redirections in `htdocs/.htaccess` to the stable version number
+ * Make a separate commit with the redirection (explained in deployment below)
+
+### Deployment to production
+ 1. Raise a ticket with ops team (they have to run a script after deployment)
+ 2. Login to SilverStripe Platform (you'll need to ensure you have "api" stack permissions)
+ 3. Deploy the commit that contains the update to `makedoc.sh`
+ 4. Ops will run this script to generate the new static files.
+ 5. Once this is complete, deploy the commit with the redirects.
+
 
 ### Symbol Lookup
 
