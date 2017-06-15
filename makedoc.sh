@@ -11,9 +11,9 @@ cd $(dirname "$0");
 #
 #				The master branch will checked out by default
 # PARAMETERS:
-#				$1 - module path on github (e.g silverstripe/sapphire.git)
+#				$1 - module path on github (e.g silverstripe/silverstripe-framework.git)
 #				$2 - branch name (e.g 3.0)
-#				$3 - module name (e.g sapphire)
+#				$3 - module name (e.g framework)
 #
 #===============================================================================
 function checkout {
@@ -38,51 +38,58 @@ function generate {
 
 # master
 checkout 'git://github.com/silverstripe/silverstripe-cms.git' 'master' 'cms'
-checkout 'git://github.com/silverstripe/sapphire.git' 'master' 'sapphire'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' 'master' 'framework'
 checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' 'master' 'siteconfig'
-checkout 'git://github.com/silverstripe-labs/silverstripe-reports.git' 'master' 'reports'
+checkout 'git://github.com/silverstripe/silverstripe-reports.git' 'master' 'reports'
 generate 'master' 'SilverStripe master API Docs'
+
+# 3.6
+checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.6' 'cms'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.6' 'framework'
+checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' '3.6' 'siteconfig'
+checkout 'git://github.com/silverstripe/silverstripe-reports.git' '3.6' 'reports'
+generate '3.6' 'SilverStripe 3.6 API Docs'
 
 # 3.5
 checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.5' 'cms'
-checkout 'git://github.com/silverstripe/sapphire.git' '3.5' 'sapphire'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.5' 'framework'
 checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' '3.5' 'siteconfig'
-checkout 'git://github.com/silverstripe-labs/silverstripe-reports.git' '3.5' 'reports'
+checkout 'git://github.com/silverstripe/silverstripe-reports.git' '3.5' 'reports'
 generate '3.5' 'SilverStripe 3.5 API Docs'
 
 # 3.4
 checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.4' 'cms'
-checkout 'git://github.com/silverstripe/sapphire.git' '3.4' 'sapphire'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.4' 'framework'
 checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' '3.4' 'siteconfig'
-checkout 'git://github.com/silverstripe-labs/silverstripe-reports.git' '3.4' 'reports'
+checkout 'git://github.com/silverstripe/silverstripe-reports.git' '3.4' 'reports'
 generate '3.4' 'SilverStripe 3.4 API Docs'
 
 # 3.3
 checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.3' 'cms'
-checkout 'git://github.com/silverstripe/sapphire.git' '3.3' 'sapphire'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.3' 'framework'
 checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' '3.3' 'siteconfig'
-checkout 'git://github.com/silverstripe-labs/silverstripe-reports.git' '3.3' 'reports'
+checkout 'git://github.com/silverstripe/silverstripe-reports.git' '3.3' 'reports'
 generate '3.3' 'SilverStripe 3.3 API Docs'
 
 # 3.2
 checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.2' 'cms'
-checkout 'git://github.com/silverstripe/sapphire.git' '3.2' 'sapphire'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.2' 'framework'
 checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' '3.2' 'siteconfig'
-checkout 'git://github.com/silverstripe-labs/silverstripe-reports.git' '3.2' 'reports'
+checkout 'git://github.com/silverstripe/silverstripe-reports.git' '3.2' 'reports'
 generate '3.2' 'SilverStripe 3.2 API Docs'
 
 # 3.1
 checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.1' 'cms'
-checkout 'git://github.com/silverstripe/sapphire.git' '3.1' 'sapphire'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.1' 'framework'
 generate '3.1' 'SilverStripe 3.1 API Docs'
 
 # 3.0
 checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.0' 'cms'
-checkout 'git://github.com/silverstripe/sapphire.git' '3.0' 'sapphire'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.0' 'framework'
 generate '3.0' 'SilverStripe 3.0 API Docs'
 
 # 2.4
 checkout 'git://github.com/silverstripe/silverstripe-cms.git' '2.4' 'cms'
-checkout 'git://github.com/silverstripe/sapphire.git' '2.4' 'sapphire'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' '2.4' 'framework'
 generate '2.4' 'SilverStripe 2.4 API Docs'
 
