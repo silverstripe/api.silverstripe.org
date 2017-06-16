@@ -3,6 +3,9 @@
 # Move to the base folder
 cd $(dirname "$0");
 
+# Where the module source code should be stored
+STORAGE_DIR="assets/src"
+
 #=== FUNCTION ==================================================================
 # NAME: 		checkout
 # DESCRIPTION:	Checks out a specific branch of a module into a folder. Not
@@ -17,10 +20,10 @@ cd $(dirname "$0");
 #
 #===============================================================================
 function checkout {
-	if [ -d src/$2/$3/.git ]; then
-		(cd src/$2/$3 && git reset --hard HEAD && git pull)
+	if [ -d "$STORAGE_DIR"/$2/$3/.git ]; then
+		(cd "$STORAGE_DIR"/$2/$3 && git reset --hard HEAD && git pull)
 	else
-		git clone --depth=100 --branch=$2 $1 src/$2/$3
+		git clone --depth=100 --branch=$2 $1 "$STORAGE_DIR"/$2/$3
 	fi
 }
 
@@ -33,8 +36,11 @@ function checkout {
 #
 #===============================================================================
 function generate {
-	vendor/bin/apigen generate --config conf/apigen/apigen.neon --source src/$1 --destination htdocs/$1 --title "$2"
+	vendor/bin/apigen generate --config conf/apigen/apigen.neon --source "$STORAGE_DIR"/$1 --destination htdocs/$1 --title "$2"
 }
+
+# Ensure storage directory exists
+mkdir -p "$STORAGE_DIR"
 
 # master
 checkout 'git://github.com/silverstripe/silverstripe-cms.git' 'master' 'cms'
