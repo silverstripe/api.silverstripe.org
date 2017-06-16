@@ -36,6 +36,9 @@ generated through [APIGen](http://apigen.org/).
  * Update the redirections in `htdocs/.htaccess` to the stable version number
  * Make a separate commit with the redirection (explained in deployment below)
 
+**Please note:** Often the `master` branch will be representing an unstable major version (currently 4). When this needs
+to be updated, please edit `htdocs/search/lookup.php`.
+
 ### Deployment to production
  1. Raise a ticket with ops team (they have to run a script after deployment)
  2. Login to SilverStripe Platform (you'll need to ensure you have "api" stack permissions)
@@ -56,11 +59,12 @@ Parameters:
 
  * `q`: (required) Class name, method name (`<class>::<method>()` or <class>-><method>()`),
    as well as property name ((`<class>::$<property>` or <class>-><property>`).
- * `version`: (optional) Version of the targeted module. Should map to a folder name. Defaults to trunk.
+ * `version`: (optional) Version of the targeted module. Should map to a folder name. Defaults to trunk. Will switch current unstable major version (e.g. 4) to "master".
  * `module`: (optional) Module name. Should map to a folder name. Defaults to framework.
 
 Examples:
 
  * `/search/lookup.php?q=DataObject`: Shows `DataObject` docs in `trunk` version of framework
- * `/search/lookup.php?q=DataObject::get()&version=3.0`: Shows `DataObject::get()` docs in `3.0` version of framework
- * `/search/lookup.php?q=DPSPayment&module=payemtn`: Shows `DPSPayment` class docs in the `ecommerce` module
+ * `/search/lookup.php?q=DataObject::get()&version=3.0`: Shows `DataObject::get()` docs in `3` version of framework
+ * `/search/lookup.php?q=DPSPayment&module=payemnt`: Shows `DPSPayment` class docs in the `ecommerce` module
+ * `/search/lookup.php?q=SilverStripe\ORM\DataExtension::onBeforeWrite()&version=4`: Shows `SilverStripe\ORM\DataExtension::onBeforeWrite()` docs in `master` (4.x) version of framework
