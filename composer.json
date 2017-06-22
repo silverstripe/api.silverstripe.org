@@ -9,12 +9,22 @@
         }
     ],
     "require": {
-        "apigen/apigen": "2.8.x-dev"
+        "apigen/apigen": "2.8.x-dev",
+        "symfony/yaml": "^3.3"
     },
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "git@github.com:silverstripe-labs/ApiGen.git"
-		}
-	]
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:silverstripe-labs/ApiGen.git"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "SilverStripe\\ApiDocs\\": "src/",
+            "SilverStripe\\ApiDocs\\Test\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    }
 }

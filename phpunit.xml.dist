@@ -1,0 +1,7 @@
+<phpunit colors="true">
+  <testsuites>
+    <testsuite name="SilverStripe API Docs">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>
