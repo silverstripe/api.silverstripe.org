@@ -1,5 +1,5 @@
 # Mask to exclude file or directory from processing
-exclude: ['*/tests/*', '*/thirdparty/*', '*/lang/*']
+exclude: ['*/tests/*', '*/thirdparty/*', '*/lang/*', '*/examples/*']
 
 # Grouping of classes
 groups: packages
