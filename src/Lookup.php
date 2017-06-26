@@ -77,7 +77,7 @@ class Lookup
     {
         $paths = array();
 
-        // Only include modules path if we're not request core.
+        // Only include modules path if we're not requesting core.
         if ($this->getArg('module') && !in_array($this->getArg('module'), array('cms', 'framework', 'sapphire'))) {
             $paths[] = 'modules/' . $this->getArg('module');
         }

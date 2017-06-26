@@ -69,5 +69,5 @@ Examples:
  * `/search/lookup.php?q=DataObject`: Shows `DataObject` docs in `trunk` version of framework
  * `/search/lookup.php?q=DataObject::get()&version=3.0`: Shows `DataObject::get()` docs in `3.0` version of framework
  * `/search/lookup.php?q=DataObject::get()&version=3.0`: Shows `DataObject::get()` docs in `3.6` version of framework (or whatever is the latest stable minor version)
- * `/search/lookup.php?q=DPSPayment&module=payemnt`: Shows `DPSPayment` class docs in the `ecommerce` module
+ * `/search/lookup.php?q=DPSPayment&module=payment`: Shows `DPSPayment` class docs in the `ecommerce` module
  * `/search/lookup.php?q=SilverStripe\ORM\DataExtension::onBeforeWrite()&version=4`: Shows `SilverStripe\ORM\DataExtension::onBeforeWrite()` docs in `master` (4.x) version of framework

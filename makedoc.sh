@@ -43,10 +43,17 @@ function generate {
 mkdir -p "$STORAGE_DIR"
 
 # master
+checkout 'git://github.com/silverstripe/silverstripe-admin.git' 'master' 'admin'
+checkout 'git://github.com/silverstripe/silverstripe-asset-admin.git' 'master' 'asset-admin'
+checkout 'git://github.com/silverstripe/silverstripe-assets.git' 'master' 'assets'
+checkout 'git://github.com/silverstripe/silverstripe-campaign-admin.git' 'master' 'campaign-admin'
 checkout 'git://github.com/silverstripe/silverstripe-cms.git' 'master' 'cms'
+checkout 'git://github.com/silverstripe/silverstripe-config.git' 'master' 'config'
 checkout 'git://github.com/silverstripe/silverstripe-framework.git' 'master' 'framework'
-checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' 'master' 'siteconfig'
+checkout 'git://github.com/silverstripe/silverstripe-graphql.git' 'master' 'graphql'
 checkout 'git://github.com/silverstripe/silverstripe-reports.git' 'master' 'reports'
+checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' 'master' 'siteconfig'
+checkout 'git://github.com/silverstripe/silverstripe-versioned.git' 'master' 'versioned'
 generate 'master' 'SilverStripe master API Docs'
 
 # 3.6
