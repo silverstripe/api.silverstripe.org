@@ -5,6 +5,9 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+// 2017-06-27: Cannot run composer dump-autoload on SSP
+require_once __DIR__ . '/../../src/Lookup.php';
+
 $lookup = new SilverStripe\ApiDocs\Lookup($_GET);
 
 $lookup->setVersionMap(array(
