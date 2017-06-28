@@ -182,7 +182,7 @@ class Lookup
         foreach (glob($mapFilePaths) as $mapFile) {
             try {
                 $mapping = (array) Yaml::parse(file_get_contents($mapFile));
-            } catch (\Symfony\Component\Yaml\ParseException $ex) {
+            } catch (\Symfony\Component\Yaml\Exception\ParseException $ex) {
                 // Fail gracefully here
             }
             if (!empty($mapping['mappings'])) {
