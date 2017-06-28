@@ -10,7 +10,7 @@
     ],
     "require": {
         "apigen/apigen": "2.8.x-dev",
-        "symfony/yaml": "^3.3"
+        "symfony/yaml": "~2.6.0"
     },
     "repositories": [
         {
