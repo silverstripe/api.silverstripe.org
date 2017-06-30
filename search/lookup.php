@@ -3,7 +3,7 @@
 // to their URL representation in the API docs. Redirects to this URL.
 // See README for more info.
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ .'/../vendor/autoload.php';
 
 $lookup = new SilverStripe\ApiDocs\Lookup($_GET);
 

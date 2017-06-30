@@ -51,43 +51,43 @@ class LookupTest extends \PHPUnit_Framework_TestCase
         return array(
             array(
                 array('q' => 'DataExtension', 'version' => '4'),
-                'http://mockserver/master/class-SilverStripe.ORM.DataExtension.html'
+                'http://mockserver/en/master/class-SilverStripe.ORM.DataExtension.html'
             ),
             array(
                 array('q' => 'DataExtension'),
-                'http://mockserver/master/class-SilverStripe.ORM.DataExtension.html'
+                'http://mockserver/en/master/class-SilverStripe.ORM.DataExtension.html'
             ),
             array(
                 array('q' => 'SomeClass'),
-                'http://mockserver/master/class-SomeClass.html'
+                'http://mockserver/en/master/class-SomeClass.html'
             ),
             array(
                 array('q' => 'SomeClass', 'version' => '3'),
-                'http://mockserver/3.6/class-SomeClass.html'
+                'http://mockserver/en/3.6/class-SomeClass.html'
             ),
             array(
                 array('q' => 'SomeClass', 'version' => '3.4'),
-                'http://mockserver/3.4/class-SomeClass.html'
+                'http://mockserver/en/3.4/class-SomeClass.html'
             ),
             array(
                 array('q' => '\Already\Fully\Qualified', 'version' => '3.4'),
-                'http://mockserver/3.4/class-Already.Fully.Qualified.html'
+                'http://mockserver/en/3.4/class-Already.Fully.Qualified.html'
             ),
             array(
                 array('q' => '\\\\Already\\\\Fully\\\\Qualified', 'version' => '3.4'),
-                'http://mockserver/3.4/class-Already.Fully.Qualified.html'
+                'http://mockserver/en/3.4/class-Already.Fully.Qualified.html'
             ),
             array(
                 array('q' => 'Director', 'module' => 'framework'),
-                'http://mockserver/master/class-SilverStripe.Control.Director.html'
+                'http://mockserver/en/master/class-SilverStripe.Control.Director.html'
             ),
             array(
                 array('q' => 'SiteTree::write()', 'module' => 'cms'),
-                'http://mockserver/master/class-SilverStripe.CMS.Model.SiteTree.html#_write'
+                'http://mockserver/en/master/class-SilverStripe.CMS.Model.SiteTree.html#_write'
             ),
             array(
                 array('q' => 'SiteTree::$allowed_children', 'module' => 'cms'),
-                'http://mockserver/master/class-SilverStripe.CMS.Model.SiteTree.html#$allowed_children'
+                'http://mockserver/en/master/class-SilverStripe.CMS.Model.SiteTree.html#$allowed_children'
             ),
         );
     }

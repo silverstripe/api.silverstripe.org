@@ -4,7 +4,7 @@
 cd $(dirname "$0");
 
 # Where the module source code should be stored
-STORAGE_DIR="assets/src"
+STORAGE_DIR="modulesource"
 
 #=== FUNCTION ==================================================================
 # NAME: 		checkout
@@ -36,7 +36,7 @@ function checkout {
 #
 #===============================================================================
 function generate {
-	vendor/bin/apigen generate --config conf/apigen/apigen.neon --source "$STORAGE_DIR"/$1 --destination htdocs/$1 --title "$2"
+	vendor/bin/apigen generate --config conf/apigen/apigen.neon --source "$STORAGE_DIR"/$1 --destination en/$1 --title "$2"
 }
 
 # Ensure storage directory exists

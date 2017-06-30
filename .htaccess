@@ -1,0 +1,32 @@
+<IfModule mod_rewrite.c>
+        SetEnv HTTP_MOD_REWRITE On
+        RewriteEngine On
+
+        # "Symlink" the root to the latest release (with "moved temporarily")
+        RewriteRule ^/?$ /en/3.6/ [R=302,L]
+
+        # Remove trailing slashes, ensures the redirect to en works
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^(.*)/$ /$1 [L,R]
+
+        # Lookup script (used to be a SS app, now just a simple script)
+        RewriteCond %{REQUEST_URI} ^/search/lookup$
+        RewriteRule ^search/lookup /search/lookup.php [L,R=301,QSA]
+
+        # "Symlink" a "current" folder to the latest release
+        RewriteRule ^.*/current.*?(.*)? /en/3.6/$1 [R=301,L]
+
+        # Rewrite trunk to master
+        RewriteRule ^.*/trunk/.*(.*)? /en/master/$1 [L,R=301]
+
+        # Docs are stored in en - serve from there
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_URI} !^.*/en/.*$ [NC]
+        RewriteRule .* /en%{REQUEST_URI} [L,R=301]
+
+        # Rewrite PHPDocumentor links for apigen
+        RewriteCond %{REQUEST_FILENAME} !^class-
+        RewriteRule ^/?(trunk|[23]\.[0-9])/.*/(.+)\.html$ /$1/class-$2.html [R=301]
+
+        ErrorDocument 404 /errors/404.html
+</IfModule>
