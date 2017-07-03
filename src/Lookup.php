@@ -213,7 +213,7 @@ class Lookup
      */
     public function sanitiseNamespaces($class)
     {
-        return str_replace('\\', '.', ltrim($class, '\\'));
+        return preg_replace("/(\\\\+)/", '.', ltrim($class, '\\'));
     }
 
     /**
