@@ -74,6 +74,10 @@ class LookupTest extends \PHPUnit_Framework_TestCase
                 'http://mockserver/3.4/class-Already.Fully.Qualified.html'
             ),
             array(
+                array('q' => '\\\\Already\\\\Fully\\\\Qualified', 'version' => '3.4'),
+                'http://mockserver/3.4/class-Already.Fully.Qualified.html'
+            ),
+            array(
                 array('q' => 'Director', 'module' => 'framework'),
                 'http://mockserver/master/class-SilverStripe.Control.Director.html'
             ),
