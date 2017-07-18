@@ -82,7 +82,7 @@ class Lookup
             $paths[] = 'modules/' . $this->getArg('module');
         }
 
-        $paths[] = $this->getVersion();
+        $paths[] = 'en/'.$this->getVersion();
 
         // Search
         if ($searchOrig = $this->getArg('q')) {
