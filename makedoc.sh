@@ -4,7 +4,7 @@
 cd $(dirname "$0");
 
 # Where the module source code should be stored
-STORAGE_DIR="assets/src"
+STORAGE_DIR="modulesource"
 
 #=== FUNCTION ==================================================================
 # NAME:         checkout
