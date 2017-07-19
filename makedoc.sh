@@ -42,7 +42,7 @@ function checkout {
 #
 #===============================================================================
 function generate {
-    vendor/bin/apigen generate --config conf/apigen/apigen.neon --source "$STORAGE_DIR"/$1 --destination htdocs/$1 --title "$2"
+    vendor/bin/apigen generate --config conf/apigen/apigen.neon --source "$STORAGE_DIR"/$1 --destination en/$1 --title "$2"
 }
 
 # Ensure storage directory exists
@@ -77,29 +77,29 @@ checkout 'git://github.com/silverstripe/silverstripe-reports.git' '3.5' 'reports
 generate '3.5' 'SilverStripe 3.5 API Docs'
 
 # 3.4
-checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.4.1' 'cms' 'tag'
-checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.4.1' 'framework' 'tag'
-checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' '3.4.1' 'siteconfig' 'tag'
-checkout 'git://github.com/silverstripe/silverstripe-reports.git' '3.4.1' 'reports' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.4.6' 'cms' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.4.6' 'framework' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' '3.4.6' 'siteconfig' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-reports.git' '3.4.6' 'reports' 'tag'
 generate '3.4' 'SilverStripe 3.4 API Docs'
 
 # 3.3
-checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.3.1' 'cms' 'tag'
-checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.3.1' 'framework' 'tag'
-checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' '3.3.1' 'siteconfig' 'tag'
-checkout 'git://github.com/silverstripe/silverstripe-reports.git' '3.3.1' 'reports' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.3.4' 'cms' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.3.4' 'framework' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' '3.3.4' 'siteconfig' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-reports.git' '3.3.4' 'reports' 'tag'
 generate '3.3' 'SilverStripe 3.3 API Docs'
 
 # 3.2
-checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.2.1' 'cms' 'tag'
-checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.2.1' 'framework' 'tag'
-checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' '3.2.1' 'siteconfig' 'tag'
-checkout 'git://github.com/silverstripe/silverstripe-reports.git' '3.2.1' 'reports' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.2.6' 'cms' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.2.6' 'framework' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-siteconfig.git' '3.2.6' 'siteconfig' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-reports.git' '3.2.6' 'reports' 'tag'
 generate '3.2' 'SilverStripe 3.2 API Docs'
 
 # 3.1
-checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.1.1' 'cms' 'tag'
-checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.1.1' 'framework' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-cms.git' '3.1.21' 'cms' 'tag'
+checkout 'git://github.com/silverstripe/silverstripe-framework.git' '3.1.21' 'framework' 'tag'
 generate '3.1' 'SilverStripe 3.1 API Docs'
 
 # 3.0
