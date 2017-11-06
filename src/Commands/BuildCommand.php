@@ -15,7 +15,7 @@ class BuildCommand extends Command
         /** @var ProcessHelper $runner */
         $runner = $this->getHelper('process');
         $result = $runner->run($output, [
-            'vendor/bin/sami.php',
+            'bin/sami',
             'update',
             'conf/sami.php',
         ]);

@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use SilverStripe\ApiDocs\DocsApplication;
+use Sami\Console\Application;
 
 set_time_limit(0);
 
@@ -27,5 +27,5 @@ if (!$included) {
     throw new RuntimeException("What is Composer? Is a food?");
 }
 
-$application = new DocsApplication();
+$application = new Application();
 $application->run();
