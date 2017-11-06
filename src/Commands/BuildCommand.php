@@ -12,6 +12,8 @@ class BuildCommand extends Command
 {
     public function run(InputInterface $input, OutputInterface $output)
     {
+        $output->writeln("Running saml command...");
+
         /** @var ProcessHelper $runner */
         $runner = $this->getHelper('process');
         $result = $runner->run($output, [
@@ -23,5 +25,7 @@ class BuildCommand extends Command
             $error = $result->getErrorOutput();
             throw new Exception($error);
         }
+
+        $output->writeln("Saml generated!");
     }
 }
