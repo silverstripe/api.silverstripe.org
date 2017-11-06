@@ -5,6 +5,7 @@ use Sami\Version\Version;
 use SilverStripe\ApiDocs\Data\Config;
 use SilverStripe\ApiDocs\Inspections\RecipeFinder;
 use SilverStripe\ApiDocs\Inspections\RecipeVersionCollection;
+use SilverStripe\ApiDocs\Twig\NavigationExtension;
 
 // Get config
 $config = Config::getConfig();
@@ -26,11 +27,23 @@ $iterator
     ->exclude('tests');
 
 // Config
-return new Sami($iterator, [
-    'theme' => 'default',
+$sami = new Sami($iterator, [
+    'theme' => $config['theme'],
     'title' => $config['title'],
     'versions' => $versions,
     'build_dir' => Config::configPath($config['paths']['www']) . '/%version%',
     'cache_dir' => Config::configPath($config['paths']['cache']) . '/%version%',
     'default_opened_level' => 2,
+    'template_dirs' => [ __DIR__ .'/themes' ],
 ]);
+
+// Override twig
+/** @var Twig_Environment $twig */
+$twig = $sami['twig'];
+unset($sami['twig']);
+$sami['twig'] = function () use ($twig) {
+    $twig->addExtension(new NavigationExtension());
+    return $twig;
+};
+
+return $sami;

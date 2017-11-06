@@ -1,0 +1,118 @@
+{% extends "layout/base.twig" %}
+
+{% block globalnavhead %}
+    {# CUSTOM: CSS #}
+    <link rel="stylesheet" type="text/css" href="{{ path('css/custom.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ path('css/ionicons.min.css') }}">
+
+	{# CUSTOM: Toolbar support #}
+	<link rel="stylesheet" type="text/css" href="//www.silverstripe.org/themes/ssv3/css/toolbar.css" />
+{% endblock %}
+
+{% block globalnav %}
+    <header class="site-header" data-0="background-position: 50% 50%;" data-544="background-position: 50% -30%;">
+        <div class="global-nav header-mask">
+            <div id="navWrapper">
+                {{ file_get_contents('http://www.silverstripe.org/assets/global-nav-api.html')|raw }}
+                <div class="container component-search">
+                    <span id="SearchAnchor"><!-- search box anchor --></span>
+                    <div class="search-pane search-pane-desktop" id="desktopSearch">
+                        <a href="#" class="search-close" title="Close search">
+                            <svg version="1.1" id="CloseIcon" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                            <polygon class="close-svg"
+                                points="459.6,97.6 414.4,52.4 256,210.7 97.6,52.4 52.4,97.6 210.7,256 52.4,414.4 97.6,459.6 256,301.3
+                                414.4,459.6 459.6,414.4 301.3,256 "></polygon>
+                            </svg>
+                        </a>
+                        <gcse:searchbox-only resultsUrl="//www.silverstripe.org/search/" enableAutoComplete="true"
+                             title="Search SilverStripe"
+                             placeholder="Search SilverStripe"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+    <div id="content">
+        <div id="left-column">
+            {{ block('control_panel') }}
+            {{ block('leftnav') }}
+        </div>
+        <div id="right-column">
+            {{ block('menu') }}
+            {% block below_menu '' %}
+            <div id="page-content">
+                {% block page_content '' %}
+            </div>
+            {{ block('footer') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block menu %}
+    <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('index.html') }}">{{ project.config('title') }}</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ path('classes.html') }}">Classes</a></li>
+                    {% if has_namespaces %}
+                        <li><a href="{{ path('namespaces.html') }}">Namespaces</a></li>
+                    {% endif %}
+                    <li><a href="{{ path('interfaces.html') }}">Interfaces</a></li>
+                    <li><a href="{{ path('traits.html') }}">Traits</a></li>
+                    <li><a href="{{ path('doc-index.html') }}">Index</a></li>
+                    <li><a href="{{ path('search.html') }}">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block leftnav %}
+    <div id="api-tree"></div>
+{% endblock %}
+
+{% block control_panel %}
+    <div id="control-panel">
+        {% if project.versions|length > 1 %}
+            <form action="#" method="GET">
+                <select id="version-switcher" name="version">
+                    {% for version in project.versions %}
+                        <option value="{{ path('../' ~ version ~ '/index.html') }}"
+                                data-version="{{ version }}">{{ version.longname }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        {% endif %}
+        <script>
+            $('option[data-version="' + window.projectVersion + '"]').prop('selected', true);
+        </script>
+        <form id="search-form" action="{{ path('search.html') }}" method="GET">
+            <span class="glyphicon glyphicon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <div id="footer">
+        Generated by <a href="http://sami.sensiolabs.org/">Sami, the API Documentation Generator</a>.
+    </div>
+{% endblock %}

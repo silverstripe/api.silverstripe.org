@@ -1,5 +1,6 @@
 {
     "title": "SilverStripe API",
+    "theme": "silverstripe",
     "versions": {
         "master": "5.x",
         "4": "4.x",

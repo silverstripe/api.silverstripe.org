@@ -11,5 +11,7 @@
     RewriteCond %{REQUEST_URI} .* [NC]
     RewriteRule ^(.*)$ htdocs/$1
 
-    ErrorDocument 404 errors/404.html
+    # 404 handling
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule .* errors/404.html
 </IfModule>
