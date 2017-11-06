@@ -9,14 +9,13 @@
         }
     ],
     "require": {
-        "apigen/apigen": "2.8.x-dev",
-        "symfony/yaml": "~2.6.0"
+        "php": "^7",
+        "sami/sami": "^4",
+        "gitonomy/gitlib": "~1.0",
+        "symfony/console": "^3.3"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:silverstripe-labs/ApiGen.git"
-        }
+    "bin": [
+        "bin/docs"
     ],
     "autoload": {
         "psr-4": {
