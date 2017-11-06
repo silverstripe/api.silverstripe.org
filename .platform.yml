@@ -1,12 +1,12 @@
 infrastructure: ^3
 shared_dirs:
   mysite:
-    modulesource: {}
-    en: {}
+    data: {}
+    htdocs: {}
 crons:
   mytask:
     time: "0 3 * * *"
     command: "/var/www/mysite/www/makedoc.sh | logger -t SilverStripe_cron"
 url_rules:
   mysite:
-    - '^.*html': 'apache'
+    - '^.*': 'apache'
