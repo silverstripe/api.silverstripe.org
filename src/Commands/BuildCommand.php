@@ -14,6 +14,8 @@ class BuildCommand extends Command
     {
         $output->writeln("Running saml command...");
 
+        set_time_limit(0);
+
         /** @var ProcessHelper $runner */
         $runner = $this->getHelper('process');
         $result = $runner->run($output, [
