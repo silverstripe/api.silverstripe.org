@@ -2,6 +2,11 @@
     SetEnv HTTP_MOD_REWRITE On
     RewriteEngine On
 
+    # Lookup script (used to be a SS app, now just a simple script)
+    # E.g. http://api.silverstripe.org.loc/search/lookup/?q=SilverStripe\ORM\HasManyList&version=4&module=framework
+    RewriteCond %{REQUEST_URI} ^(.*)search/lookup [NC]
+    RewriteRule ^/?search/lookup(/|$) %1search/lookup.php [L,R=302,QSA]
+
     # Symlink to 4 index.html
     RewriteCond %{REQUEST_URI} ^(.*)$ [NC]
     RewriteRule ^/?$ %14/index.html [R=302,L]
