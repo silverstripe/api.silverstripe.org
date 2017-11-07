@@ -1,6 +1,7 @@
 {
     "title": "SilverStripe API",
     "theme": "silverstripe",
+    "base_url": "http://api.silverstripe.org/%version%",
     "versions": {
         "master": "5.x",
         "4": "4.x",
