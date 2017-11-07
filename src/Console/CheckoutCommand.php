@@ -1,6 +1,6 @@
 <?php
 
-namespace SilverStripe\ApiDocs\Commands;
+namespace SilverStripe\ApiDocs\Console;
 
 use Gitonomy\Git\Admin;
 use SilverStripe\ApiDocs\Data\Config;

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace SilverStripe\ApiDocs\Data;
-
 
 use Gitonomy\Git\Repository;
 use Symfony\Component\Console\Logger\ConsoleLogger;

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5cd68d8f77c2edaf41f8dd50fe53245e",
+    "content-hash": "4e63f68d878d4140eb9ee708cb0c3b27",
     "packages": [
         {
             "name": "blackfire/php-sdk",
@@ -473,16 +473,16 @@
         },
         {
             "name": "sami/sami",
-            "version": "v4.0.8",
+            "version": "dev-temp-cachefix",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FriendsOfPHP/Sami.git",
-                "reference": "ad64addbaf9451249e729b3f8ca95d0233887da7"
+                "url": "https://github.com/open-sausages/Sami.git",
+                "reference": "1e884d8414d024dfa64d731eb90e1fe619b3577b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/Sami/zipball/ad64addbaf9451249e729b3f8ca95d0233887da7",
-                "reference": "ad64addbaf9451249e729b3f8ca95d0233887da7",
+                "url": "https://api.github.com/repos/open-sausages/Sami/zipball/1e884d8414d024dfa64d731eb90e1fe619b3577b",
+                "reference": "1e884d8414d024dfa64d731eb90e1fe619b3577b",
                 "shasum": ""
             },
             "require": {
@@ -516,7 +516,6 @@
                     "Sami\\": "Sami/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -531,7 +530,10 @@
             "keywords": [
                 "phpdoc"
             ],
-            "time": "2017-09-05T19:59:55+00:00"
+            "support": {
+                "source": "https://github.com/open-sausages/Sami/tree/pulls/fix-cache-pollution"
+            },
+            "time": "2017-11-07T22:48:23+00:00"
         },
         {
             "name": "symfony/console",
@@ -2054,7 +2056,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "sami/sami": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

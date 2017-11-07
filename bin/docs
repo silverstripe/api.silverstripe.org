@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use SilverStripe\ApiDocs\DocsApplication;
+use SilverStripe\ApiDocs\Console\DocsApplication;
 
 set_time_limit(0);
 
