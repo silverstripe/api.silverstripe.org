@@ -1,4 +1,8 @@
 infrastructure: ^3
+php_settings:
+  version: 7.1
+  cli:
+    max_execution_time: 0
 shared_dirs:
   mysite:
     data: {}
