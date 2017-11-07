@@ -22,6 +22,7 @@ class BuildCommand extends Command
             'bin/sami',
             'update',
             'conf/sami.php',
+            '--force'
         ]);
         if (!$result->isSuccessful()) {
             $error = $result->getErrorOutput();

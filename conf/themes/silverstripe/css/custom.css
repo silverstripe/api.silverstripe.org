@@ -183,15 +183,30 @@ header {
 }
 
 /* Override sami.css */
+#content {
+    position: fixed;
+    height: auto;
+    top: 109px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 #left-column,
 #right-column {
-
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: auto;
 }
-
+#left-column {
+    width: 20%;
+    left: 0;
+    z-index: 100;
+}
 #right-column {
-    position: fixed;
-    height: 100%;
     width: 80%;
     right: 0;
-    overflow: scroll;
+    z-index: 50;
+    overflow: auto;
 }
+

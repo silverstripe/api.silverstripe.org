@@ -2,6 +2,7 @@
 
 use Sami\Sami;
 use Sami\Version\Version;
+use SilverStripe\ApiDocs\Data\ApiJsonStore;
 use SilverStripe\ApiDocs\Data\Config;
 use SilverStripe\ApiDocs\Inspections\RecipeFinder;
 use SilverStripe\ApiDocs\Inspections\RecipeVersionCollection;
@@ -44,6 +45,13 @@ unset($sami['twig']);
 $sami['twig'] = function () use ($twig) {
     $twig->addExtension(new NavigationExtension());
     return $twig;
+};
+
+// Override json store
+$store = $sami['store'];
+unset($sami['store']);
+$sami['store'] = function () {
+    return new ApiJsonStore();
 };
 
 return $sami;
