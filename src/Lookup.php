@@ -2,8 +2,6 @@
 
 namespace SilverStripe\ApiDocs;
 
-use Symfony\Component\Yaml\Yaml;
-
 /**
  * Lookup script to convert symbol names and other parameters to their URL representation in the API docs.
  *
@@ -27,11 +25,6 @@ class Lookup
      * @var string[]
      */
     protected $versionMap = array();
-
-    /**
-     * @var string[]
-     */
-    protected $upgraderMap = array();
 
     /**
      * @var string
@@ -65,57 +58,25 @@ class Lookup
         if (array_key_exists($key, $this->args)) {
             return $this->args[$key];
         }
+        return null;
     }
 
     /**
-     * Redirect the user to where they need to go
+     * Redirect the user to where they need to go.
+     * E.g. http://api.silverstripe.org/search/lookup/?q=SilverStripe\ORM\HasManyList&version=4&module=framework
+     * redirects to /4/SilverStripe/ORM/HasManyList.html
      *
      * @param bool $return When true, the redirect URL will be returned instead of a header issued
      * @return string|null
      */
     public function handle($return = false)
     {
-        $paths = array();
-
-        // Only include modules path if we're not requesting core.
-        if ($this->getArg('module') && !in_array($this->getArg('module'), array('cms', 'framework', 'sapphire'))) {
-            $paths[] = 'modules/' . $this->getArg('module');
-        }
-
-        $paths[] = 'en/'.$this->getVersion();
-
-        // Search
-        if ($searchOrig = $this->getArg('q')) {
-            $search = str_replace(array('()', '$'), '', $searchOrig);
-            $searchParts = preg_split('/(::|\->)/', $search);
-            $searchConfig = array();
-            if (count($searchParts) == 2) {
-                $searchConfig['class'] = $searchParts[0];
-                $searchConfig['property'] = $searchParts[1];
-                $searchConfig['type'] = (strpos($searchOrig, '()') !== false) ? 'method' : 'property';
-            } else {
-                $searchConfig['class'] = $search;
-                $searchConfig['property'] = '';
-                $searchConfig['type'] = 'class';
-            }
-            $searchConfig['class'] = $this->getWithNamespace($searchConfig['class']);
-            $searchPath = 'class-' . $searchConfig['class'] . '.html';
-            if ($searchConfig['property']) {
-                if ($searchConfig['type'] == 'method') {
-                    $searchPath .= '#_' . $searchConfig['property'];
-                } else {
-                    $searchPath .= '#$' . $searchConfig['property'];
-                }
-            }
-            $paths[] = $searchPath;
-        }
-
-        $url = 'http://' . $this->getServerName() . '/' . implode('/', array_filter($paths));
-
+        $url = $this->getURL();
         if ($return) {
             return $url;
         }
         header('Location: ' . $url);
+        return null;
     }
 
     /**
@@ -145,88 +106,13 @@ class Lookup
     }
 
     /**
-     * Using any available silverstripe/upgrader mapping files, see if we can convert an unqualified class name
-     * into a fully qualified one
-     *
-     * @param  string $class
-     * @param  bool   $sanitise Whether to have the return value sanitised
-     * @return string
-     */
-    public function getWithNamespace($class, $sanitise = true)
-    {
-        $map = $this->getUpgraderMap();
-        if (!empty($map) && array_key_exists($class, $map)) {
-            $class = $map[$class];
-        }
-
-        if ($sanitise) {
-            return $this->sanitiseNamespaces($class);
-        }
-
-        return $class;
-    }
-
-    /**
-     * Look for silverstripe/upgrader .upgrade.yml mapping files in this version's core modules. If found, combine
-     * them and return whether or not anything useful was found.
-     *
-     * @return bool
-     */
-    public function getUpgraderMap()
-    {
-        if ($this->upgraderMap) {
-            return $this->upgraderMap;
-        }
-
-        $mapFilePaths = __DIR__ . '/../assets/src/' . $this->getVersion() . '/*/.upgrade.yml';
-        foreach (glob($mapFilePaths) as $mapFile) {
-            try {
-                $mapping = (array) Yaml::parse(file_get_contents($mapFile));
-            } catch (\Symfony\Component\Yaml\Exception\ParseException $ex) {
-                // Fail gracefully here
-            }
-            if (!empty($mapping['mappings'])) {
-                $this->upgraderMap = array_merge($this->upgraderMap, $mapping['mappings']);
-            }
-        }
-        return $this->upgraderMap;
-    }
-
-    /**
-     * Allow ability to set the upgrader mapping manually. Useful for tests.
-     *
-     * @param array $map
-     * @return $this
-     */
-    public function setUpgraderMap($map)
-    {
-        $this->upgraderMap = $map;
-        return $this;
-    }
-
-    /**
-     * Returns the given class name with any namespace backslashes replaced with periods, and the leading slash
-     * trimmed off.
-     *
-     * @param  string $class E.g. \SilverStripe\ORM\DataExtension
-     * @return string        E.g. SilverStripe.ORM.DataExtension
-     */
-    public function sanitiseNamespaces($class)
-    {
-        return preg_replace("/(\\\\+)/", '.', ltrim($class, '\\'));
-    }
-
-    /**
-     * Get the server name to use for API reference links. Defaults to retrieving a server variable.
+     * Base dir
      *
      * @return string
      */
-    public function getServerName()
+    public function getBaseDir()
     {
-        if ($this->serverName) {
-            return $this->serverName;
-        }
-        return $_SERVER['SERVER_NAME'];
+        return __DIR__ . '/..';
     }
 
     /**
@@ -239,5 +125,57 @@ class Lookup
     {
         $this->serverName = $name;
         return $this;
+    }
+
+    /**
+     * Given a config determine the URL to navigate to
+     *
+     * @param array $searchConfig
+     * @return string
+     */
+    protected function getURLForClass(array $searchConfig): string
+    {
+        $searchPath = '/' . $this->getVersion() . '/' . str_replace('\\', '/', $searchConfig['class']) . '.html';
+
+        // If file doesn't exist, redirect to search
+        if (!file_exists($this->getBaseDir() . '/htdocs' . $searchPath)) {
+            return '/' . $this->getVersion() . '/search.html?search=' . urlencode($searchConfig['class']);
+        }
+
+        // Add hash-link on end
+        if ($searchConfig['property'] && $searchConfig['type']) {
+            $searchPath .= '#' . $searchConfig['type'] . '_' . $searchConfig['property'];
+        }
+
+        return $searchPath;
+    }
+
+    /**
+     * Get url for this search
+     *
+     * @return string
+     */
+    protected function getURL(): string
+    {
+        // Search
+        $searchOrig = $this->getArg('q');
+        if (!$searchOrig) {
+            return '/'; // Just go to home
+        }
+
+        $search = str_replace(array('()', '$'), '', $searchOrig);
+        $searchParts = preg_split('/(::|\->)/', $search);
+        $searchConfig = array();
+        if (count($searchParts) == 2) {
+            $searchConfig['class'] = $searchParts[0];
+            $searchConfig['property'] = $searchParts[1];
+            $searchConfig['type'] = (strpos($searchOrig, '()') !== false) ? 'method' : 'property';
+        } else {
+            $searchConfig['class'] = $search;
+            $searchConfig['property'] = '';
+            $searchConfig['type'] = 'class';
+        }
+
+        return $this->getURLForClass($searchConfig);
     }
 }
