@@ -5,6 +5,10 @@
 
     ### =============== Legacy redirects ===============
 
+    # Redirect non-languaged minor versions to en, e.g. /3.1/class-DataObject.html to /en/3/class-DataObject.html
+    RewriteCond %{REQUEST_URI} ^(.*)$ [NC]
+    RewriteRule ^(\d)\.\d/(.*)$ en/$1/$2 [L,R=301]
+
     # Redirect to major version only (not minor)
     RewriteCond %{REQUEST_URI} ^(.*)en/([\d]+)\.[\w.]+/(.*)$ [NC]
     RewriteRule ^(.*)$ %1en/%2/%3 [L,R=302]
