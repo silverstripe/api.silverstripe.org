@@ -99,8 +99,15 @@ class Lookup
     public function getVersion()
     {
         $version = $this->getArg('version') ?: self::DEFAULT_BRANCH;
-        if (array_key_exists($version, $this->versionMap)) {
-            return $this->versionMap[$version];
+        foreach ($this->versionMap as $rule => $substitution) {
+            // Check regular expression rule
+            if (strpos($rule, '/') === 0 && preg_match($rule, $version)) {
+                return preg_replace($rule, $substitution, $version);
+            }
+            // Check exact rule
+            if (strpos($rule, '/') === false && $rule === $version) {
+                return $substitution;
+            }
         }
         return $version;
     }
