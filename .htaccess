@@ -5,36 +5,36 @@
 
     ### =============== Legacy redirects ===============
 
-    # Redirect non-languaged minor versions to en, e.g. /3.1/class-DataObject.html to /en/3/class-DataObject.html
-    RewriteCond %{REQUEST_URI} ^(.*)$ [NC]
-    RewriteRule ^(\d)\.\d/(.*)$ en/$1/$2 [L,R=301]
-
-    # Redirect to major version only (not minor)
-    RewriteCond %{REQUEST_URI} ^(.*)en/([\d]+)\.[\w.]+/(.*)$ [NC]
-    RewriteRule ^(.*)$ %1en/%2/%3 [L,R=302]
+    # Packages no longer exist
+    RewriteCond %{REQUEST_URI} ^(.*)en/.*/package-.*\.html [NC]
+    RewriteRule ^(.*)$ %1 [L,R=302]
 
     # 2.x no longer exists
-    RewriteCond %{REQUEST_URI} ^(.*)en/2.* [NC]
+    RewriteCond %{REQUEST_URI} ^(.*)en/2[.] [NC]
     RewriteRule ^(.*)$ %1 [L,R=302]
 
-    # Packages no longer exist
-    RewriteCond %{REQUEST_URI} ^(.*)en/[\w.]+/package-.*\.html [NC]
-    RewriteRule ^(.*)$ %1 [L,R=302]
+    # Redirect non-languaged minor versions to major version, e.g. /3.1/DataObject.html to /3/DataObject.html
+    RewriteCond %{REQUEST_URI} ^(.*)(\d)[.]\d/(.*)$ [NC]
+    RewriteRule ^(\d)\.\d/(.*)$ %1%2/%3 [L,R=302]
+
+    # Redirect language minor version to major version, e.g. /en/3.1/File.html to /3/File.html
+    RewriteCond %{REQUEST_URI} ^(.*)en/([\d]+)[.][\w.]+/(.*)$ [NC]
+    RewriteRule ^(.*)$ %1%2/%3 [L,R=302]
 
     # Class redirect. E.g.
-    # /en/4/class-SilverStripe.AssetAdmin.Forms.FileSearchFormFactory.html
+    # /4/class-SilverStripe.AssetAdmin.Forms.FileSearchFormFactory.html
     # /4/SilverStripe/AssetAdmin/Forms/FileSearchFormFactory.html
-    RewriteCond %{REQUEST_URI} ^(.*)en/([\w.]+)/class-([\w]+)\.html [NC]
+    RewriteCond %{REQUEST_URI} ^(.*)([\w.]+)/class-([\w]+)\.html [NC]
     RewriteRule ^(.*)$ %1%2/%3.html [L,R=302]
-    RewriteCond %{REQUEST_URI} ^(.*)en/([\w.]+)/class-([\w]+)\.([\w]+)\.html [NC]
+    RewriteCond %{REQUEST_URI} ^(.*)([\w.]+)/class-([\w]+)\.([\w]+)\.html [NC]
     RewriteRule ^(.*)$ %1%2/%3/%4.html [L,R=302]
-    RewriteCond %{REQUEST_URI} ^(.*)en/([\w.]+)/class-([\w]+)\.([\w]+)\.([\w]+)\.html [NC]
+    RewriteCond %{REQUEST_URI} ^(.*)([\w.]+)/class-([\w]+)\.([\w]+)\.([\w]+)\.html [NC]
     RewriteRule ^(.*)$ %1%2/%3/%4/%5.html [L,R=302]
-    RewriteCond %{REQUEST_URI} ^(.*)en/([\w.]+)/class-([\w]+)\.([\w]+)\.([\w]+)\.([\w]+)\.html [NC]
+    RewriteCond %{REQUEST_URI} ^(.*)([\w.]+)/class-([\w]+)\.([\w]+)\.([\w]+)\.([\w]+)\.html [NC]
     RewriteRule ^(.*)$ %1%2/%3/%4/%5/%6.html [L,R=302]
-    RewriteCond %{REQUEST_URI} ^(.*)en/([\w.]+)/class-([\w]+)\.([\w]+)\.([\w]+)\.([\w]+)\.([\w]+)\.html [NC]
+    RewriteCond %{REQUEST_URI} ^(.*)([\w.]+)/class-([\w]+)\.([\w]+)\.([\w]+)\.([\w]+)\.([\w]+)\.html [NC]
     RewriteRule ^(.*)$ %1%2/%3/%4/%5/%6/%7.html [L,R=302]
-    RewriteCond %{REQUEST_URI} ^(.*)en/([\w.]+)/class-([\w]+)\.([\w]+)\.([\w]+)\.([\w]+)\.([\w]+)\.([\w]+)\.html [NC]
+    RewriteCond %{REQUEST_URI} ^(.*)([\w.]+)/class-([\w]+)\.([\w]+)\.([\w]+)\.([\w]+)\.([\w]+)\.([\w]+)\.html [NC]
     RewriteRule ^(.*)$ %1%2/%3/%4/%5/%6/%7/%8.html [L,R=302]
 
     ### ============= End Legacy redirects =============
