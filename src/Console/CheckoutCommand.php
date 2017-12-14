@@ -32,8 +32,22 @@ class CheckoutCommand extends Command
             if (file_exists($root . '/.git')) {
                 $output->writeln("Updating <info>$name</info>");
                 $repo = RepoFactory::repoFor($root, $output);
-                $repo->run('remote', ['update']);
-                $repo->run('pull', ['--all']);
+                $repo->run('fetch', ['--all']);
+                foreach ($config['versions'] as $branch => $alias) {
+                    $trueBranch = $branch;
+                    if (array_key_exists('versionmap', $data)) {
+                        $versionMap = $data['versionmap'];
+                        if (isset($config['versionmaps'][$versionMap], $config['versionmaps'][$versionMap][$branch])) {
+                            $trueBranch = $config['versionmaps'][$versionMap][$branch];
+                        } else {
+                            $trueBranch = null;
+                        }
+                    }
+                    if ($trueBranch) {
+                        $repo->run('checkout', ['--force', $trueBranch]);
+                        $repo->run('reset', ['--hard', 'origin/'.$trueBranch]);
+                    }
+                }
             } else {
                 $output->writeln("Checking out <info>$name</info>");
                 if (!file_exists($root)) {
