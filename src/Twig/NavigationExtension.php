@@ -10,7 +10,7 @@ class NavigationExtension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_Function('file_get_contents', [$this, 'file_get_contents']),
+            new Twig_Function('file_get_contents', [$this, 'fileGetContents']),
         ];
     }
 
@@ -22,7 +22,7 @@ class NavigationExtension extends Twig_Extension
      * @param string $url
      * @return string
      */
-    public function file_get_contents($url)
+    public function fileGetContents($url)
     {
         // http://www.silverstripe.org/assets/global-nav-api.html
         if (!isset($this->navigation[$url])) {
