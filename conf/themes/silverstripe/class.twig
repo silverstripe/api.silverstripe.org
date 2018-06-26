@@ -55,6 +55,12 @@
         {{ block('constants') }}
     {% endif %}
 
+    {% if configs %}
+        <h2>Config options</h2>
+
+        {{ block('configs') }}
+    {% endif %}
+
     {% if properties %}
         <h2>Properties</h2>
 
@@ -157,6 +163,28 @@
                 <td class="last">
                     <p><em>{{ constant.shortdesc|desc(class) }}</em></p>
                     <p>{{ constant.longdesc|desc(class) }}</p>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block configs %}
+    <table class="table table-condensed">
+        {% for config in configs %}
+            <tr>
+                <td class="type" id="config_{{ config.name|raw }}">
+                    {% if config.protected %}protected{% endif %}
+                    {% if config.private %}private{% endif %}
+                    {% if config.static %}static{% endif %}
+                    {{ hint_link(config.hint) }}
+                </td>
+                <td>${{ config.name|raw }}</td>
+                <td class="last">{{ config.shortdesc|desc(class) }}</td>
+                <td>
+                    {%- if config.class is not same as(class) -%}
+                        <small>from&nbsp;{{ property_link(property, false, true) }}</small>
+                    {%- endif -%}
                 </td>
             </tr>
         {% endfor %}

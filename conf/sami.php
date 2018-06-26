@@ -1,5 +1,7 @@
 <?php
 
+use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor\NameResolver;
 use Sami\Project;
 use Sami\Sami;
 use SilverStripe\ApiDocs\Data\ApiJsonStore;
@@ -42,6 +44,18 @@ $sami = new Sami($iterator, [
 // Make sure we document `@config` options
 $sami['filter'] = function() {
     return new \SilverStripe\ApiDocs\Parser\Filter\SilverStripeFilter();
+};
+
+$sami['php_traverser'] = function ($sc) {
+    $traverser = new NodeTraverser();
+    $traverser->addVisitor(new NameResolver());
+    $traverser->addVisitor(new \SilverStripe\ApiDocs\Parser\SilverStripeNodeVisitor($sc['parser_context']));
+
+    return $traverser;
+};
+
+$sami['renderer'] = function ($sc) {
+    return new \SilverStripe\ApiDocs\Renderer\SilverStripeRenderer($sc['twig'], $sc['themes'], $sc['tree'], $sc['indexer']);
 };
 
 // Override twig
