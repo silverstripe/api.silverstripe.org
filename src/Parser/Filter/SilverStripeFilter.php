@@ -11,17 +11,18 @@ class SilverStripeFilter extends PublicFilter
 {
     public function acceptClass(ClassReflection $class)
     {
-        return parent::acceptClass($class);
+        return !$class->getTags('internal') && parent::acceptClass($class);
     }
 
     public function acceptMethod(MethodReflection $method)
     {
-        return parent::acceptMethod($method);
+        return !$method->getTags('internal') && parent::acceptMethod($method);
     }
 
     public function acceptProperty(PropertyReflection $property)
     {
         // if there's a config tag, then we want to document it
-        return $property->getTags('config') || parent::acceptProperty($property);
+        return !$property->getTags('internal') &&
+            ($property->getTags('config') || parent::acceptProperty($property));
     }
 }
