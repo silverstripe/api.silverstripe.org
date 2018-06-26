@@ -39,6 +39,11 @@ $sami = new Sami($iterator, [
     'template_dirs' => [ __DIR__ .'/themes' ],
 ]);
 
+// Make sure we document `@config` options
+$sami['filter'] = function() {
+    return new \SilverStripe\ApiDocs\Parser\Filter\SilverStripeFilter();
+};
+
 // Override twig
 /** @var Twig_Environment $twig */
 $twig = $sami['twig'];
