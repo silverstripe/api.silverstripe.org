@@ -173,13 +173,8 @@
     <table class="table table-condensed">
         {% for config in configs %}
             <tr>
-                <td class="type" id="config_{{ config.name|raw }}">
-                    {% if config.protected %}protected{% endif %}
-                    {% if config.private %}private{% endif %}
-                    {% if config.static %}static{% endif %}
-                    {{ hint_link(config.hint) }}
-                </td>
-                <td>${{ config.name|raw }}</td>
+                <td>{{ config.name|raw }}</td>
+                <td>{{ hint_link(config.hint) }}</td>
                 <td class="last">{{ config.shortdesc|desc(class) }}</td>
                 <td>
                     {%- if config.class is not same as(class) -%}
