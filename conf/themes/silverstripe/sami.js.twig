@@ -92,6 +92,20 @@ window.projectVersion = '{{ project.version }}';
 
         /** Searches through the index for a given term */
         search: function(term) {
+            var searchField =  $('#search-form .tt-input');
+            var rankByType = function (type) {
+                switch (type) {
+                    case 'Class':
+                    case 'Trait':
+                    case 'Interface':
+                        return 1;
+                    case 'Namespace':
+                        return 2;
+                    case 'Method':
+                    default:
+                        return 3;
+                }
+            }
             // Create a new search index if needed
             if (!bhIndex) {
                 bhIndex = new Bloodhound({
@@ -100,7 +114,122 @@ window.projectVersion = '{{ project.version }}';
                     datumTokenizer: function (d) {
                         return tokenizer(d.name);
                     },
-                    queryTokenizer: Bloodhound.tokenizers.whitespace
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    sorter: function(a, b) {
+                        // not sure how to get the search term in a nicer way than this
+                        var term = searchField.val();
+
+                        var lowerTerm = term.toLowerCase();
+
+                        var matcher = function (a, b, aObj, bObj, ignoreEnds) {
+
+                            // always prioritise by type - this stops methods polluting the results
+                            var aPriority = rankByType(aObj.type);
+                            var bPriority = rankByType(bObj.type);
+
+                            if (aPriority > bPriority) {
+                                return 1;
+                            }
+                            if (aPriority < bPriority) {
+                                return -1
+                            }
+
+                            // normalise terms
+                            a = a.toLowerCase();
+                            b = b.toLowerCase();
+
+                            if (a !== b) {
+                                // prefer exact match
+                                if (lowerTerm == a) {
+                                    return -1;
+                                }
+                                if (lowerTerm == b) {
+                                    return 1;
+                                }
+                            }
+
+                            // if they match equally well, rank on type
+                            if (a == b || (!ignoreEnds && (a.endsWith(lowerTerm) && b.endsWith(lowerTerm)) || (a.startsWith(lowerTerm) && b.startsWith(lowerTerm)))) {
+
+                                // if they match on type, they should sort alphabetically
+                                if (aPriority == bPriority) {
+                                    // alphabetically
+                                    if (a == b) {
+                                        return 0;
+                                    }
+                                    if (a > b) {
+                                        return 1;
+                                    } else {
+                                        return -1;
+                                    }
+                                }
+                                // sort by type
+                                if (aPriority > bPriority) {
+                                    return 1
+                                } else {
+                                    return -1;
+                                }
+                            }
+
+                            // allow skipping of matching begins and ends of stings (useful when sorting the FQNS)
+                            if (ignoreEnds) {
+                                return null;
+                            }
+
+                            // if strings start with the search term, prefer them
+                            if (a.startsWith(lowerTerm)) {
+                                return -1;
+                            }
+
+                            if (b.startsWith(lowerTerm)) {
+                                return 1;
+                            }
+
+                            // if strings end with the search term, prefer them
+                            if (a.endsWith(lowerTerm)) {
+                                return -1;
+                            }
+
+                            if (b.endsWith(lowerTerm)) {
+                                return 1;
+                            }
+                        }
+
+                        var match = null;
+
+                        // try to match against the FQNS
+                        match = matcher(a.name, b.name, a, b, true);
+                        if (typeof match === 'number') {
+                            return match;
+                        }
+
+                        var splitter = function(item) {
+                            var parts = item.name.split('\\');
+                            if (item.type == 'Method') {
+                                var methodParts = parts.pop().split('::');
+                                parts = parts.concat(methodParts);
+                            }
+                            return parts;
+                        }
+
+                        //split at namespace separator
+                        var aParts = splitter(a);
+                        var bParts = splitter(b);
+
+                        // go through each part of the FQNS and compare from the end
+                        do {
+                            var aPart = aParts.pop();
+                            var bPart = bParts.pop();
+
+                            match = matcher(aPart, bPart, a, b);
+                            if (typeof match === 'number') {
+                                return match;
+                            }
+
+                        } while (aParts.length && bParts.length);
+
+                        return 0;
+                    }
                 });
                 bhIndex.initialize();
             }
