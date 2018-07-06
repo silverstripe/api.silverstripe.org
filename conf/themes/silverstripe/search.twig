@@ -35,7 +35,7 @@
 {% block js_search %}
     <script type="text/javascript">
 
-        (function() {
+        $(function() {
             var term = Sami.cleanSearchTerm();
 
             if (!term) {
@@ -83,6 +83,6 @@
                 contents += '</div></li>';
                 container.append($(contents));
             }
-        })();
+        });
     </script>
 {% endblock %}
