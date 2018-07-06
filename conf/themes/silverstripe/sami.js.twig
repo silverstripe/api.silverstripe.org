@@ -117,7 +117,7 @@ window.projectVersion = '{{ project.version }}';
                     queryTokenizer: Bloodhound.tokenizers.whitespace,
                     sorter: function(a, b) {
                         // not sure how to get the search term in a nicer way than this
-                        var term = searchField.val();
+                        var term = searchField.val() || Sami.cleanSearchTerm();
 
                         var lowerTerm = term.toLowerCase();
 
