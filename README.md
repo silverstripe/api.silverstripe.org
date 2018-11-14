@@ -14,7 +14,7 @@ generated through [Sami](https://github.com/FriendsOfPHP/Sami).
 
  * Git
  * Composer
- * PHP 5.6 or newer
+ * PHP 7.0 or newer
 
 ## Installation
 
@@ -30,18 +30,20 @@ generated through [Sami](https://github.com/FriendsOfPHP/Sami).
 	`0 3 * * * /sites/api/www/makedoc.sh`
 
 ### Add a New Version
- * Copy a version section block in `makedoc.sh` and update the version number
- * Update the .gitignore to ignore any new files generated in `en` which is a directory synlinked outside of the web root (you don't want to commit the static generated files!)
+
+ * Copy a version section block in `sami.json` and ensure you use the appropriate value for `versionmap` depending
+   on whether the module started its life at version 1 or version 4 (for SilverStripe 4)
  * Run `makedoc.sh` and confirm the generation runs through properly
- * Make a commit of the updated `makedoc.sh`
- * Update the redirections in `.htaccess` to the stable version number
+ * Make a commit of the updated `sami.json`
+ * Update the redirections in `.htaccess` to the stable version number (if changing major versions)
  * Make a separate commit with the redirection (explained in deployment below)
 
 **Please note:** Often the `master` branch will be representing an unstable major version. When this needs
 to be updated, please edit `search/lookup.php`.
 
 ### Deployment to production
- This is now hosted on SilverStripe Platform, you can deploy from the dashboard. `makedoc.sh` is run on a nightly cron as defined in `platform.yml`.
+
+This is now hosted on SilverStripe Platform, you can deploy from the dashboard. `makedoc.sh` is run on a nightly cron as defined in `platform.yml`.
 
 ### Symbol Lookup
 
