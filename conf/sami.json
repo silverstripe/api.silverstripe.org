@@ -56,6 +56,10 @@
         "silverstripe/versioned": {
             "repository": "https://github.com/silverstripe/silverstripe-versioned.git",
             "versionmap": "starts-at-one"
+        },
+        "silverstripe/versioned-admin": {
+            "repository": "https://github.com/silverstripe/silverstripe-versioned-admin.git",
+            "versionmap": "starts-at-one"
         }
     },
     "versionmaps": {
