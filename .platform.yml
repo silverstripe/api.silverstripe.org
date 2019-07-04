@@ -1,6 +1,6 @@
 infrastructure: ^3
 php_settings:
-  version: 7.1
+  version: 7.3
   cli:
     max_execution_time: 0
 shared_dirs:
