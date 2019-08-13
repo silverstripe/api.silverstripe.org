@@ -210,3 +210,21 @@ header {
     overflow: auto;
 }
 
+/* search styles */
+.modal-search .modal-header {
+    box-sizing: border-box;
+}
+
+.modal-search .search-form {
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+.modal-search .search-form__input {
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+.modal-search .search-form__input:focus {
+    box-shadow: none;
+}
