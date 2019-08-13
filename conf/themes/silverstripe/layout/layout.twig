@@ -131,7 +131,12 @@
             </form>
         {% endif %}
         <script>
-            $('option[data-version="' + window.projectVersion + '"]').prop('selected', true);
+            document.addEventListener('DOMContentLoaded', function setVersion() {
+               if (!window.$) {
+                   return setTimeout(setVersion, 50);
+               }
+               $('option[data-version="' + window.projectVersion + '"]').prop('selected', true);
+            }, false);
         </script>
         <form id="search-form" action="{{ path('search.html') }}" method="GET">
             <span class="glyphicon glyphicon-search"></span>
