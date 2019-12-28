@@ -45,7 +45,7 @@
         },
         "silverstripe/graphql": {
             "repository": "https://github.com/silverstripe/silverstripe-graphql.git",
-            "versionmap": "starts-at-one"
+            "versionmap": "starts-at-three"
         },
         "silverstripe/reports": {
             "repository": "https://github.com/silverstripe/silverstripe-reports.git"
@@ -67,6 +67,10 @@
             "master": "master",
             "4": "1",
             "3": null
+        },
+        "starts-at-three": {
+        	"master": "master",
+        	"4": "3"        	
         }
     }
 
