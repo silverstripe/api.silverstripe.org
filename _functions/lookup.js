@@ -1,6 +1,6 @@
-const APILookup = require('../node/lookup');
+const APILookup = require('./APILookup');
 
-exports.handler = function(event, context, callback) {
+exports.handler = function(event, _, callback) {
     const lookup = new APILookup(event.queryStringParameters);
     const versionMap = new Map();
     versionMap.set('master', '5');
