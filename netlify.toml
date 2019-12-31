@@ -1,0 +1,10 @@
+[[redirects]]
+  from = "/"
+  to = "/4/"
+  status = 302
+  force = true
+[[redirects]]
+  from = "/search/lookup"
+  to = "/.netlify/functions/lookup?q=:q&version=:version"
+  query = {q = ":q", version = ":version"}
+  status = 302
