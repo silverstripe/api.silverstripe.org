@@ -134,10 +134,12 @@ class APILookup {
      */
     getURLForClass(searchConfig = [])
     {
-        const basename = searchConfig['class'].replace('\\', '/');
+        
+        const basename = searchConfig['class'].replace(/\\/g, '/');
+
         let searchPath = `/${this.getVersion()}/${basename}.html`;
 
-        // If file doesn't exist, redirect to search
+        // If file doesn't exist, redirect to search        
         if (!fs.existsSync(path.join(this.getBaseDir(), 'htdocs', searchPath))) {
             return path.join('/', this.getVersion(), `/search.html?search=${encodeURI(searchConfig['class'])}`);
         }
@@ -158,7 +160,7 @@ class APILookup {
     getURL()
     {
         // Search
-        const searchOrig = this.getArg('q');
+        const searchOrig = decodeURI(this.getArg('q') || '');
         if (!searchOrig) {
             return '/'; // Just go to home
         }
