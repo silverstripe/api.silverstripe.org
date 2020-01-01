@@ -4,3 +4,6 @@
 /en/
 /htdocs
 /data
+
+# Local Netlify folder
+.netlify

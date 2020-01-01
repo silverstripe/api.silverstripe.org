@@ -1,3 +1,8 @@
+[build]
+  publish = "htdocs/"
+  command = "./makedoc.sh"
+  #functions = "./_functions"
+
 [[redirects]]
   from = "/"
   to = "/4/"
@@ -5,6 +10,11 @@
   force = true
 [[redirects]]
   from = "/search/lookup"
-  to = "/.netlify/functions/lookup?q=:q&version=:version"
   query = {q = ":q", version = ":version"}
+  to = "/.netlify/functions/lookup?q=:q&version=:version"
+  status = 302
+[[redirects]]
+  from = "/search/lookup"
+  query = {q = ":q"}
+  to = "/.netlify/functions/lookup?q=:q"
   status = 302

@@ -28,46 +28,6 @@
 	</script>
 {% endblock %}
 
-{% block globalnav %}
-    <header class="site-header" data-0="background-position: 50% 50%;" data-544="background-position: 50% -30%;">
-        <div class="global-nav header-mask">
-            <div id="navWrapper">
-                {{ file_get_contents('http://www.silverstripe.org/assets/global-nav-api.html')|raw }}
-            </div>
-        </div>
-    </header>
-    {# start: SearchModal.ss from silverstripe/globaltoolbar #}
-    <div class="modal modal-search fade" id="modalSearch" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form class="search-form">
-                        <input autocomplete="off" type="text" size="10" class="search-form__input st-default-search-input" name="search"
-                               aria-label="Search SilverStripe" spellcheck="false" placeholder="Search SilverStripe...">
-                        <button class="search-form__button" type="submit">
-                            {# start: SearchSvg.ss from silverstripe/globaltoolbar #}
-                            <svg role="img" aria-label="Search" version="1.1" id="SearchIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-                                <title>Search</title>
-                                <desc>Site search</desc>
-                                <path class="search-svg" d="M445,386.7l-84.8-85.9c13.8-24.1,21-50.9,21-77.9c0-87.6-71.2-158.9-158.6-158.9C135.2,64,64,135.3,64,222.9
-                                    c0,87.6,71.2,158.9,158.6,158.9c27.9,0,55.5-7.7,80.1-22.4l84.4,85.6c1.9,1.9,4.6,3.1,7.3,3.1c2.7,0,5.4-1.1,7.3-3.1l43.3-43.8
-                                    C449,397.1,449,390.7,445,386.7z M222.6,125.9c53.4,0,96.8,43.5,96.8,97c0,53.5-43.4,97-96.8,97c-53.4,0-96.8-43.5-96.8-97
-                                    C125.8,169.4,169.2,125.9,222.6,125.9z"/>
-                            </svg>
-                            {# end: SearchSvg.ss from silverstripe/globaltoolbar #}
-                        </button>
-                    </form>
-                    <div class="st-search-container"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {# end: SearchModal.ss #}
-{% endblock %}
 
 {% block content %}
     <div id="content">

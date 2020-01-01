@@ -93,7 +93,7 @@ class APILookup {
     {
         let version = this.getArg('version') || DEFAULT_BRANCH;
 
-        this.versionMap.forEach((rule, substitution) => {
+        this.versionMap.forEach((substitution, rule) => {
             // Check regular expression rule
             if (rule instanceof RegExp) {
                 version = version.replace(rule, substitution);
@@ -182,6 +182,8 @@ class APILookup {
     }
 }
 
+exports.APILookup = APILookup;
+
 exports.handler = function(event, _, callback) {
     const lookup = new APILookup(event.queryStringParameters);
     const versionMap = new Map();
@@ -194,6 +196,7 @@ exports.handler = function(event, _, callback) {
         statusCode: 302,
         headers: {
             "location": url,
-        }
+        },
+        body: '',
     });
 }

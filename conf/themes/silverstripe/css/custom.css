@@ -183,14 +183,6 @@ header {
 }
 
 /* Override sami.css */
-#content {
-    position: fixed;
-    height: auto;
-    top: 109px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
 #left-column,
 #right-column {
     position: absolute;
