@@ -45,35 +45,42 @@ const objectCompare = (objA, objB) => {
 const assert = (exp, msg = '') => {
     if (exp !== true) {
         console.error(`[FAIL] ${msg}`);
+        
+        return false;
     }
 
     console.log('Pass');
+    return true;
 };
 
 
 const runTest = () => {
     let lookup;
-    
+    let results = [];
+    let result;
     console.log('Testing getArgs()');
     lookup = new APILookup({ foo: 'bar' });
-    assert(
+    result = assert(
         objectCompare({ foo: 'bar'}, lookup.getArgs()),
         `${JSON.stringify(lookup.getArgs())} is not expected { foo: 'bar' }`
     );
+    results.push(result);
 
     console.log('Testing version regular expression');
     lookup = new APILookup({ version: 'foobarbaz'});
     lookup.setVersionMap(new Map([
         [/bar/, 'monkey']
     ]));
-    assert('foomonkeybaz' === lookup.getVersion(), `${lookup.getVersion()} is not expected 'foomonkeybaz'`);
+    result = assert('foomonkeybaz' === lookup.getVersion(), `${lookup.getVersion()} is not expected 'foomonkeybaz'`);
+    results.push(result);
 
     console.log('Testing exact rule');
     lookup = new APILookup({ version: 'master'});
     lookup.setVersionMap(new Map([
         ['master', '5.x']
     ]));
-    assert('5.x' === lookup.getVersion(), `${lookup.getVersion()} is not expected '5.x'`);
+    result = assert('5.x' === lookup.getVersion(), `${lookup.getVersion()} is not expected '5.x'`);
+    results.push(result);
 
     console.log('Testing get version default');
     lookup = new APILookup({ version: 'unknown' });
@@ -82,8 +89,15 @@ const runTest = () => {
         ['4', '4.x'],
         ['3', '3.x'],
     ]));
-    assert('unknown' === lookup.getVersion(), `${lookup.getVersion()} is not expected 'unknown'`);
+    result = assert('unknown' === lookup.getVersion(), `${lookup.getVersion()} is not expected 'unknown'`);
+    results.push(result);
     
+    return results;
 };
 
-runTest();
+const results = runTest();
+if (!results.every(r => r)) {
+    process.exit(1);
+}
+
+process.exit(0);

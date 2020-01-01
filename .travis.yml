@@ -3,9 +3,11 @@ language: php
 php:
   - 7.1
 
-before_script:
+  before_script:
   - composer install --dev
+  - nvm install 12
+  - nvm use 12
 
 script:
-  - vendor/bin/phpunit
-  - vendor/bin/phpcs --standard=PSR2 src tests
+  - node tests/lookupTest.js
+  - vendor/bin/phpcs --standard=PSR2 src
