@@ -1,7 +1,7 @@
 [build]
   publish = "htdocs/"
   command = "./makedoc.sh"
-  #functions = "./_functions"
+  functions = "./_functions"
 
 [[redirects]]
   from = "/"
