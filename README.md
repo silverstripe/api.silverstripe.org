@@ -15,6 +15,7 @@ generated through [Sami](https://github.com/FriendsOfPHP/Sami).
  * Git
  * Composer
  * PHP 7.0 or newer
+ * Node 12 or newer (if running a Netlify development server)
 
 ## Installation
 
@@ -35,19 +36,20 @@ generated through [Sami](https://github.com/FriendsOfPHP/Sami).
    on whether the module started its life at version 1 or version 4 (for SilverStripe 4)
  * Run `makedoc.sh` and confirm the generation runs through properly
  * Make a commit of the updated `sami.json`
- * Update the redirections in `.htaccess` to the stable version number (if changing major versions)
+ * Update the redirections in `netlify.toml` to the stable version number (if changing major versions)
  * Make a separate commit with the redirection (explained in deployment below)
 
 **Please note:** Often the `master` branch will be representing an unstable major version. When this needs
-to be updated, please edit `search/lookup.php`.
+to be updated, please edit `_functions/lookup.js`.
 
 ### Deployment to production
 
-This is now hosted on SilverStripe Platform, you can deploy from the dashboard. `makedoc.sh` is run on a nightly cron as defined in `platform.yml`.
+This is hosted on Netlify. Can be rebuilt manually through their UI, or via a build hook. Automatic
+builds from git commits are not yet implemented.
 
 ### Symbol Lookup
 
-The project comes with a simple PHP script to convert PHP symbols (classes, methods, properties)
+The project comes with a simple Lambda function to convert PHP symbols (classes, methods, properties)
 to their URL representations in the API docs, and redirects there.
 The lookup is primarily used by [doc.silverstripe.org](http://doc.silverstripe.org)
 to drive its custom `[api:<symbol-name>]` links in Markdown, without coupling it tightly
@@ -62,11 +64,11 @@ Parameters:
 
 Examples:
 
- * `/search/lookup.php?q=DataObject`: Shows `DataObject` docs in `trunk` version of framework
- * `/search/lookup.php?q=DataObject::get()&version=3.0`: Shows `DataObject::get()` docs in `3.0` version of framework
- * `/search/lookup.php?q=DataObject::get()&version=3.0`: Shows `DataObject::get()` docs in `3.6` version of framework (or whatever is the latest stable minor version)
- * `/search/lookup.php?q=DPSPayment&module=payment`: Shows `DPSPayment` class docs in the `ecommerce` module
- * `/search/lookup.php?q=SilverStripe\ORM\DataExtension::onBeforeWrite()&version=4`: Shows `SilverStripe\ORM\DataExtension::onBeforeWrite()` docs in `master` (4.x) version of framework
+ * `/.netlify/functions/lookup?q=DataObject`: Shows `DataObject` docs in `trunk` version of framework
+ * `/.netlify/functions/lookup?q=DataObject::get()&version=3.0`: Shows `DataObject::get()` docs in `3.0` version of framework
+ * `/.netlify/functions/lookup?q=DataObject::get()&version=3.0`: Shows `DataObject::get()` docs in `3.6` version of framework (or whatever is the latest stable minor version)
+ * `/.netlify/functions/lookup?q=DPSPayment&module=payment`: Shows `DPSPayment` class docs in the `ecommerce` module
+ * `/.netlify/functions/lookup?q=SilverStripe\ORM\DataExtension::onBeforeWrite()&version=4`: Shows `SilverStripe\ORM\DataExtension::onBeforeWrite()` docs in `master` (4.x) version of framework
 
 ## Contributing
 
