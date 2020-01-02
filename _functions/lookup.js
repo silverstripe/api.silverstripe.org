@@ -129,7 +129,6 @@ class APILookup {
         let searchPath = `/${this.getVersion()}/${basename}`.toLowerCase();
         
         const exists = await this.docExists(searchPath);
-        console.log(exists);
         if (!exists) {
             return path.join('/', this.getVersion(), `/search.html?search=${encodeURI(searchConfig['class'])}`);
         }
@@ -151,7 +150,6 @@ class APILookup {
         
         return new Promise((resolve) => {
             const req = https.request(options, res => {
-                console.log(res.statusCode, path);
                 resolve(res.statusCode === 200);
             })            
             req.end();
