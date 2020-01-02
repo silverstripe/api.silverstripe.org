@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const https = require('https')
 
 /**
  * The default branch name for each core module
@@ -28,7 +29,7 @@ class APILookup {
     /**
      * @var string
      */
-    serverName = null;
+    serverName = 'ss-api.netlify.com';
 
     /**
      * @param array args
@@ -58,18 +59,6 @@ class APILookup {
         return this.args[key] || null;
     }
 
-
-    /**
-     * Redirect the user to where they need to go.
-     * E.g. http://api.silverstripe.org/search/lookup/?q=SilverStripe\ORM\HasManyList&version=4&module=framework
-     * redirects to /4/SilverStripe/ORM/HasManyList.html
-     *
-     * @return string|null
-     */
-    handle()
-    {
-        return this.getURL();
-    }
 
     /**
      * Allow setting the "version mapping" that can be used to convert "4" to "master", etc
@@ -132,24 +121,41 @@ class APILookup {
      * @param array searchConfig
      * @return string
      */
-    getURLForClass(searchConfig = [])
+    async getURLForClass(searchConfig = [])
     {
         
         const basename = searchConfig['class'].replace(/\\/g, '/');
 
-        let searchPath = `/${this.getVersion()}/${basename}.html`;
-
-        // If file doesn't exist, redirect to search        
-        if (!fs.existsSync(path.join(this.getBaseDir(), 'htdocs', searchPath))) {
+        let searchPath = `/${this.getVersion()}/${basename}`.toLowerCase();
+        
+        const exists = await this.docExists(searchPath);
+        console.log(exists);
+        if (!exists) {
             return path.join('/', this.getVersion(), `/search.html?search=${encodeURI(searchConfig['class'])}`);
         }
-
         // Add hash-link on end
         if (searchConfig.property && searchConfig.type) {
             searchPath += `#${searchConfig.type}_${searchConfig.property}`;
         }
 
         return searchPath;
+    }
+
+    docExists(path) {
+        const options = {
+          hostname: this.serverName,
+          port: 443,
+          path,
+          method: 'GET'
+        }
+        
+        return new Promise((resolve) => {
+            const req = https.request(options, res => {
+                console.log(res.statusCode, path);
+                resolve(res.statusCode === 200);
+            })            
+            req.end();
+        });
     }
 
     /**
@@ -177,20 +183,19 @@ class APILookup {
             searchConfig.property = '';
             searchConfig.type = 'class';
         }
-
         return this.getURLForClass(searchConfig);
     }
 }
 
 exports.APILookup = APILookup;
 
-exports.handler = function(event, _, callback) {
+exports.handler = async function(event, _, callback) {
     const lookup = new APILookup(event.queryStringParameters);
     const versionMap = new Map();
     versionMap.set('master', '5');
     versionMap.set(/^(\d+)[.].*$/, '$1');
     
-    const url = lookup.handle();
+    const url = await lookup.getURL();
 
     callback(null, {
         statusCode: 302,

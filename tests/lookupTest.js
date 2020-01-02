@@ -5,39 +5,6 @@
 const { APILookup } = require('../_functions/lookup');
 
 /**
- * https://github.com/moroshko/shallow-equal/blob/master/src/objects.js
- * @param object objA 
- * @param object objB 
- */
-const objectCompare = (objA, objB) => {
-    if (objA === objB) {
-      return true;
-    }
-  
-    if (!objA || !objB) {
-      return false;
-    }
-  
-    const aKeys = Object.keys(objA);
-    const bKeys = Object.keys(objB);
-    const len = aKeys.length;
-  
-    if (bKeys.length !== len) {
-      return false;
-    }
-  
-    for (let i = 0; i < len; i++) {
-      const key = aKeys[i];
-  
-      if (objA[key] !== objB[key] || !Object.prototype.hasOwnProperty.call(objB, key)) {
-        return false;
-      }
-    }
-  
-    return true;
-};
-
-/**
  * Test an expression
  * @param boolean exp 
  * @param string msg 
@@ -60,9 +27,12 @@ const runTest = () => {
     let result;
     console.log('Testing getArgs()');
     lookup = new APILookup({ foo: 'bar' });
+    const args = lookup.getArgs();
     result = assert(
-        objectCompare({ foo: 'bar'}, lookup.getArgs()),
-        `${JSON.stringify(lookup.getArgs())} is not expected { foo: 'bar' }`
+        Object.keys(args).length === 1 &&
+        args.hasOwnProperty('foo') &&
+        args.foo === 'bar',        
+        `${JSON.stringify(args)} is not expected { foo: 'bar' }`
     );
     results.push(result);
 
@@ -96,8 +66,5 @@ const runTest = () => {
 };
 
 const results = runTest();
-if (!results.every(r => r)) {
-    process.exit(1);
-}
 
-process.exit(0);
+process.exit(results.every(r => r) ? 0 : 1);
