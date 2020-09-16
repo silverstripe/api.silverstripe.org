@@ -1,27 +1,34 @@
+
+{% macro class_category_name(categoryId) -%}
+{% if categoryId == 1 %}{% trans 'class' %}{% endif %}
+{% if categoryId == 2 %}{% trans 'interface' %}{% endif %}
+{% if categoryId == 3 %}{% trans 'trait' %}{% endif %}
+{%- endmacro %}
+
 {% macro namespace_link(namespace) -%}
     <a href="{{ namespace_path(namespace) }}">{{ namespace|raw }}</a>
 {%- endmacro %}
 
 {% macro class_link(class, absolute) -%}
-    {%- if class.projectclass -%}
+    {%- if class.isProjectClass() -%}
         <a href="{{ class_path(class) }}">
-    {%- elseif class.phpclass -%}
-        <a target="_blank" href="http://php.net/{{ class|raw }}">
+    {%- elseif class.isPhpClass() -%}
+        <a target="_blank" rel="noopener" href="https://www.php.net/{{ class|raw }}">
     {%- endif %}
     {{- abbr_class(class, absolute|default(false)) }}
-    {%- if class.projectclass or class.phpclass %}</a>{% endif %}
+    {%- if class.isProjectClass() or class.isPhpClass() %}</a>{% endif %}
 {%- endmacro %}
 
 {% macro method_link(method, absolute, classonly) -%}
-    <a href="{{ method_path(method) }}">
-        {{- abbr_class(method.class) }}{% if not classonly|default(false) %}::{{ method.name|raw }}{% endif -%}
-    </a>
+{#  #}<a href="{{ method_path(method) }}">
+{#    #}{{- abbr_class(method.class) }}{% if not classonly|default(false) %}::{{ method.name|raw }}{% endif -%}
+{#  #}</a>
 {%- endmacro %}
 
 {% macro property_link(property, absolute, classonly) -%}
-    <a href="{{ property_path(property) }}">
-        {{- abbr_class(property.class) }}{% if not classonly|default(true) %}#{{ property.name|raw }}{% endif -%}
-    </a>
+{#  #}<a href="{{ property_path(property) }}">
+{#    #}{{- abbr_class(property.class) }}{% if not classonly|default(false) %}#{{ property.name|raw }}{% endif -%}
+{#  #}</a>
 {%- endmacro %}
 
 {% macro hint_link(hints) -%}
@@ -42,20 +49,22 @@
 
 {% macro source_link(project, class) -%}
     {% if class.sourcepath %}
-        (<a href="{{ class.sourcepath }}">View source</a>)
+        (<a href="{{ class.sourcepath }}">{% trans 'View source'%}</a>)
     {%- endif %}
 {%- endmacro %}
 
 {% macro method_source_link(method) -%}
     {% if method.sourcepath %}
-        <a href="{{ method.sourcepath }}">line {{ method.line|raw }}</a>
+        {#- l10n: Method at line %s -#}
+        <a href="{{ method.sourcepath }}">{{'at line %s'|trans|format(
+            method.line
+        )|raw }}</a>
     {%- else %}
-        line {{ method.line|raw }}
+        {#- l10n: Method at line %s -#}
+        {{- 'at line %s'|trans|format(
+            method.line
+        )|raw -}}
     {%- endif %}
-{%- endmacro %}
-
-{% macro abbr_class(class, absolute) -%}
-    <abbr title="{{ class }}">{{ absolute|default(false) ? class : class.shortname }}</abbr>
 {%- endmacro %}
 
 {% macro method_parameters_signature(method) -%}
@@ -63,8 +72,8 @@
     (
         {%- for parameter in method.parameters %}
             {%- if parameter.hashint %}{{ hint_link(parameter.hint) }} {% endif -%}
-            ${{ parameter.name|raw }}
-            {%- if parameter.default %} = {{ parameter.default }}{% endif %}
+            {%- if parameter.variadic %}...{% endif %}${{ parameter.name|raw }}
+            {%- if parameter.default is not null %} = {{ parameter.default }}{% endif %}
             {%- if not loop.last %}, {% endif %}
         {%- endfor -%}
     )
@@ -78,14 +87,14 @@
             <div class="row">
                 <div class="col-md-6">
                     {% if class.isInterface %}
-                        <em>{{ class_link(class, true) }}</em>
+                        <em>{{- class_link(class, true) -}}</em>
                     {% else %}
-                        {{ class_link(class, true) }}
+                        {{- class_link(class, true) -}}
                     {% endif %}
-                    {{ deprecated(class) }}
+                    {{- deprecated(class) -}}
                 </div>
                 <div class="col-md-6">
-                    {{ class.shortdesc|desc(class) }}
+                    {{- class.shortdesc|desc(class) -}}
                 </div>
             </div>
         {% endfor %}
@@ -105,7 +114,7 @@
 {% endmacro %}
 
 {% macro deprecated(reflection) %}
-    {% if reflection.deprecated %}<small><sup><span class="label label-danger">deprecated</span></sup></small>{% endif %}
+    {% if reflection.deprecated %}<small><sup><span class="label label-danger">{% trans 'deprecated' %}</span></sup></small>{% endif %}
 {% endmacro %}
 
 {% macro deprecations(reflection) %}
@@ -125,7 +134,7 @@
 {% endmacro %}
 
 {% macro todo(reflection) %}
-        {% if reflection.todo %}<small><sup><span class="label label-info">todo</span></sup></small>{% endif %}
+        {% if reflection.todo %}<small><sup><span class="label label-info">{% trans 'todo' %}</span></sup></small>{% endif %}
 {% endmacro %}
 
 {% macro todos(reflection) %}

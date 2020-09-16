@@ -80,7 +80,6 @@ $doctum['project'] = function ($sc) {
         'build_dir' => $sc['build_dir'],
         'cache_dir' => $sc['cache_dir'],
         'remote_repository' => $sc['remote_repository'],
-        'simulate_namespaces' => $sc['simulate_namespaces'],
         'include_parent_data' => $sc['include_parent_data'],
         'default_opened_level' => $sc['default_opened_level'],
         'theme' => $sc['theme'],

@@ -1,43 +1,97 @@
 {% from _self import element %}
 
-window.projectVersion = '{{ project.version }}';
+{% macro add_class_methods_index(class, prettyJsonOptions) %}
+    {% if class.methods %}
+        {% set from_link = class_path(class) %}
+        {% for meth in class.methods %}
+            {{-
+                {
+                    type: 'Method'|trans,
+                    fromName: class.name,
+                    fromLink: from_link,
+                    link: method_path(meth),
+                    name: meth.__toString(),
+                    doc: meth.shortdesc|desc(class),
+                }|json_encode(prettyJsonOptions)|raw
+            -}},
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
 
 (function(root) {
 
     var bhIndex = null;
     var rootPath = '';
-    var treeHtml = '{{ element(tree, project.config('default_opened_level'), 0)|replace({"'": "\\'", "\n": ''})|raw }}';
+    var treeHtml = '{{ element(tree, project.config('default_opened_level'), 0)|replace({"'": "\\'", "\n": ''})|spaceless|raw }}';
 
     var searchTypeClasses = {
-        'Namespace': 'label-default',
-        'Class': 'label-info',
-        'Interface': 'label-primary',
-        'Trait': 'label-success',
-        'Method': 'label-danger',
+        '{{ 'Namespace'|trans|escape('js') }}': 'label-default',
+        '{{ 'Class'|trans|escape('js') }}': 'label-info',
+        '{{ 'Interface'|trans|escape('js') }}': 'label-primary',
+        '{{ 'Trait'|trans|escape('js') }}': 'label-success',
+        '{{ 'Method'|trans|escape('js') }}': 'label-danger',
         '_': 'label-warning'
     };
 
     var searchIndex = [
-        {% block search_index %}
-            {% from _self import add_class_methods_index %}
-
-            {% for ns in namespaces -%}
-                {"type": "Namespace", "link": "{{ namespace_path(ns) }}", "name": "{{ ns|replace({'\\': '\\\\'})|raw }}", "doc": "Namespace {{ ns|replace({'\\': '\\\\'})|raw }}"},
-            {%- endfor %}
-
-            {% for class in interfaces -%}
-                {"type": "Interface", {% if class.namespace %}"fromName": "{{ class.namespace|replace({'\\': '\\\\'})|raw }}", "fromLink": "{{ namespace_path(class.namespace)|raw }}",{% endif %} "link": "{{ class_path(class) }}", "name": "{{ class.name|replace({'\\': '\\\\'})|raw }}", "doc": "{{ class.shortdesc|desc(class)|json_encode }}"},
-                {{ add_class_methods_index(class) }}
-            {% endfor %}
-
-            {% for class in classes -%}
-                {"type": {% if class.isTrait %}"Trait"{% else %}"Class"{% endif %}, {% if class.namespace %}"fromName": "{{ class.namespace|replace({'\\': '\\\\'})|raw }}", "fromLink": "{{ namespace_path(class.namespace) }}",{% endif %} "link": "{{ class_path(class) }}", "name": "{{ class.name|replace({'\\': '\\\\'})|raw }}", "doc": "{{ class.shortdesc|desc(class)|json_encode }}"},
-                {{ add_class_methods_index(class) }}
-            {% endfor %}
-
-            {# Override this block, search_index_extra, to add custom search entries! #}
-            {% block search_index_extra '' %}
-        {% endblock %}
+        {% from _self import add_class_methods_index %}
+        {% set prettyJsonOptions = constant('JSON_UNESCAPED_SLASHES') b-or constant('JSON_UNESCAPED_UNICODE') %}
+        {% for ns in namespaces -%}
+            {{-
+                {
+                    type: 'Namespace'|trans,
+                    link: namespace_path(ns),
+                    name: ns,
+                    doc: 'Namespace %s'|format(ns),
+                }|json_encode(prettyJsonOptions)|raw
+            -}},
+        {%- endfor %}
+        {% for class in interfaces -%}
+            {% set interface = {
+                        type: 'Interface'|trans,
+                        link: class_path(class),
+                        name: class.name,
+                        doc: class.shortdesc|desc(class),
+            } %}
+            {% if class.namespace %}
+                {% set interface = {
+                        type: interface.type,
+                        fromName: class.namespace,
+                        fromLink: namespace_path(class.namespace),
+                        link: interface.link,
+                        name: interface.name,
+                        doc: interface.doc,
+                } %}
+             {% endif %}
+            {{-
+                interface|json_encode(prettyJsonOptions)|raw
+            -}},
+            {{ add_class_methods_index(class, prettyJsonOptions) }}
+        {% endfor %}
+        {% for class in classes -%}
+            {% set classOrTrait = {
+                        type: class.isTrait ? 'Trait'|trans : 'Class'|trans,
+                        link: class_path(class),
+                        name: class.name,
+                        doc: class.shortdesc|desc(class),
+            } %}
+            {% if class.namespace %}
+                {% set classOrTrait = {
+                        type: classOrTrait.type,
+                        fromName: class.namespace,
+                        fromLink: namespace_path(class.namespace),
+                        link: classOrTrait.link,
+                        name: classOrTrait.name,
+                        doc: classOrTrait.doc,
+                } %}
+            {% endif %}
+            {{-
+                classOrTrait|json_encode(prettyJsonOptions)|raw
+            -}},
+            {{ add_class_methods_index(class, prettyJsonOptions) }}
+        {% endfor %}
+        {# Override this block, search_index_extra, to add custom search entries! #}
+        {% block search_index_extra '' %}
         // Fix trailing commas in the index
         {}
     ];
@@ -91,7 +145,7 @@ window.projectVersion = '{{ project.version }}';
         },
 
         /** Searches through the index for a given term */
-        search: function(term) {
+search: function(term) {
             var searchField =  $('#search-form .tt-input');
             var rankByType = function (type) {
                 switch (type) {
@@ -279,15 +333,31 @@ window.projectVersion = '{{ project.version }}';
 
 $(function() {
 
+    {% if project.versions|length > 1 %}
     // Enable the version switcher
-    $('#version-switcher').change(function() {
+    $('#version-switcher').on('change', function() {
         window.location = $(this).val()
     });
+    var versionSwitcher = document.getElementById('version-switcher');
+    if (versionSwitcher) {
+        var versionToSelect = document.evaluate(
+            '//option[@data-version="{{ project.version|escape('js') }}"]',
+            versionSwitcher,
+            null,
+            XPathResult.FIRST_ORDERED_NODE_TYPE,
+            null
+        ).singleNodeValue;
+
+        if (versionToSelect && typeof versionToSelect.selected === 'boolean') {
+            versionToSelect.selected = true;
+        }
+    }
+    {% endif %}
 
     {% block treejs %}
 
         // Toggle left-nav divs on click
-        $('#api-tree .hd span').click(function() {
+        $('#api-tree .hd span').on('click', function() {
             $(this).parent().parent().toggleClass('opened');
         });
 
@@ -337,40 +407,33 @@ $(function() {
                 return true;
             }
         });
+
     {% endverbatim %}
 });
 
-{% macro add_class_methods_index(class) %}
-    {% if class.methods %}
-        {% set from_name = class.name|replace({'\\': '\\\\'}) %}
-        {% set from_link = class_path(class) %}
-        {% for meth in class.methods %}
-            {"type": "Method", "fromName": "{{ from_name|raw }}", "fromLink": "{{ from_link|raw }}", "link": "{{ method_path(meth) }}", "name": "{{ meth|replace({'\\': '\\\\'})|raw }}", "doc": "{{ meth.shortdesc|desc(class)|json_encode }}"},
-        {% endfor %}
-    {% endif %}
-{% endmacro %}
 
 {% macro element(tree, opened, depth) %}
     {% from _self import element %}
 
     <ul>
         {%- for element in tree -%}
-            {% if element[2] %}
+            {%- if element[2] -%}
                 <li data-name="namespace:{{ element[1]|replace({'\\': '_'})|raw }}" {% if depth < opened %}class="opened"{% endif %}>
                     <div style="padding-left:{{ (depth * 18)|raw }}px" class="hd">
-                        <span class="glyphicon glyphicon-play"></span>{% if not project.config('simulate_namespaces') %}<a href="{{ namespace_path(element[1]) }}">{% endif %}{{ element[0]|raw }}{% if not project.config('simulate_namespaces') %}</a>{% endif %}
+                        <span class="icon icon-play"></span>
+                        <a href="{{ namespace_path(element[1]) }}">{{ element[0]|raw }}</a>
                     </div>
                     <div class="bd">
                         {{ element(element[2], opened, depth + 1) -}}
                     </div>
                 </li>
-            {% else %}
-                <li data-name="class:{{ (element[1].name)|replace({'\\': '_'}) }}" {% if depth < opened %}class="opened"{% endif %}>
+            {%- else -%}
+                <li data-name="class:{{ element[1]|replace({'\\': '_'}) }}" {% if depth < opened %}class="opened"{% endif %}>
                     <div style="padding-left:{{ 8 + (depth * 18) }}px" class="hd leaf">
                         <a href="{{ class_path(element[1]) }}">{{ element[0] }}</a>
                     </div>
                 </li>
-            {% endif %}
+            {%- endif -%}
         {%- endfor %}
     </ul>
 {% endmacro %}
