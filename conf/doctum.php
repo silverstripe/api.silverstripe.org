@@ -2,8 +2,8 @@
 
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
-use Sami\Project;
-use Sami\Sami;
+use Doctum\Project;
+use Doctum\Doctum;
 use SilverStripe\ApiDocs\Data\ApiJsonStore;
 use SilverStripe\ApiDocs\Data\Config;
 use SilverStripe\ApiDocs\Inspections\RecipeFinder;
@@ -30,23 +30,22 @@ $iterator
     ->exclude('tests');
 
 // Config
-$sami = new Sami($iterator, [
+$doctum = new Doctum($iterator, [
     'theme' => $config['theme'],
     'title' => $config['title'],
     'base_url' => $config['base_url'],
     'versions' => $versions,
     'build_dir' => Config::configPath($config['paths']['www']) . '/%version%',
     'cache_dir' => Config::configPath($config['paths']['cache']) . '/%version%',
-    'default_opened_level' => 2,
     'template_dirs' => [ __DIR__ .'/themes' ],
 ]);
 
 // Make sure we document `@config` options
-$sami['filter'] = function() {
+$doctum['filter'] = function() {
     return new \SilverStripe\ApiDocs\Parser\Filter\SilverStripeFilter();
 };
 
-$sami['php_traverser'] = function ($sc) {
+$doctum['php_traverser'] = function ($sc) {
     $traverser = new NodeTraverser();
     $traverser->addVisitor(new NameResolver());
     $traverser->addVisitor(new \SilverStripe\ApiDocs\Parser\SilverStripeNodeVisitor($sc['parser_context']));
@@ -54,29 +53,29 @@ $sami['php_traverser'] = function ($sc) {
     return $traverser;
 };
 
-$sami['renderer'] = function ($sc) {
+$doctum['renderer'] = function ($sc) {
     return new \SilverStripe\ApiDocs\Renderer\SilverStripeRenderer($sc['twig'], $sc['themes'], $sc['tree'], $sc['indexer']);
 };
 
 // Override twig
 /** @var Twig_Environment $twig */
-$twig = $sami['twig'];
-unset($sami['twig']);
-$sami['twig'] = function () use ($twig) {
+$twig = $doctum['twig'];
+unset($doctum['twig']);
+$doctum['twig'] = function () use ($twig) {
     $twig->addExtension(new NavigationExtension());
     return $twig;
 };
 
 // Override json store
-$store = $sami['store'];
-unset($sami['store']);
-$sami['store'] = function () {
+$store = $doctum['store'];
+unset($doctum['store']);
+$doctum['store'] = function () {
     return new ApiJsonStore();
 };
 
 // Override project
-unset($sami['project']);
-$sami['project'] = function ($sc) {
+unset($doctum['project']);
+$doctum['project'] = function ($sc) {
     $project = new Project($sc['store'], $sc['_versions'], array(
         'build_dir' => $sc['build_dir'],
         'cache_dir' => $sc['cache_dir'],
@@ -97,4 +96,4 @@ $sami['project'] = function ($sc) {
     return $project;
 };
 
-return $sami;
+return $doctum;

@@ -3,8 +3,8 @@
 namespace SilverStripe\ApiDocs\Inspections;
 
 use LogicException;
-use Sami\Version\Version;
-use Sami\Version\VersionCollection;
+use Doctum\Version\Version;
+use Doctum\Version\VersionCollection;
 use SilverStripe\ApiDocs\Data\Config;
 use SilverStripe\ApiDocs\Data\RepoFactory;
 

@@ -2,9 +2,9 @@
 
 namespace SilverStripe\ApiDocs\Renderer;
 
-use Sami\Message;
-use Sami\Project;
-use Sami\Renderer\Renderer;
+use Doctum\Message;
+use Doctum\Project;
+use Doctum\Renderer\Renderer;
 use SilverStripe\ApiDocs\Reflection\SilverStripeClassReflection;
 
 class SilverStripeRenderer extends Renderer

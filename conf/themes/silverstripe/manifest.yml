@@ -1,7 +1,7 @@
 name: silverstripe
 
 static:
-    'css/sami.css': 'css/sami.css'
+    'css/doctum.css': 'css/doctum.css'
     'css/bootstrap.min.css': 'css/bootstrap.min.css'
     'css/bootstrap-theme.min.css': 'css/bootstrap-theme.min.css'
     'css/ionicons.min.css': 'css/ionicons.min.css'
@@ -28,7 +28,7 @@ global:
     'traits.twig':     'traits.html'
     'opensearch.twig': 'opensearch.xml'
     'search.twig':     'search.html'
-    'sami.js.twig':    'sami.js'
+    'doctum.js.twig':    'doctum.js'
 
 namespace:
     'namespace.twig': '%s.html'

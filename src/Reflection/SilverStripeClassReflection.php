@@ -2,8 +2,8 @@
 
 namespace SilverStripe\ApiDocs\Reflection;
 
-use Sami\Reflection\ClassReflection;
-use Sami\Reflection\PropertyReflection;
+use Doctum\Reflection\ClassReflection;
+use Doctum\Reflection\PropertyReflection;
 
 class SilverStripeClassReflection extends ClassReflection
 {

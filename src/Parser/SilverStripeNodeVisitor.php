@@ -3,10 +3,10 @@
 namespace SilverStripe\ApiDocs\Parser;
 
 use Prophecy\Doubler\Generator\Node\ClassNode;
-use Sami\Parser\NodeVisitor;
+use Doctum\Parser\NodeVisitor;
 use PhpParser\Node\Stmt\ClassLike as ClassLikeNode;
 use PhpParser\Node\Stmt\Property as PropertyNode;
-use Sami\Reflection\PropertyReflection;
+use Doctum\Reflection\PropertyReflection;
 use SilverStripe\ApiDocs\Reflection\SilverStripeClassReflection;
 
 class SilverStripeNodeVisitor extends NodeVisitor

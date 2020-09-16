@@ -4,4 +4,4 @@
 cd $(dirname "$0");
 
 bin/docs checkout -v
-bin/docs update conf/sami.php --force -v
+bin/docs update conf/doctum.php --force -v

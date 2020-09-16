@@ -2,8 +2,8 @@
 
 namespace SilverStripe\ApiDocs\Data;
 
-use Sami\Project;
-use Sami\Store\JsonStore;
+use Doctum\Project;
+use Doctum\Store\JsonStore;
 
 /**
  * Adjust json store to not fail on branches with fewer classes than others

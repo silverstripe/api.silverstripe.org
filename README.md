@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/silverstripe/api.silverstripe.org.svg?branch=master)](https://travis-ci.org/silverstripe/api.silverstripe.org)
 
 SilverStripe API docs for the core system in different versions,
-generated through [Sami](https://github.com/FriendsOfPHP/Sami).
+generated through [Doctum](https://github.com/code-lts/doctum#readme).
 
  - The documentation is generated from working copies located in `src/`. This folder is initially empty, the working copies are created through `makedocs.sh`.
  - The PHP code does not have to be accessible through the website, all documents are static HTML files. 
@@ -19,7 +19,7 @@ generated through [Sami](https://github.com/FriendsOfPHP/Sami).
 ## Installation
 
  1. Clone the repo to your local development environment
- 2. Run `composer install` which will install Sami
+ 2. Run `composer install` which will install Doctum
  3. Run `makedoc.sh` to build the static API docs (will take some time and generates ~900Mb new files)
 
 ## Usage
@@ -31,10 +31,10 @@ generated through [Sami](https://github.com/FriendsOfPHP/Sami).
 
 ### Add a New Version
 
- * Copy a version section block in `sami.json` and ensure you use the appropriate value for `versionmap` depending
+ * Copy a version section block in `doctum.json` and ensure you use the appropriate value for `versionmap` depending
    on whether the module started its life at version 1 or version 4 (for SilverStripe 4)
  * Run `makedoc.sh` and confirm the generation runs through properly
- * Make a commit of the updated `sami.json`
+ * Make a commit of the updated `doctum.json`
  * Update the redirections in `.htaccess` to the stable version number (if changing major versions)
  * Make a separate commit with the redirection (explained in deployment below)
 

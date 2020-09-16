@@ -2,10 +2,10 @@
 
 namespace SilverStripe\ApiDocs\Parser\Filter;
 
-use Sami\Parser\Filter\PublicFilter;
-use Sami\Reflection\ClassReflection;
-use Sami\Reflection\MethodReflection;
-use Sami\Reflection\PropertyReflection;
+use Doctum\Parser\Filter\PublicFilter;
+use Doctum\Reflection\ClassReflection;
+use Doctum\Reflection\MethodReflection;
+use Doctum\Reflection\PropertyReflection;
 
 class SilverStripeFilter extends PublicFilter
 {

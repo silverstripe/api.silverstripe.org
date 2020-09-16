@@ -23,7 +23,7 @@ class Config
      */
     public static function getConfig()
     {
-        $path = static::getBase() . '/conf/sami.json';
+        $path = static::getBase() . '/conf/doctum.json';
         if (!file_exists($path)) {
             throw new Exception("File $path not found");
         }

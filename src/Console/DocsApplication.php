@@ -2,7 +2,7 @@
 
 namespace SilverStripe\ApiDocs\Console;
 
-use Sami\Console\Application;
+use Doctum\Console\Application;
 
 class DocsApplication extends Application
 {
