@@ -14,7 +14,7 @@ generated through [Doctum](https://github.com/code-lts/doctum#readme).
 
  * Git
  * Composer
- * PHP 7.0 or newer
+ * PHP 7.3 or newer
 
 ## Installation
 
@@ -49,7 +49,7 @@ This is now hosted on SilverStripe Platform, you can deploy from the dashboard. 
 
 The project comes with a simple PHP script to convert PHP symbols (classes, methods, properties)
 to their URL representations in the API docs, and redirects there.
-The lookup is primarily used by [doc.silverstripe.org](http://doc.silverstripe.org)
+The lookup is primarily used by [doc.silverstripe.org](https://doc.silverstripe.org/)
 to drive its custom `[api:<symbol-name>]` links in Markdown, without coupling it tightly
 to the used API generator URL layout.
 
