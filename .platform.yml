@@ -11,6 +11,7 @@ crons:
   mytask:
     time: "0 3 * * *"
     command: "/var/www/mysite/www/makedoc.sh | logger -t SilverStripe_cron"
+    vhost: "ssapi2"
 url_rules:
   mysite:
     - '^.*': 'apache'
