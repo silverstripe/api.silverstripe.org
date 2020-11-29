@@ -57,10 +57,7 @@ class SilverStripeNodeVisitor extends NodeVisitor
             if ($errors = $comment->getErrors()) {
                 $property->setErrors($errors);
             } else {
-                if ($tag = $comment->getTag('var')) {
-                    $property->setHint($this->resolveHint($tag[0][0]));
-                    $property->setHintDesc($tag[0][1]);
-                }
+                $this->addTagFromCommentToMethod('var', $comment, $property, $errors);
 
                 $property->setTags($comment->getOtherTags());
             }

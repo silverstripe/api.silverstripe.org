@@ -5,5 +5,6 @@ cd $(dirname "$0");
 set -e
 
 bin/docs checkout -v
-bin/docs update conf/doctum.php --version
-bin/docs update conf/doctum.php --ignore-parse-errors --force -v
+
+DOCTUM_COMPOSER_AUTOLOAD_FILE='./vendor/autoload.php' ./vendor/bin/doctum.php --version
+DOCTUM_COMPOSER_AUTOLOAD_FILE='./vendor/autoload.php' ./vendor/bin/doctum.php --ignore-parse-errors --force -v

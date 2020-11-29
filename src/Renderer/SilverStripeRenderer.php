@@ -16,7 +16,7 @@ class SilverStripeRenderer extends Renderer
                 call_user_func(
                     $callback,
                     Message::RENDER_PROGRESS,
-                    array('Class', $class->getName(), $this->getProgression())
+                    ['Class', $class->getName(), $this->step, $this->steps]
                 );
             }
 
@@ -82,7 +82,7 @@ class SilverStripeRenderer extends Renderer
                 $class->sortInterfaces($sortInterfaces);
             }
 
-            $variables = array(
+            $variables = [
                 'class' => $class,
                 'properties' => $properties,
                 'configs' => $configs,
@@ -90,7 +90,7 @@ class SilverStripeRenderer extends Renderer
                 'constants' => $constants,
                 'traits' => $traits,
                 'tree' => $this->getTree($project),
-            );
+            ];
 
             foreach ($this->theme->getTemplates('class') as $template => $target) {
                 $this->save(
