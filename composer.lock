@@ -71,16 +71,16 @@
         },
         {
             "name": "code-lts/doctum",
-            "version": "v5.2.0",
+            "version": "v5.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/code-lts/doctum.git",
-                "reference": "8d68b9860b508c470d641607363a1dcc1808e33f"
+                "reference": "213dd0099a35cfe05d9881e9bdfeb27fbd245a78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/code-lts/doctum/zipball/8d68b9860b508c470d641607363a1dcc1808e33f",
-                "reference": "8d68b9860b508c470d641607363a1dcc1808e33f",
+                "url": "https://api.github.com/repos/code-lts/doctum/zipball/213dd0099a35cfe05d9881e9bdfeb27fbd245a78",
+                "reference": "213dd0099a35cfe05d9881e9bdfeb27fbd245a78",
                 "shasum": ""
             },
             "require": {
@@ -139,9 +139,9 @@
             ],
             "support": {
                 "issues": "https://github.com/code-lts/doctum/issues",
-                "source": "https://github.com/code-lts/doctum/tree/v5.2.0"
+                "source": "https://github.com/code-lts/doctum/tree/v5.2.1"
             },
-            "time": "2020-11-29T21:45:27+00:00"
+            "time": "2020-11-30T21:07:21+00:00"
         },
         {
             "name": "gitonomy/gitlib",
