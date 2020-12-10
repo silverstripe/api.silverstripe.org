@@ -2,4 +2,7 @@ name: silverstripe
 parent: default
 
 global:
-    'doctum.js.twig':    'doctum.js'
+    'doctum.js.twig': 'doctum.js'
+
+class:
+    'class.twig': '%s.html'
