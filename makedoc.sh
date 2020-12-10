@@ -7,4 +7,4 @@ set -e
 bin/docs checkout -v
 
 DOCTUM_COMPOSER_AUTOLOAD_FILE='./vendor/autoload.php' ./vendor/bin/doctum.php --version
-DOCTUM_COMPOSER_AUTOLOAD_FILE='./vendor/autoload.php' ./vendor/bin/doctum.php --ignore-parse-errors --force -v
+DOCTUM_COMPOSER_AUTOLOAD_FILE='./vendor/autoload.php' ./vendor/bin/doctum.php --ignore-parse-errors --force -v update conf/doctum.php
