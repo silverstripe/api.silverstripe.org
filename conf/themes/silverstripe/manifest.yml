@@ -1,11 +1,5 @@
 name: silverstripe
 parent: default
 
-static:
-    'css/doctum.css': 'css/doctum.css'
-    'css/custom.css': 'css/custom.css'
-    'css/ionicons.min.css': 'css/ionicons.min.css'
-    'css/fonts/ionicons/ionicons.eot': 'css/fonts/ionicons/ionicons.eot'
-    'css/fonts/ionicons/ionicons.svg': 'css/fonts/ionicons/ionicons.svg'
-    'css/fonts/ionicons/ionicons.ttf': 'css/fonts/ionicons/ionicons.ttf'
-    'css/fonts/ionicons/ionicons.woff': 'css/fonts/ionicons/ionicons.woff'
+global:
+    'doctum.js.twig':    'doctum.js'
