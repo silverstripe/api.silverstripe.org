@@ -21,6 +21,7 @@ class SilverStripeNodeVisitor extends NodeVisitor
         $class->setAliases($this->context->getAliases());
         $class->setHash($this->context->getHash());
         $class->setFile($this->context->getFile());
+        $class->setRelativeFilePath($this->context->getFile());
 
         $comment = $this->context->getDocBlockParser()->parse($node->getDocComment(), $this->context, $class);
         $class->setDocComment($node->getDocComment());

@@ -2,12 +2,12 @@
 
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
-use Doctum\Project;
 use Doctum\Doctum;
 use SilverStripe\ApiDocs\Data\ApiJsonStore;
 use SilverStripe\ApiDocs\Data\Config;
 use SilverStripe\ApiDocs\Inspections\RecipeFinder;
 use SilverStripe\ApiDocs\Inspections\RecipeVersionCollection;
+use SilverStripe\ApiDocs\SilverStripeProject;
 use SilverStripe\ApiDocs\Twig\NavigationExtension;
 
 // Get config
@@ -76,7 +76,7 @@ $doctum['store'] = function () {
 // Override project
 unset($doctum['project']);
 $doctum['project'] = function ($sc) {
-    $project = new Project($sc['store'], $sc['_versions'], array(
+    $project = new SilverStripeProject($sc['store'], $sc['_versions'], array(
         'build_dir' => $sc['build_dir'],
         'cache_dir' => $sc['cache_dir'],
         'remote_repository' => $sc['remote_repository'],
