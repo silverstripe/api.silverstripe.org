@@ -7,24 +7,17 @@ use Doctum\Reflection\PropertyReflection;
 
 class SilverStripeClassReflection extends ClassReflection
 {
-    const CATEGORY_CONFIG = 4;
 
-    private static $categoryName = [
-        1 => 'class',
-        2 => 'interface',
-        3 => 'trait',
-        4 => 'config',
-    ];
-
+    /** @var array<string,PropertyReflection> */
     protected $configs = [];
 
-    public function addConfig(PropertyReflection $property)
+    public function addConfig(PropertyReflection $property): void
     {
         $this->configs[$property->getName()] = $property;
         $property->setClass($this);
     }
 
-    public function getConfigs()
+    public function getConfigs(): array
     {
         return $this->configs;
     }
