@@ -26,7 +26,7 @@ class SilverStripeRemoteRepository extends AbstractRemoteRepository
         }
         if (isset($packageConfig['versionmap'])) {
             $versionMaps = Config::getConfig()['versionmaps'];
-            $projectVersion = $versionMaps[$packageConfig['versionmap']][(string) $projectVersion];
+            $projectVersion = $versionMaps[$packageConfig['versionmap']][(string) $projectVersion] ?? $projectVersion;
         }
         $url = $rootPath . '/blob/' . $this->buildProjectPath($projectVersion, $pathParts[2]);
 

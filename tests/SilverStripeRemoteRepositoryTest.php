@@ -48,5 +48,30 @@ class SilverStripeRemoteRepositoryTest extends TestCase
             . 'silverstripe-graphql/blob/master/src/Extensions/IntrospectionProvider.php#L0',
             $url
         );
+
+        $url = $remoteRepo->getFileUrl(
+            '3',
+            'silverstripe/graphql/src/Extensions/IntrospectionProvider.php',
+            0
+        );
+
+        $this->assertSame(
+            'https://github.com/silverstripe/'
+            . 'silverstripe-graphql/blob/3/src/Extensions/IntrospectionProvider.php#L0',
+            $url
+        );
+
+        // A mysterious version did pop out, oh snap
+        $url = $remoteRepo->getFileUrl(
+            'foobar',
+            'silverstripe/graphql/src/Extensions/IntrospectionProvider.php',
+            0
+        );
+
+        $this->assertSame(
+            'https://github.com/silverstripe/'
+            . 'silverstripe-graphql/blob/foobar/src/Extensions/IntrospectionProvider.php#L0',
+            $url
+        );
     }
 }
