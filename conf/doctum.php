@@ -81,6 +81,13 @@ $doctum['project'] = function ($sc) {
         'source_dir' => $sc['source_dir'],
         'insert_todos' => $sc['insert_todos'],
         'base_url' => $sc['base_url'],
+        'footer_link' => [
+            'href' => 'https://github.com/silverstripe/api.silverstripe.org',
+            'rel' => 'noreferrer noopener',
+            'target' => '_blank',
+            'before_text' => 'Contributions to this documentation repository are welcomed',
+            'link_text' => 'on Github!',
+        ],
     ));
     $project->setRenderer($sc['renderer']);
     $project->setParser($sc['parser']);
