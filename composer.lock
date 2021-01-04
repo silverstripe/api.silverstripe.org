@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "61174254efbdd16bc67daebf6d0e889c",
+    "content-hash": "e51ab6f585ce54c405f0ce66b61a582e",
     "packages": [
         {
             "name": "code-lts/cli-tools",
@@ -71,23 +71,23 @@
         },
         {
             "name": "code-lts/doctum",
-            "version": "v5.2.1",
+            "version": "v5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/code-lts/doctum.git",
-                "reference": "213dd0099a35cfe05d9881e9bdfeb27fbd245a78"
+                "reference": "b7e2ffb5118ca961aa4ca380adb8bf4d5113ef98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/code-lts/doctum/zipball/213dd0099a35cfe05d9881e9bdfeb27fbd245a78",
-                "reference": "213dd0099a35cfe05d9881e9bdfeb27fbd245a78",
+                "url": "https://api.github.com/repos/code-lts/doctum/zipball/b7e2ffb5118ca961aa4ca380adb8bf4d5113ef98",
+                "reference": "b7e2ffb5118ca961aa4ca380adb8bf4d5113ef98",
                 "shasum": ""
             },
             "require": {
                 "code-lts/cli-tools": "^1.3.1",
                 "michelf/php-markdown": "~1.3",
                 "nikic/php-parser": "~4.6",
-                "php": "^7.1 || ^8.0",
+                "php": "^7.1.3 || ^8.0",
                 "phpdocumentor/reflection-docblock": "~4.3|~5.2.1",
                 "symfony/console": "~3.4|~4.3|~5.1|~5.2",
                 "symfony/filesystem": "~3.4|~4.3|~5.1|~5.2",
@@ -139,9 +139,9 @@
             ],
             "support": {
                 "issues": "https://github.com/code-lts/doctum/issues",
-                "source": "https://github.com/code-lts/doctum/tree/v5.2.1"
+                "source": "https://github.com/code-lts/doctum/tree/v5.3.1"
             },
-            "time": "2020-11-30T21:07:21+00:00"
+            "time": "2020-12-30T13:09:42+00:00"
         },
         {
             "name": "gitonomy/gitlib",

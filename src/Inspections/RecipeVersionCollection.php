@@ -137,9 +137,9 @@ class RecipeVersionCollection extends VersionCollection
      * @param string $package
      * @return string
      */
-    public function getPackagePath($package)
+    public function getPackagePath(string $package): string
     {
-        return Config::configPath($this->config['paths']['packages'] . '/' . $package);
+        return realpath(Config::configPath($this->config['paths']['packages'] . '/' . $package));
     }
 
     /**

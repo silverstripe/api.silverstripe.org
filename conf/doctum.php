@@ -8,7 +8,7 @@ use SilverStripe\ApiDocs\Data\ApiJsonStore;
 use SilverStripe\ApiDocs\Data\Config;
 use SilverStripe\ApiDocs\Inspections\RecipeFinder;
 use SilverStripe\ApiDocs\Inspections\RecipeVersionCollection;
-use SilverStripe\ApiDocs\Twig\NavigationExtension;
+use SilverStripe\ApiDocs\RemoteRepository\SilverStripeRemoteRepository;
 
 // Get config
 $config = Config::getConfig();
@@ -37,6 +37,8 @@ $doctum = new Doctum($iterator, [
     'versions' => $versions,
     'build_dir' => Config::configPath($config['paths']['www']) . '/%version%',
     'cache_dir' => Config::configPath($config['paths']['cache']) . '/%version%',
+    'source_dir' => $versions->getPackagePath(''),// Root of all the packages
+    'remote_repository' => new SilverStripeRemoteRepository('', $versions->getPackagePath('') . '/'),
     'template_dirs' => [ __DIR__ .'/themes' ],
 ]);
 
@@ -55,15 +57,6 @@ $doctum['php_traverser'] = function ($sc) {
 
 $doctum['renderer'] = function ($sc) {
     return new \SilverStripe\ApiDocs\Renderer\SilverStripeRenderer($sc['twig'], $sc['themes'], $sc['tree'], $sc['indexer']);
-};
-
-// Override twig
-/** @var Twig_Environment $twig */
-$twig = $doctum['twig'];
-unset($doctum['twig']);
-$doctum['twig'] = function () use ($twig) {
-    $twig->addExtension(new NavigationExtension());
-    return $twig;
 };
 
 // Override json store
