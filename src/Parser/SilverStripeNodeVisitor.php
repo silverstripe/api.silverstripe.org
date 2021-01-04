@@ -2,7 +2,7 @@
 
 namespace SilverStripe\ApiDocs\Parser;
 
-use Prophecy\Doubler\Generator\Node\ClassNode;
+use PhpParser\Node\Stmt\Class_ as ClassNode;
 use Doctum\Parser\NodeVisitor;
 use PhpParser\Node\Stmt\ClassLike as ClassLikeNode;
 use PhpParser\Node\Stmt\Property as PropertyNode;
