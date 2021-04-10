@@ -40,6 +40,7 @@ $doctum = new Doctum($iterator, [
     'source_dir' => $versions->getPackagePath(''),// Root of all the packages
     'remote_repository' => new SilverStripeRemoteRepository('', $versions->getPackagePath('') . '/'),
     'template_dirs' => [ __DIR__ .'/themes' ],
+    'base_url' => 'https://api.silverstripe.org/%version%/',
 ]);
 
 // Make sure we document `@config` options
