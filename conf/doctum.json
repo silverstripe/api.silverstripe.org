@@ -44,8 +44,7 @@
             "repository": "https://github.com/silverstripe/silverstripe-framework.git"
         },
         "silverstripe/graphql": {
-            "repository": "https://github.com/silverstripe/silverstripe-graphql.git",
-            "versionmap": "starts-at-three"
+            "repository": "https://github.com/silverstripe/silverstripe-graphql.git"
         },
         "silverstripe/reports": {
             "repository": "https://github.com/silverstripe/silverstripe-reports.git"

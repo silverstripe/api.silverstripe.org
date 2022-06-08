@@ -27,25 +27,25 @@ class SilverStripeRemoteRepositoryTest extends TestCase
 
         $url = $remoteRepo->getFileUrl(
             '4',
-            'silverstripe/graphql/src/Extensions/IntrospectionProvider.php',
+            'silverstripe/graphql/src/Extensions/DevBuildExtension.php',
             0
         );
 
         $this->assertSame(
             'https://github.com/silverstripe/'
-            . 'silverstripe-graphql/blob/3/src/Extensions/IntrospectionProvider.php#L0',
+            . 'silverstripe-graphql/blob/4/src/Extensions/DevBuildExtension.php#L0',
             $url
         );
 
         $url = $remoteRepo->getFileUrl(
             'master',
-            'silverstripe/graphql/src/Extensions/IntrospectionProvider.php',
+            'silverstripe/graphql/src/Extensions/DevBuildExtension.php',
             0
         );
 
         $this->assertSame(
             'https://github.com/silverstripe/'
-            . 'silverstripe-graphql/blob/master/src/Extensions/IntrospectionProvider.php#L0',
+            . 'silverstripe-graphql/blob/master/src/Extensions/DevBuildExtension.php#L0',
             $url
         );
 
