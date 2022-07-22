@@ -38,14 +38,14 @@ class SilverStripeRemoteRepositoryTest extends TestCase
         );
 
         $url = $remoteRepo->getFileUrl(
-            'master',
+            '5',
             'silverstripe/graphql/src/Extensions/DevBuildExtension.php',
             0
         );
 
         $this->assertSame(
             'https://github.com/silverstripe/'
-            . 'silverstripe-graphql/blob/master/src/Extensions/DevBuildExtension.php#L0',
+            . 'silverstripe-graphql/blob/5/src/Extensions/DevBuildExtension.php#L0',
             $url
         );
 
