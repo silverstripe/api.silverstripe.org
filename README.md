@@ -1,6 +1,6 @@
 # Introduction
 
-[![Build Status](https://travis-ci.com/silverstripe/api.silverstripe.org.svg?branch=master)](https://travis-ci.com/silverstripe/api.silverstripe.org)
+[![CI](https://github.com/silverstripe/api.silverstripe.org/actions/workflows/ci.yml/badge.svg)](https://github.com/silverstripe/api.silverstripe.org/actions/workflows/ci.yml)
 
 SilverStripe API docs for the core system in different versions,
 generated through [Doctum](https://github.com/code-lts/doctum#readme).
