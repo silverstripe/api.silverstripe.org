@@ -14,7 +14,7 @@ class Lookup
      *
      * @var string
      */
-    const DEFAULT_BRANCH = 'master';
+    const DEFAULT_BRANCH = '4';
 
     /**
      * @var string[]
@@ -81,6 +81,8 @@ class Lookup
 
     /**
      * Allow setting the "version mapping" that can be used to convert "4" to "master", etc
+     *
+     * Useful in the event that modules have strange branching strategies
      *
      * @param  array $map
      * @return $this

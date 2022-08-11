@@ -33,18 +33,18 @@ class LookupTest extends TestCase
 
     public function testGetVersionExactRule()
     {
-        $lookup = new Lookup(['version' => 'master']);
+        $lookup = new Lookup(['version' => '5']);
         $lookup->setVersionMap([
-            'master' => '5.x',
+            '5' => '5',
         ]);
-        $this->assertSame('5.x', $lookup->getVersion());
+        $this->assertSame('5', $lookup->getVersion());
     }
 
     public function testGetVersionDefault()
     {
         $lookup = new Lookup(['version' => 'unknown']);
         $lookup->setVersionMap([
-            'master' => '5.x',
+            '5' => '5.x',
             '4' => '4.x',
             '3' => '3.x',
         ]);

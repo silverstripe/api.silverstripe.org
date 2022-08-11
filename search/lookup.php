@@ -8,7 +8,6 @@ require_once __DIR__ .'/../vendor/autoload.php';
 $lookup = new SilverStripe\ApiDocs\Lookup($_GET);
 
 $lookup->setVersionMap(array(
-    'master' => '5',
     '/^(\d+)[.].*$/' => '$1',
 ));
 

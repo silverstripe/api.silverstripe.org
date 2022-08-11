@@ -1,6 +1,6 @@
 # Introduction
 
-[![Build Status](https://travis-ci.com/silverstripe/api.silverstripe.org.svg?branch=master)](https://travis-ci.com/silverstripe/api.silverstripe.org)
+[![CI](https://github.com/silverstripe/api.silverstripe.org/actions/workflows/ci.yml/badge.svg)](https://github.com/silverstripe/api.silverstripe.org/actions/workflows/ci.yml)
 
 SilverStripe API docs for the core system in different versions,
 generated through [Doctum](https://github.com/code-lts/doctum#readme).
@@ -31,15 +31,13 @@ generated through [Doctum](https://github.com/code-lts/doctum#readme).
 
 ### Add a New Version
 
- * Copy a version section block in `doctum.json` and ensure you use the appropriate value for `versionmap` depending
-   on whether the module started its life at version 1 or version 4 (for SilverStripe 4)
+ * Copy a version section block in `conf/doctum.json` and ensure you use the appropriate value for `versionmap` - you may need to add more mappings to `versionmap` if the current mappings don't fit all modules for the new major version (e.g. if splitting some functionality off into its own module)
  * Run `makedoc.sh` and confirm the generation runs through properly
- * Make a commit of the updated `doctum.json`
- * Update the redirections in `.htaccess` to the stable version number (if changing major versions)
+ * Make a commit of the updated `conf/doctum.json`
+ * Update the redirections in `.htaccess` to the stable version number (if releasing a new stable major version)
  * Make a separate commit with the redirection (explained in deployment below)
 
-**Please note:** Often the `master` branch will be representing an unstable major version. When this needs
-to be updated, please edit `search/lookup.php`.
+**Please note:** If you are changing the default version (i.e. a making a new stable major release), update the default version in `src/Lookup.php`.
 
 ### Deployment to production
 
@@ -57,16 +55,16 @@ Parameters:
 
  * `q`: (required) Class name, method name (`<class>::<method>()` or <class>-><method>()`),
    as well as property name ((`<class>::$<property>` or <class>-><property>`).
- * `version`: (optional) Version of the targeted module. Should map to a folder name. Defaults to trunk. Will switch current unstable major version (e.g. 4) to "master".
+ * `version`: (optional) Version of the targeted module. Should map to a folder name. Default is defined in `src/Lookup.php`.
  * `module`: (optional) Module name. Should map to a folder name. Defaults to framework.
 
 Examples:
 
- * `/search/lookup.php?q=DataObject`: Shows `DataObject` docs in `trunk` version of framework
+ * `/search/lookup.php?q=DataObject`: Shows `DataObject` docs in default version of framework
  * `/search/lookup.php?q=DataObject::get()&version=3.0`: Shows `DataObject::get()` docs in `3.0` version of framework
  * `/search/lookup.php?q=DataObject::get()&version=3.0`: Shows `DataObject::get()` docs in `3.6` version of framework (or whatever is the latest stable minor version)
  * `/search/lookup.php?q=DPSPayment&module=payment`: Shows `DPSPayment` class docs in the `ecommerce` module
- * `/search/lookup.php?q=SilverStripe\ORM\DataExtension::onBeforeWrite()&version=4`: Shows `SilverStripe\ORM\DataExtension::onBeforeWrite()` docs in `master` (4.x) version of framework
+ * `/search/lookup.php?q=SilverStripe\ORM\DataExtension::onBeforeWrite()&version=4`: Shows `SilverStripe\ORM\DataExtension::onBeforeWrite()` docs in (4.x) version of framework
 
 ## Contributing
 
