@@ -5,3 +5,4 @@
 /htdocs
 /data
 /.vagrant/
+/.phpunit.result.cache
