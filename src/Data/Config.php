@@ -35,6 +35,20 @@ class Config
     }
 
     /**
+     * Get the map of packages and versions to branches.
+     * @throws Exception
+     */
+    public static function getVersionMap()
+    {
+        $config = static::getConfig();
+        $path = Config::configPath($config['paths']['versionmap']);
+        if (!file_exists($path)) {
+            throw new Exception("File $path not found");
+        }
+        return json_decode(file_get_contents($path), true);
+    }
+
+    /**
      * Map named path to absolute path
      *
      * @param string $path

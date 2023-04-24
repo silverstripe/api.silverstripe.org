@@ -2,7 +2,6 @@
 
 namespace SilverStripe\ApiDocs\Inspections;
 
-use LogicException;
 use Doctum\Version\Version;
 use Doctum\Version\VersionCollection;
 use SilverStripe\ApiDocs\Data\Config;
@@ -23,12 +22,12 @@ class RecipeVersionCollection extends VersionCollection
     /**
      * @var array
      */
-    protected $config;
+    protected $versionMap;
 
     public function __construct($versions = [])
     {
         parent::__construct($versions);
-        $this->config = Config::getConfig();
+        $this->versionMap = Config::getVersionMap();
     }
 
     /**
@@ -57,7 +56,7 @@ class RecipeVersionCollection extends VersionCollection
      */
     public function getPackages()
     {
-        return array_keys($this->config['packages']);
+        return array_keys($this->versionMap);
     }
 
     /**
@@ -75,14 +74,7 @@ class RecipeVersionCollection extends VersionCollection
         }
 
         // Get version map for this package
-        $map = $this->config['packages'][$package]['versionmap'] ?? null;
-        if ($map && !is_array($map)) {
-            // Use named map instead of specific map
-            $map = $this->config['versionmaps'][$map] ?? null;
-            if (!is_array($map)) {
-                throw new LogicException("Package $package uses non-existant versionmap");
-            }
-        }
+        $map = $this->versionMap[$package]['versionmap'] ?? null;
 
         // Get name to map
         $name = $version->getName();
@@ -92,7 +84,7 @@ class RecipeVersionCollection extends VersionCollection
             return $map[$name];
         }
 
-        return $name;
+        return null;
     }
 
     /**
@@ -139,7 +131,7 @@ class RecipeVersionCollection extends VersionCollection
      */
     public function getPackagePath(string $package): string
     {
-        return realpath(Config::configPath($this->config['paths']['packages'] . '/' . $package));
+        return realpath(Config::configPath(Config::getConfig()['paths']['packages'] . '/' . $package));
     }
 
     /**

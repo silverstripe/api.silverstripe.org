@@ -19,16 +19,17 @@ class SilverStripeRemoteRepository extends AbstractRemoteRepository
         // Example: [silverstripe, admin, code/AdminRootController.php]
         $this->name = $pathParts[0] . '/' . $pathParts[1];
 
-        $packageConfig = Config::getConfig()['packages'][$this->name];
+        $packageConfig = Config::getVersionMap()[$this->name];
         $rootPath = $packageConfig['repository'];
         if (substr($rootPath, -4) === '.git') {
             $rootPath = substr($rootPath, 0, -4);
         }
-        if (isset($packageConfig['versionmap'])) {
-            $versionMaps = Config::getConfig()['versionmaps'];
-            $projectVersion = $versionMaps[$packageConfig['versionmap']][(string) $projectVersion] ?? $projectVersion;
+        $branch = $packageConfig['versionmap'][$projectVersion] ?? null;
+        if ($branch === null) {
+            trigger_error("Can't find correct branch name for version $projectVersion in module {$this->name}", E_USER_WARNING);
+            $branch = $projectVersion;
         }
-        $url = $rootPath . '/blob/' . $this->buildProjectPath($projectVersion, $pathParts[2]);
+        $url = $rootPath . '/blob/' . $this->buildProjectPath($branch, $pathParts[2]);
 
         if (null !== $line) {
             $url .= '#L' . (int) $line;

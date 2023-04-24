@@ -29,9 +29,10 @@ generated through [Doctum](https://github.com/code-lts/doctum#readme).
  * Run the `makedoc.sh` script as a cronjob, usually a nightly run at 3am is fine:
 	`0 3 * * * /sites/api/www/makedoc.sh`
 
-### Add a New Version
+### Add a new major ersion
 
- * Copy a version section block in `conf/doctum.json` and ensure you use the appropriate value for `versionmap` - you may need to add more mappings to `versionmap` if the current mappings don't fit all modules for the new major version (e.g. if splitting some functionality off into its own module)
+ * Add a new version in the `'versions'` key in `conf/doctum.json`
+ * Make sure https://github.com/silverstripe/supported-modules has been updated with a new branch for the new major version with correct branch mapping
  * Run `makedoc.sh` and confirm the generation runs through properly
  * Make a commit of the updated `conf/doctum.json`
  * Update the redirections in `.htaccess` to the stable version number (if releasing a new stable major version)
@@ -53,8 +54,8 @@ to the used API generator URL layout.
 
 Parameters:
 
- * `q`: (required) Class name, method name (`<class>::<method>()` or <class>-><method>()`),
-   as well as property name ((`<class>::$<property>` or <class>-><property>`).
+ * `q`: (required) Class name, method name (`<class>::<method>()` or `<class>-><method>()`),
+   as well as property name ((`<class>::$<property>` or `<class>-><property>`).
  * `version`: (optional) Version of the targeted module. Should map to a folder name. Default is defined in `src/Lookup.php`.
  * `module`: (optional) Module name. Should map to a folder name. Defaults to framework.
 
@@ -68,4 +69,4 @@ Examples:
 
 ## Contributing
 
-While SilverStripe self-hosts this project, community contributions to the code are very welcome :) Please check out our [guide to contributing code](https://github.com/silverstripe/silverstripe-framework/blob/4.0/docs/en/05_Contributing/01_Code.md) on silverstripe.org
+While SilverStripe self-hosts this project, community contributions to the code are very welcome :) Please check out our [guide to contributing code](https://docs.silverstripe.org/en/contributing/code/) on silverstripe.org
