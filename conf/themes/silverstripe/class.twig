@@ -1,5 +1,5 @@
 {% extends "default/class.twig" %}
-{% from "macros.twig" import render_classes, property_link, hint_link, deprecated, deprecations, internals, todos %}
+{% from "macros.twig" import render_classes, property_link, method_link, hint_link, deprecated, deprecations, internals, todos %}
 
 {# This has to be included so that we can add config after constants #}
 {% block page_content %}
@@ -72,7 +72,7 @@
 
 {% endblock %}
 
-{# This has to be included so that we can exclude config from the properties section #}
+{# This has to be included so that we can exclude config from the properties section, and to rearrange some display items #}
 {% block properties %}
     <table class="table table-condensed">
         {% for property in properties %}
@@ -81,10 +81,12 @@
             {# END CUSTOMISATION #}
             <tr>
                 <td id="property_{{ property.name|raw }}">
-                    {% if property.isStatic() %}static{% endif %}
+                    {# BEGIN CUSTOMISATION - add public, and reorder so that static is after visibility #}
+                    {% if property.isPublic() %}public{% endif %}
                     {% if property.isProtected() %}protected{% endif %}
                     {% if property.isPrivate() %}private{% endif %}
-                    {{ hint_link(property.hint) }} 
+                    {% if property.isStatic() %}static{% endif %}
+                    {# END CUSTOMISATION #}
                     {% if property.isInternal() %}<span class="label label-warning">{% trans 'internal' %}</span>{% endif %}
                     {% if property.isDeprecated() %}<span class="label label-danger">{% trans 'deprecated' %}</span>{% endif %}
                     {% if property.isReadOnly() %}<span class="label label-primary">{% trans 'read-only' %}</span>{% endif %}
@@ -95,6 +97,9 @@
                         <br>
                     {% endif %}
                 </td>
+                {# BEGIN CUSTOMISATION - move type hint into its own column to match config #}
+                <td class="type"> {{ hint_link(property.hint) }} </td>
+                {# END CUSTOMISATION #}
                 <td>${{ property.name|raw }}</td>
                 <td class="last">{{ property.shortdesc|desc(class)|md_to_html }}</td>
                 <td>
@@ -108,6 +113,40 @@
             {# END CUSTOMISATION #}
         {% endfor %}
     </table>
+{% endblock %}
+
+{# This has to be included to include visibility and rearrange things slightly #}
+{% block methods %}
+    <div class="container-fluid underlined">
+        {% for method in methods %}
+            <div class="row">
+                {# BEGIN CUSTOMISATION - add visibility and move type hint into its own column #}
+                <div class="col-md-1">
+                    {% if method.isPublic() %}public{% endif %}
+                    {% if method.isProtected() %}protected{% endif %}
+                    {% if method.isPrivate() %}private{% endif %}
+                    {% if method.static %}static&nbsp;{% endif %}
+                </div>
+                <div class="col-md-1 type">
+                    {{ hint_link(method.hint) }}
+                </div>
+                {# END CUSTOMISATION #}
+                <div class="col-md-8">
+                    <a href="#method_{{ method.name|raw }}">{{ method.name|raw }}</a>{{ block('method_parameters_signature') }}
+                    {% if not method.shortdesc %}
+                        <p class="no-description">{% trans 'No description' %}</p>
+                    {% else %}
+                        <p>{{ method.shortdesc|desc(class)|md_to_html }}</p>
+                    {%- endif %}
+                </div>
+                <div class="col-md-2">
+                    {%- if method.class is not same as(class) -%}
+                        <small>{{ 'from&nbsp;%s'|trans|format(method_link(method, false, true))|raw }}</small>
+                    {%- endif -%}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {# BEGIN CUSTOMISATION - completely new block #}
