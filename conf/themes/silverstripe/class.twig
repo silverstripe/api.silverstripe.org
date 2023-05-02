@@ -72,6 +72,44 @@
 
 {% endblock %}
 
+{# This has to be included so that we can exclude config from the properties section #}
+{% block properties %}
+    <table class="table table-condensed">
+        {% for property in properties %}
+            {# BEGIN CUSTOMISATION - exclude config properties #}
+            {% if not loop.parent.class.propertyIsConfig(property) %}
+            {# END CUSTOMISATION #}
+            <tr>
+                <td id="property_{{ property.name|raw }}">
+                    {% if property.isStatic() %}static{% endif %}
+                    {% if property.isProtected() %}protected{% endif %}
+                    {% if property.isPrivate() %}private{% endif %}
+                    {{ hint_link(property.hint) }} 
+                    {% if property.isInternal() %}<span class="label label-warning">{% trans 'internal' %}</span>{% endif %}
+                    {% if property.isDeprecated() %}<span class="label label-danger">{% trans 'deprecated' %}</span>{% endif %}
+                    {% if property.isReadOnly() %}<span class="label label-primary">{% trans 'read-only' %}</span>{% endif %}
+                    {% if property.isWriteOnly() %}<span class="label label-success">{% trans 'write-only' %}</span>{% endif %}
+
+                    {% if property.hasSince() %}
+                        <i>{{ 'Since:'|trans }} {{ property.getSince() }}</i>
+                        <br>
+                    {% endif %}
+                </td>
+                <td>${{ property.name|raw }}</td>
+                <td class="last">{{ property.shortdesc|desc(class)|md_to_html }}</td>
+                <td>
+                    {%- if property.class is not same as(class) -%}
+                        <small>{{ 'from&nbsp;%s'|trans|format(property_link(property, false, true))|raw }}</small>
+                    {%- endif -%}
+                </td>
+            </tr>
+            {# BEGIN CUSTOMISATION #}
+            {% endif %}
+            {# END CUSTOMISATION #}
+        {% endfor %}
+    </table>
+{% endblock %}
+
 {# BEGIN CUSTOMISATION - completely new block #}
 {% block configs %}
     <table class="table table-condensed">
