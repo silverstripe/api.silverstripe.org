@@ -44,9 +44,9 @@
     RewriteCond %{REQUEST_URI} ^(.*)search/lookup [NC]
     RewriteRule ^/?search/lookup(/|$) %1search/lookup.php [L,R=302,QSA]
 
-    # Symlink to 4 index.html
+    # Symlink to 5 index.html - default major version
     RewriteCond %{REQUEST_URI} ^(.*)$ [NC]
-    RewriteRule ^/?$ %14/index.html [R=302,L]
+    RewriteRule ^/?$ %15/index.html [R=302,L]
 
     # Serve docs in htdocs
     RewriteCond %{REQUEST_FILENAME} !-f
