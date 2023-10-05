@@ -353,7 +353,8 @@ $(function() {
     {% if project.versions|length > 1 %}
     // Enable the version switcher
     $('#version-switcher').on('change', function() {
-        window.location = $(this).val()
+        var currentLocation = window.location.pathname.substring(2);
+        window.location = '/' + $(this).data('version') + currentLocation;
     });
     var versionSwitcher = document.getElementById('version-switcher');
     if (versionSwitcher) {
