@@ -2,6 +2,7 @@
 
 namespace SilverStripe\ApiDocs\Inspections;
 
+use Iterator;
 use ReflectionProperty;
 use Symfony\Component\Finder\Finder;
 
@@ -18,7 +19,7 @@ class RecipeFinder extends Finder
         $this->collection = $collection;
     }
 
-    public function getIterator()
+    public function getIterator(): Iterator
     {
         // Clear all dirs
         $this->resetDirs();

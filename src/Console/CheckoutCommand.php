@@ -27,7 +27,7 @@ class CheckoutCommand extends Command
         '/-theme$/',
     ];
 
-    public function run(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         $config = Config::getConfig();
 
@@ -63,6 +63,8 @@ class CheckoutCommand extends Command
         }
 
         $this->writeMapToDisk($versionMap, $config, $output);
+
+        return self::SUCCESS;
     }
 
     /**

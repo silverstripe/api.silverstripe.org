@@ -14,7 +14,7 @@ generated through [Doctum](https://github.com/code-lts/doctum#readme).
 
  * Git
  * Composer
- * PHP 7.3 or newer
+ * PHP 8.1 or newer
 
 ## Installation
 
