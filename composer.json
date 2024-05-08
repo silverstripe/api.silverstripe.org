@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.1",
         "gitonomy/gitlib": "^1.2",
+        "silverstripe/supported-modules": "dev-main",
         "symfony/console": "^6.2",
         "code-lts/doctum": "^5.5.3",
         "psr/log": "^3.0"
