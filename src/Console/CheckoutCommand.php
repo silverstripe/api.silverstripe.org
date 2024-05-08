@@ -8,6 +8,7 @@ use Psr\Log\NullLogger;
 use RuntimeException;
 use SilverStripe\ApiDocs\Data\Config;
 use SilverStripe\ApiDocs\Data\RepoFactory;
+use SilverStripe\SupportedModules\MetaData;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,6 +18,7 @@ class CheckoutCommand extends Command
     /**
      * Regex patterns for github repositories that should be ignored.
      * These are repositories that don't have relevant API.
+     * The patterns are matched against the packagist name for the module.
      */
     private array $ignoreModulePatterns = [
         '/^silverstripe\/developer-docs$/',
@@ -162,21 +164,43 @@ class CheckoutCommand extends Command
         $map = [];
         $versions = array_keys($config['versions']);
 
-        foreach ($versions as $version) {
-            $modulesUrl = "https://raw.githubusercontent.com/silverstripe/supported-modules/$version/modules.json";
+        $repos = MetaData::getAllRepositoryMetaData()[MetaData::CATEGORY_SUPPORTED];
+        foreach ($repos as $repo) {
+            if ($this->shouldIgnoreModule($repo)) {
+                continue;
+            }
+            $githubName = $repo['github'];
+            $moduleName = $repo['packagist'];
+            $versionMap = $repo['majorVersionMapping'];
+            // Remove mapping from any versions we don't care about, and make sure we only have one branch for each cms major
+            foreach ($versionMap as $cmsMajor => $branches) {
+                if (!in_array($cmsMajor, $versions)) {
+                    unset($versionMap[$cmsMajor]);
+                    continue;
+                }
+                $versionMap[$cmsMajor] = end($branches);
+            }
+            $map[$moduleName] = [
+                'repository' => "https://github.com/$githubName.git",
+                'versionmap' => $versionMap,
+            ];
+        }
+
+        // CMS 3 isn't in the main branch of silverstripe/supported-modules - we have to use a legacy branch for that data.
+        if (in_array(3, $versions)) {
+            $modulesUrl = "https://raw.githubusercontent.com/silverstripe/supported-modules/3/modules.json";
             $modulesJson = json_decode(file_get_contents($modulesUrl) ?: 'null', true);
 
             if ($modulesJson === null) {
-                throw new RuntimeException('Modules data could not be retrieved for version ' . $version);
+                throw new RuntimeException('Modules data could not be retrieved for version 3');
             }
 
             foreach ($modulesJson as $module) {
-                $moduleName = $module['composer'];
-
-                if ($this->shouldIgnoreModule($module)) {
+                if ($this->shouldIgnoreModuleLegacy($module, true)) {
                     continue;
                 }
 
+                $moduleName = $module['composer'];
                 if (!array_key_exists($moduleName, $map)) {
                     $githubName = $module['github'];
                     $map[$moduleName] = [
@@ -187,14 +211,15 @@ class CheckoutCommand extends Command
 
                 $branches = $module['branches'];
                 sort($branches);
-                $map[$moduleName]['versionmap'][$version] = end($branches);
+                $map[$moduleName]['versionmap'][3] = end($branches);
             }
         }
 
-        foreach ($map as &$data) {
+        // Add a null entry for anything that's not supported for a given version
+        foreach ($map as $index => $data) {
             foreach ($versions as $version) {
                 if (!isset($data['versionmap'][$version])) {
-                    $data['versionmap'][$version] = null;
+                    $map[$index]['versionmap'][$version] = null;
                 }
             }
         }
@@ -202,7 +227,7 @@ class CheckoutCommand extends Command
         return $map;
     }
 
-    private function shouldIgnoreModule(array $module)
+    private function shouldIgnoreModuleLegacy(array $module)
     {
         if ($module['type'] !== 'supported-module' || empty($module['branches'])) {
             return true;
@@ -210,6 +235,21 @@ class CheckoutCommand extends Command
 
         foreach ($this->ignoreModulePatterns as $regex) {
             if (preg_match($regex, $module['composer'])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function shouldIgnoreModule(array $module)
+    {
+        if ($module['type'] === 'other' || empty($module['majorVersionMapping'])) {
+            return true;
+        }
+
+        foreach ($this->ignoreModulePatterns as $regex) {
+            if (preg_match($regex, $module['packagist'])) {
                 return true;
             }
         }

@@ -32,7 +32,7 @@ generated through [Doctum](https://github.com/code-lts/doctum#readme).
 ### Add a new major ersion
 
  * Add a new version in the `'versions'` key in `conf/doctum.json`
- * Make sure https://github.com/silverstripe/supported-modules has been updated with a new branch for the new major version with correct branch mapping
+ * Make sure https://github.com/silverstripe/supported-modules has been updated with correct branch mapping
  * Run `makedoc.sh` and confirm the generation runs through properly
  * Make a commit of the updated `conf/doctum.json`
  * Update the redirections in `.htaccess` to the stable version number (if releasing a new stable major version)
