@@ -3,6 +3,7 @@
     "theme": "silverstripe",
     "base_url": "http://api.silverstripe.org/%version%",
     "versions": {
+        "6": "6.x",
         "5": "5.x",
         "4": "4.x",
         "3": "3.x"
