@@ -1,5 +1,5 @@
 .gif_holder {
-    background-image: url('https://www.silverstripe.com/themes/ssv3/img/banners/page-not-found.gif'); 
+    background-image: url('/images/page-not-found.gif');
     position: relative;
     z-index: 807;
     -webkit-background-size: cover;
@@ -52,5 +52,5 @@ a:hover {
 
 body {
 	padding: 0;
-	margin: 0;"
+	margin: 0;
 }

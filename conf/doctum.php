@@ -2,13 +2,13 @@
 
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
-use Doctum\Project;
 use Doctum\Doctum;
 use SilverStripe\ApiDocs\Data\ApiJsonStore;
 use SilverStripe\ApiDocs\Data\Config;
 use SilverStripe\ApiDocs\Inspections\RecipeFinder;
 use SilverStripe\ApiDocs\Inspections\RecipeVersionCollection;
 use SilverStripe\ApiDocs\RemoteRepository\SilverStripeRemoteRepository;
+use SilverStripe\ApiDocs\SilverstripeProject;
 
 // Get config
 $config = Config::getConfig();
@@ -70,7 +70,7 @@ $doctum['store'] = function () {
 // Override project
 unset($doctum['project']);
 $doctum['project'] = function ($sc) {
-    $project = new Project($sc['store'], $sc['_versions'], array(
+    $project = new SilverstripeProject($sc['store'], $sc['_versions'], array(
         'build_dir' => $sc['build_dir'],
         'cache_dir' => $sc['cache_dir'],
         'remote_repository' => $sc['remote_repository'],
@@ -82,6 +82,7 @@ $doctum['project'] = function ($sc) {
         'source_dir' => $sc['source_dir'],
         'insert_todos' => $sc['insert_todos'],
         'base_url' => $sc['base_url'],
+        'favicon' => '/favicon.ico',
         'footer_link' => [
             'href' => 'https://github.com/silverstripe/api.silverstripe.org',
             'rel' => 'noreferrer noopener',

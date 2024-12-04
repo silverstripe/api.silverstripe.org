@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {# NOTE: Do not put this file into the manifest.yml, as that would render it per version rather than in the base dir #}
+    <title>Redirecting...</title>
+    <link rel="canonical" href="https://api.silverstripe.org/{{ default_version }}/search.html" />
+    <meta charset="UTF-8" />
+    {% if project.config('favicon') %}
+        <link rel="shortcut icon" href="{{ project.config('favicon') }}" />
+    {%- endif %}
+    <script>
+        function getRedirectUrl() {
+            const allowedVersions = {{ versions|json_encode|raw }};
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const query = urlParams.get('q');
+            // Get version - if a full version is passed, just get the major.
+            let version = urlParams.get('version') ?? '';
+            version = version.replace(/^(\d+)\..*$/, '$1');
+            if (!version.match(/^\d$/) || !allowedVersions.includes(version)) {
+                version = '{{ default_version }}';
+            }
+            // If there's no query, just go to the versioned search page
+            if (!query) {
+                return `/${version}/search.html`;
+            }
+
+            // Convert API link syntax to class and property/method references
+            const search = query.replaceAll('()', '').replaceAll('$', '');
+            const searchParts = search.split(/::|->/);
+            const searchConfig = {
+                class: null,
+                property: null,
+                type: null,
+            };
+            if (searchParts.length === 2) {
+                searchConfig.class = searchParts[0];
+                searchConfig.property = searchParts[1];
+                searchConfig.type = query.includes('()') ? 'method' : 'property';
+            } else {
+                searchConfig.class = search;
+                searchConfig.type = 'class';
+            }
+
+            // If we don't have a class, redirect to search
+            if (!searchConfig.class) {
+                return `/${version}/search.html`;
+            }
+
+            // Return the page for that class, with optional anchor link
+            // We can't check if the page actually exists here - but the 404 page will handle that
+            let searchPath = `/${version}/${searchConfig.class.replaceAll('\\', '/')}.html`;
+            if (searchConfig.property && searchConfig.type) {
+                searchPath += `#${searchConfig.type}_${searchConfig.property}`;
+            }
+            return searchPath;
+        }
+
+        const url = getRedirectUrl();
+        console.log(`Redirecting to ${url}`);
+        window.location.assign(url);
+    </script>
+  </head>
+  <body>
+    {# Fall back to just sending users to the default search page if the redirect fails for some reason #}
+    <p>Redirecting... if you aren't redirected automatically, <a href="{{ default_version }}/search.html">click here</a></p>
+  </body>
+</html>
