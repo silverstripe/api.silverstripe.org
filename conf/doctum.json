@@ -8,7 +8,6 @@
         "4": "4.x",
         "3": "3.x"
     },
-    "default_version": "5",
     "paths": {
         "www": "htdocs",
         "cache": "data/cache",
