@@ -24,6 +24,7 @@ class CheckoutCommand extends Command
         '/^silverstripe\/developer-docs$/',
         '/^silverstripe\/installer$/',
         '/^silverstripe-themes\/simple$/',
+        '/^silverstripe\/startup-theme$/',
         '/^silverstripe\/vendor-plugin$/',
         '/^silverstripe\/recipe-.*/',
         '/-theme$/',
