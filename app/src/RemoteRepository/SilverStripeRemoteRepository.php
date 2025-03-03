@@ -4,9 +4,16 @@ namespace SilverStripe\ApiDocs\RemoteRepository;
 
 use Doctum\RemoteRepository\AbstractRemoteRepository;
 use SilverStripe\ApiDocs\Data\Config;
+use RuntimeException;
 
 class SilverStripeRemoteRepository extends AbstractRemoteRepository
 {
+    /**
+     * Whether to throw an exception if a file can't be found, or just raise a warning
+     * This is only intended for testing purposes as phpunit > 10 cannot expect errors or warnings
+     * only exceptions
+     */
+    public static bool $throwExceptionOnMissing = false;
 
     public function getFileUrl($projectVersion, $relativePath, $line)
     {
@@ -26,7 +33,12 @@ class SilverStripeRemoteRepository extends AbstractRemoteRepository
         }
         $branch = $packageConfig['versionmap'][$projectVersion] ?? null;
         if ($branch === null) {
-            trigger_error("Can't find correct branch name for version $projectVersion in module {$this->name}", E_USER_WARNING);
+            $message = "Can't find correct branch name for version $projectVersion in module {$this->name}";
+            if (SilverStripeRemoteRepository::$throwExceptionOnMissing) {
+                throw new RuntimeException($message);
+            } else {
+                trigger_error($message, E_USER_WARNING);
+            }
             $branch = $projectVersion;
         }
         $url = $rootPath . '/blob/' . $this->buildProjectPath($branch, $pathParts[2]);

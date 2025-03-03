@@ -1,0 +1,28 @@
+---
+Name: myjobs
+---
+# Create default jobs
+# https://github.com/symbiote/silverstripe-queuedjobs?tab=readme-ov-file#default-jobs
+# Note that the `foo: bar` is arbitary data that needs to be there otherwise the job will not be created
+SilverStripe\Core\Injector\Injector:
+  Symbiote\QueuedJobs\Services\QueuedJobService:
+    properties:
+      defaultJobs:
+        DefaultBuildsDocsQueuedJob:
+          type: SilverStripe\ApiDocs\Build\BuildDocsQueuedJob
+          filter:
+            JobTitle: 'Build API Docs'
+          recreate: 1
+          construct:
+            foo: bar
+          startDateFormat: 'Y-m-d H:i:s'
+          startTimeString: 'tomorrow 03:00'
+        DefaultCleanUpJob:
+          type: Symbiote\QueuedJobs\Jobs\CleanupJob
+          filter:
+            JobTitle: 'Clean up old jobs from the database'
+          recreate: 1
+          construct:
+            foo: bar
+          startDateFormat: 'Y-m-d H:i:s'
+          startTimeString: 'next monday 02:00'

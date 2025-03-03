@@ -1,64 +1,37 @@
 <?php
 
-namespace SilverStripe\ApiDocs;
+namespace SilverStripe\ApiDocs\Search;
 
 /**
- * Lookup script to convert symbol names and other parameters to their URL representation in the API docs.
- *
- * See README for more info.
+ * Lookup to convert symbol names and other parameters to their URL representation in the API docs
  */
 class Lookup
 {
     /**
      * The default branch name for each core module
-     *
-     * @var string
      */
-    const DEFAULT_BRANCH = '4';
+    public const DEFAULT_BRANCH = '5';
 
-    /**
-     * @var string[]
-     */
-    protected $args = array();
+    protected array $args = [];
 
-    /**
-     * @var string[]
-     */
-    protected $versionMap = array();
+    protected array $versionMap = [];
 
-    /**
-     * @var string
-     */
-    protected $serverName;
-
-    /**
-     * @param array $args E.g. $_GET vars
-     */
-    public function __construct($args = array())
+    public function __construct(array $args)
     {
         $this->args = $args;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getArgs()
+    public function getArgs(): array
     {
         return $this->args;
     }
 
     /**
      * Return an argument from the array
-     *
-     * @param  string $key
-     * @return string
      */
-    public function getArg($key)
+    public function getArg(string $key): ?string
     {
-        if (array_key_exists($key, $this->args)) {
-            return $this->args[$key];
-        }
-        return null;
+        return $this->args[$key] ?? null;
     }
 
     /**
@@ -67,9 +40,8 @@ class Lookup
      * redirects to /4/SilverStripe/ORM/HasManyList.html
      *
      * @param bool $return When true, the redirect URL will be returned instead of a header issued
-     * @return string|null
      */
-    public function handle($return = false)
+    public function handle(bool $return = false): ?string
     {
         $url = $this->getURL();
         if ($return) {
@@ -83,11 +55,8 @@ class Lookup
      * Allow setting the "version mapping" that can be used to convert "4" to "master", etc
      *
      * Useful in the event that modules have strange branching strategies
-     *
-     * @param  array $map
-     * @return $this
      */
-    public function setVersionMap($map)
+    public function setVersionMap(array $map): static
     {
         $this->versionMap = $map;
         return $this;
@@ -95,12 +64,13 @@ class Lookup
 
     /**
      * Get the version from the URL, check for manually set version mapping
-     *
-     * @return string
      */
-    public function getVersion()
+    public function getVersion(): string
     {
-        $version = $this->getArg('version') ?: self::DEFAULT_BRANCH;
+        $version = $this->getArg('version') ?? self::DEFAULT_BRANCH;
+        if (!is_string($version) || !is_numeric($version)) {
+            $version = self::DEFAULT_BRANCH;
+        }
         foreach ($this->versionMap as $rule => $substitution) {
             // Check regular expression rule
             if (strpos($rule, '/') === 0 && preg_match($rule, $version)) {
@@ -115,39 +85,20 @@ class Lookup
     }
 
     /**
-     * Base dir
-     *
-     * @return string
-     */
-    public function getBaseDir()
-    {
-        return __DIR__ . '/..';
-    }
-
-    /**
-     * Set the server name to use for API reference links
-     *
-     * @param string $name
-     * @return $this
-     */
-    public function setServerName($name)
-    {
-        $this->serverName = $name;
-        return $this;
-    }
-
-    /**
      * Given a config determine the URL to navigate to
-     *
-     * @param array $searchConfig
-     * @return string
      */
     protected function getURLForClass(array $searchConfig): string
     {
-        $searchPath = '/' . $this->getVersion() . '/' . str_replace('\\', '/', $searchConfig['class']) . '.html';
+        // If there's anything in the class name that could be used for things like directory traversal,
+        // then just return '/';
+        // Note that the quad backslash is to escape the backslash in the regex is intentional
+        if (preg_match('#[^a-zA-Z0-9\\\\_]#', $searchConfig['class'])) {
+            return '/';
+        }
 
         // If file doesn't exist, redirect to search
-        if (!file_exists($this->getBaseDir() . '/htdocs' . $searchPath)) {
+        $searchPath = '/' . $this->getVersion() . '/' . str_replace('\\', '/', $searchConfig['class']) . '.html';
+        if (!$this->staticFileExists($searchPath)) {
             return '/' . $this->getVersion() . '/search.html?search=' . urlencode($searchConfig['class']);
         }
 
@@ -160,22 +111,29 @@ class Lookup
     }
 
     /**
+     * Whether a static file exists for this search
+     */
+    protected function staticFileExists(string $searchPath): bool
+    {
+        $baseDir = dirname(__DIR__, 3);
+        $path = $baseDir . '/public' . $searchPath;
+        return file_exists($path);
+    }
+
+    /**
      * Get url for this search
-     *
-     * @return string
      */
     protected function getURL(): string
     {
-        // Search
         $searchOrig = $this->getArg('q');
         if (!$searchOrig) {
-            return '/'; // Just go to home
+            return '/';
         }
 
-        $search = str_replace(array('()', '$'), '', $searchOrig);
+        $search = str_replace(['()', '$'], '', $searchOrig);
         $searchParts = preg_split('/(::|\->)/', $search);
-        $searchConfig = array();
-        if (count($searchParts) == 2) {
+        $searchConfig = [];
+        if (count($searchParts) === 2) {
             $searchConfig['class'] = $searchParts[0];
             $searchConfig['property'] = $searchParts[1];
             $searchConfig['type'] = (strpos($searchOrig, '()') !== false) ? 'method' : 'property';
