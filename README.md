@@ -5,8 +5,13 @@
 SilverStripe API docs for the core system in different versions, generated through [Doctum](https://github.com/code-lts/doctum#readme).
 
  - The documentation is generated from `git cloned` repositories located in `data/`. This folder is created and populated by running the `SilverStripe\ApiDocs\Tasks\BuildDocsTask` which is usually run via the `SilverStripe\ApiDocs\Build\BuildDocsQueuedJob` queued job.
-- This will generated a series of static HTML files which are located in the `public/` folder in subdirectories that match the major version e.g. `public/5` is for CMS 5. These static files are generated as part of `BuildDocsTask`.
+- This will generated a series of static HTML files which are located in the `static` folder in subdirectories that match the major version e.g. `static/5` is for CMS 5. These static files are generated as part of `BuildDocsTask`.
+- Apache will serve these static files when requested by using rules defined in `.htaccess` files in the root, `static` and `public` folders.
 - The Silverstripe composer requirements are fairly and are the to run queuedjobs, as well as ensure the site will be easily deployable to Silverstripe cloud.
+
+> [!WARNING]
+> If you are running this locally with DDEV, make sure you set your `docroot` to `.`, instead of the `public` folder:
+> `ddev config docroot '.' && ddev restart`
 
 ## Add a new major version
 

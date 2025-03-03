@@ -23,6 +23,8 @@ use Gitonomy\Git\Exception\ProcessException;
 use SilverStripe\SupportedModules\MetaData;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Gitonomy\Git\Admin;
+use SilverStripe\Core\Path;
+use Symbiote\QueuedJobs\Services\AbstractQueuedJob;
 
 class BuildDocsTask extends BuildTask
 {
@@ -43,19 +45,39 @@ class BuildDocsTask extends BuildTask
         '/-theme$/',
     ];
 
+    private ?BuildDocsQueuedJob $job;
+
+    private OutputInterface $output;
+
+    public function __construct(?BuildDocsQueuedJob $job = null)
+    {
+        parent::__construct();
+        $this->job = $job;
+        $this->output = new ConsoleOutput(ConsoleOutput::VERBOSITY_VERBOSE);
+    }
+
     public function run($request)
     {
-        // Git clone supported repositories
-        $output = new ConsoleOutput(ConsoleOutput::VERBOSITY_VERBOSE);
+        // Remove time limit to ensure the task will run to completion
+        set_time_limit(0);
 
-        $this->cloneRepositories($output);
+        // Git clone supported repositories
+        $this->cloneRepositories();
 
         // Create static documentation with Doctum
         $doctum = $this->getDoctum();
         $doctum->getProject()->update(null, true);
+
+        // Ensure that .htaccess exists in output folder
+        // See doctum-conf/doctum.json for what the path resolves to
+        $path = Path::join(Config::configPath(Config::getConfig()['paths']['www']), '.htaccess');
+        file_put_contents($path, implode("\n", [
+            '# This file needs to be here in order for the redirect from the root .htaccess to work',
+            'RewriteEngine On',
+        ]) . "\n");
     }
 
-    private function cloneRepositories(OutputInterface $output): void
+    private function cloneRepositories(): void
     {
         $config = Config::getConfig();
 
@@ -66,28 +88,28 @@ class BuildDocsTask extends BuildTask
             }
             $fullPath = Config::configPath($path);
             if (!file_exists($fullPath)) {
-                $output->writeln("Creating path <info>$fullPath</info>");
+                $this->log("Creating path <info>$fullPath</info>");
                 mkdir($fullPath, 0755, true);
             }
         }
-        $versionMap = $this->buildVersionMap($config, $output);
+        $versionMap = $this->buildVersionMap($config);
         // Ensure all repos are checked out
         foreach ($versionMap as $name => &$data) {
             $root = Config::configPath($config['paths']['packages'] . '/' . $name);
 
             // Either update or checkout
             if (file_exists($root . '/.git')) {
-                $this->updateVersionMapWithRealBranches($name, $data, $config, $root, $output, true);
+                $this->updateVersionMapWithRealBranches($name, $data, $config, $root, true);
             } else {
-                $output->writeln("Cloning <info>$name</info>");
+                $this->log("Cloning <info>$name</info>");
                 if (!file_exists($root)) {
                     mkdir($root, 0755, true);
                 }
                 Admin::cloneTo($root, $data['repository'], false, RepoFactory::options());
-                $this->updateVersionMapWithRealBranches($name, $data, $config, $root, $output);
+                $this->updateVersionMapWithRealBranches($name, $data, $config, $root);
             }
         }
-        $this->writeMapToDisk($versionMap, $config, $output);
+        $this->writeMapToDisk($versionMap, $config);
     }
 
     /**
@@ -102,12 +124,11 @@ class BuildDocsTask extends BuildTask
         array &$data,
         array $config,
         string $root,
-        OutputInterface $output,
         bool $updateRepoData = false
     ) {
-        $repo = RepoFactory::repoFor($root, $output);
+        $repo = RepoFactory::repoFor($root, $this->output);
         if ($updateRepoData) {
-            $output->writeln("Updating <info>$name</info>");
+            $this->log("Updating <info>$name</info>");
             $repo->run('fetch', ['--all', '--prune']);
         }
         foreach (array_keys($config['versions']) as $version) {
@@ -156,9 +177,9 @@ class BuildDocsTask extends BuildTask
     /**
      * Writes a version mapping array to disk as JSON, so other areas of the code can use it.
      */
-    private function writeMapToDisk(array $map, array $config, OutputInterface $output)
+    private function writeMapToDisk(array $map, array $config)
     {
-        $output->writeln('Writing version map to disk');
+        $this->log('Writing version map to disk');
         $filePath = Config::configPath($config['paths']['versionmap']);
         $success = file_put_contents(
             $filePath,
@@ -172,9 +193,9 @@ class BuildDocsTask extends BuildTask
     /**
      * Builds a map of which Silverstripe CMS major release matches which major release of a module.
      */
-    private function buildVersionMap(array $config, OutputInterface $output)
+    private function buildVersionMap(array $config)
     {
-        $output->writeln('Making new version map');
+        $this->log('Making new version map');
         $map = [];
         $versions = array_keys($config['versions']);
         $repos = MetaData::getAllRepositoryMetaData()[MetaData::CATEGORY_SUPPORTED];
@@ -340,5 +361,13 @@ class BuildDocsTask extends BuildTask
             return $project;
         };
         return $doctum;
+    }
+
+    private function log(string $message)
+    {
+        $this->output->writeln($message);
+        if ($this->job) {
+            $this->job->addMessage(strip_tags($message));
+        }
     }
 }

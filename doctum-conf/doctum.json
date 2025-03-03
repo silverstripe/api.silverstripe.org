@@ -9,7 +9,7 @@
         "3": "3.x"
     },
     "paths": {
-        "www": "public",
+        "www": "static",
         "cache": "data/cache",
         "packages": "data/packages",
         "versionmap": "data/versionmap.json"

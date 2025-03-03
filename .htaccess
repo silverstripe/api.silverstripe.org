@@ -1,4 +1,8 @@
 RewriteEngine On
 
+# If requested file is in the static folder, serve it
+RewriteCond %{DOCUMENT_ROOT}/static/%{REQUEST_URI} -f
+RewriteRule ^(.*)$ static/$1 [L]
+
 # Default
 RewriteRule ^(.*)$ public/$1
