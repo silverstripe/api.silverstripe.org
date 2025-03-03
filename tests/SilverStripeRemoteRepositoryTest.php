@@ -5,6 +5,7 @@ namespace SilverStripe\ApiDocs\Test;
 use PHPUnit\Framework\TestCase;
 use SilverStripe\ApiDocs\Data\Config;
 use SilverStripe\ApiDocs\RemoteRepository\SilverStripeRemoteRepository;
+use RuntimeException;
 
 class SilverStripeRemoteRepositoryTest extends TestCase
 {
@@ -92,7 +93,7 @@ class SilverStripeRemoteRepositoryTest extends TestCase
         }
     }
 
-    public function provideGetRepoUrl()
+    public static function provideGetRepoUrl()
     {
         return [
             [
@@ -153,15 +154,17 @@ class SilverStripeRemoteRepositoryTest extends TestCase
      */
     public function testGetRepoUrl(string $version, string $path, int $line, string $expected, bool $emitsWarning = false)
     {
+        SilverStripeRemoteRepository::$throwExceptionOnMissing = true;
+        if ($emitsWarning) {
+            $this->expectException(RuntimeException::class);
+        }
         $remoteRepo = new SilverStripeRemoteRepository(
             '',
             '/mnt/Dev/@code-lts/@doctum-fork/api.silverstripe.org/data/packages/'
         );
-
-        if ($emitsWarning) {
-            $this->expectWarning();
+        $actual = $remoteRepo->getFileUrl($version, $path, $line);
+        if (!$emitsWarning) {
+            $this->assertSame($expected, $actual);
         }
-
-        $this->assertSame($expected, $remoteRepo->getFileUrl($version, $path, $line));
     }
 }

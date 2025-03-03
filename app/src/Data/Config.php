@@ -13,7 +13,7 @@ class Config
      */
     public static function getBase()
     {
-        return __DIR__ .'/../..';
+        return dirname(__DIR__, 3);
     }
 
     /**
@@ -23,7 +23,7 @@ class Config
      */
     public static function getConfig()
     {
-        $path = static::getBase() . '/conf/doctum.json';
+        $path = static::getBase() . '/doctum-conf/doctum.json';
         if (!file_exists($path)) {
             throw new Exception("File $path not found");
         }
