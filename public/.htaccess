@@ -79,7 +79,7 @@
 
     # Redirect base path to 5 index.html - default major version
     RewriteCond %{REQUEST_URI} ^(.*)$ [NC]
-    RewriteRule ^/?$ %15/index.html [R=302,L]
+    RewriteRule ^/?$ /5/index.html [R=302,L]
 
     # Process through SilverStripe if no file with the requested name exists.
     RewriteCond %{REQUEST_FILENAME} !-f

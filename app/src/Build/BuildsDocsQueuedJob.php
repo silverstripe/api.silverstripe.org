@@ -20,7 +20,7 @@ class BuildDocsQueuedJob extends AbstractQueuedJob
 
     public function process()
     {
-        $task = new BuildDocsTask();
+        $task = new BuildDocsTask($this);
         $task->run(null);
         $this->isComplete = true;
     }

@@ -18,7 +18,9 @@
         "gitonomy/gitlib": "^1.2",
         "symfony/console": "^6.2",
         "code-lts/doctum": "^5.5.3",
-        "psr/log": "^3.0"
+        "psr/log": "^3.0",
+        "silverstripe/crontask": "^3.0",
+        "silverstripe/dynamodb": "^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -29,6 +31,19 @@
     "require-dev": {
         "phpunit/phpunit": "^9.6",
         "squizlabs/php_codesniffer": "^3"
+    },
+    "extra": {
+        "project-files-installed": [
+            ".htaccess",
+            "app/.htaccess",
+            "app/_config/mimevalidator.yml",
+            "app/_config/mysite.yml"
+        ],
+        "public-files-installed": [
+            ".htaccess",
+            "index.php",
+            "web.config"
+        ]
     },
     "config": {
         "platform": {

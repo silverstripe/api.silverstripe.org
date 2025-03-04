@@ -7,13 +7,7 @@ shared_dirs:
   mysite:
     # persist the following directories between deployments
     data: {}
-    public/3: {}
-    public/4: {}
-    public/5: {}
-    public/6: {}
-    public/7: {}
-    public/8: {}
-    public/9: {}
+    static: {}
 crons:
   queuedjobs_task:
     time: '* * * * *'
