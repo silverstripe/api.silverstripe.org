@@ -1,7 +1,7 @@
 {
     "title": "SilverStripe API",
     "theme": "silverstripe",
-    "base_url": "http://api.silverstripe.org/%version%",
+    "base_url": "https://api.silverstripe.org/%version%",
     "versions": {
         "6": "6.x",
         "5": "5.x",
@@ -9,7 +9,7 @@
         "3": "3.x"
     },
     "paths": {
-        "www": "htdocs",
+        "www": "static",
         "cache": "data/cache",
         "packages": "data/packages",
         "versionmap": "data/versionmap.json"

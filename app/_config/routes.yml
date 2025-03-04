@@ -1,0 +1,9 @@
+---
+Name: myroutes
+After:
+  - '#rootroutes'
+  - '#coreroutes'
+---
+SilverStripe\Control\Director:
+  rules:
+    search/lookup: SilverStripe\ApiDocs\Search\LookupController

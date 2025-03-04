@@ -1,0 +1,6 @@
+---
+Name: myinjector
+---
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\Control\Director:
+    class: SilverStripe\ApiDocs\Control\CustomDirector

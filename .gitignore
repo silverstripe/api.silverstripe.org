@@ -1,8 +1,10 @@
-/assets/
+/silverstripe-cache/
+/.env
 /vendor/
-/modulesource/
-/en/
-/htdocs
-/data
-/.vagrant/
-/.phpunit.result.cache
+/_resources/
+/public/_resources/
+/.graphql-generated/
+/public/_graphql/
+/data/
+/static/
+.phpunit.result.cache

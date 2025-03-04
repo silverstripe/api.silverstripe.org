@@ -5,12 +5,13 @@ php_settings:
     max_execution_time: 0
 shared_dirs:
   mysite:
+    # persist the following directories between deployments
     data: {}
-    htdocs: {}
+    static: {}
 crons:
-  mytask:
-    time: "0 3 * * *"
-    command: "/var/www/mysite/www/makedoc.sh | logger -t SilverStripe_cron"
+  queuedjobs_task:
+    time: '* * * * *'
+    sake_once: "dev/tasks/ProcessJobQueueTask"
     vhost: "mysite"
 url_rules:
   mysite:
