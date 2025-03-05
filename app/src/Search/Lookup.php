@@ -2,6 +2,9 @@
 
 namespace SilverStripe\ApiDocs\Search;
 
+use SilverStripe\ApiDocs\Data\Config;
+use SilverStripe\Core\Path;
+
 /**
  * Lookup to convert symbol names and other parameters to their URL representation in the API docs
  */
@@ -116,7 +119,7 @@ class Lookup
     protected function staticFileExists(string $searchPath): bool
     {
         $baseDir = dirname(__DIR__, 3);
-        $path = $baseDir . '/public' . $searchPath;
+        $path = Path::join($baseDir, Config::getConfig()['paths']['www'], $searchPath);
         return file_exists($path);
     }
 
