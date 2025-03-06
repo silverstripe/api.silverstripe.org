@@ -5,6 +5,8 @@
 /public/_resources/
 /.graphql-generated/
 /public/_graphql/
-/data/
-/static/
+/data/cache
+/data/packages
+/data/versionmap.json
+/static/[0-9]
 .phpunit.result.cache
