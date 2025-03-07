@@ -6,7 +6,7 @@ php_settings:
 shared_dirs:
   mysite:
     # persist the following directories between deployments
-    data: {}
+    # the static dir lives in the public dir, though do not need to specify "public/static" here
     static: {}
 crons:
   queuedjobs_task:

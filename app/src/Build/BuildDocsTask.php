@@ -67,14 +67,6 @@ class BuildDocsTask extends BuildTask
         // Create static documentation with Doctum
         $doctum = $this->getDoctum();
         $doctum->getProject()->update(null, true);
-
-        // Ensure that .htaccess exists in output folder
-        // See doctum-conf/doctum.json for what the path resolves to
-        $path = Path::join(Config::configPath(Config::getConfig()['paths']['www']), '.htaccess');
-        file_put_contents($path, implode("\n", [
-            '# This file needs to be here in order for the redirect from the root .htaccess to work',
-            'RewriteEngine On',
-        ]) . "\n");
     }
 
     private function cloneRepositories(): void
