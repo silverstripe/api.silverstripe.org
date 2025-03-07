@@ -1,1 +1,0 @@
-The /data/ dir needs at least one file commited to the repo in order for the symlink created by the shared_dirs config in .platform.yml to work
