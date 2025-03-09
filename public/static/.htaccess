@@ -1,0 +1,2 @@
+# This file needs to be here in order for the redirect from the root .htaccess to work
+RewriteEngine On

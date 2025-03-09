@@ -6,5 +6,4 @@
 /.graphql-generated/
 /public/_graphql/
 /data/
-/static/
 .phpunit.result.cache
