@@ -11,7 +11,7 @@ SilverStripe API docs for the core system in different versions, generated throu
 
 > [!WARNING]
 > If you are running this locally with DDEV, make sure you set your `docroot` to `.`, instead of the `public` folder:
-> `ddev config docroot '.' && ddev restart`
+> `ddev config --docroot='.' && ddev restart`
 
 ## Add a new major version
 
