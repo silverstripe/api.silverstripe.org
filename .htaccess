@@ -4,7 +4,7 @@ RewriteEngine On
 # This file detection + redirect done here rather than public/.htaccess as redirect to public/$1 will mean
 # that %{REQUEST_URI} will change from something like /5/index.html to /public/5/index.html, which means
 # that we can no longer use %{REQUEST_URI} to check that a static file exists using -f because the file
-# is /public/static/5/index.html not /public/5/index.html
+# is /public/static/6/index.html not /public/6/index.html
 RewriteCond %{DOCUMENT_ROOT}/public/static/%{REQUEST_URI} -f
 RewriteRule ^(.*)$ public/static/$1 [L]
 

@@ -13,7 +13,7 @@ class Lookup
     /**
      * The default branch name for each core module
      */
-    public const DEFAULT_BRANCH = '5';
+    public const DEFAULT_BRANCH = '6';
 
     protected array $args = [];
 
