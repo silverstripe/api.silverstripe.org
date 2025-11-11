@@ -7,28 +7,34 @@ use Doctum\Doctum;
 use Doctum\Project;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
-use SilverStripe\Dev\BuildTask;
 use SilverStripe\ApiDocs\Data\ApiJsonStore;
 use SilverStripe\ApiDocs\Data\Config;
+use SilverStripe\ApiDocs\Data\RepoFactory;
 use SilverStripe\ApiDocs\Inspections\RecipeFinder;
 use SilverStripe\ApiDocs\Inspections\RecipeVersionCollection;
+use SilverStripe\ApiDocs\Parser\Filter\SilverStripeFilter;
+use SilverStripe\ApiDocs\Parser\SilverStripeNodeVisitor;
 use SilverStripe\ApiDocs\RemoteRepository\SilverStripeRemoteRepository;
 use SilverStripe\ApiDocs\Renderer\SilverStripeRenderer;
-use SilverStripe\ApiDocs\Parser\SilverStripeNodeVisitor;
-use SilverStripe\ApiDocs\Parser\Filter\SilverStripeFilter;
-use Symfony\Component\Console\Output\OutputInterface;
-use SilverStripe\ApiDocs\Data\RepoFactory;
-use Psr\Log\NullLogger;
-use Gitonomy\Git\Exception\ProcessException;
+use SilverStripe\Dev\BuildTask;
+use SilverStripe\PolyExecution\PolyOutput;
 use SilverStripe\SupportedModules\MetaData;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use Gitonomy\Git\Admin;
-use SilverStripe\Core\Path;
-use Symbiote\QueuedJobs\Services\AbstractQueuedJob;
+use Gitonomy\Git\Exception\ProcessException;
+use Psr\Log\NullLogger;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class BuildDocsTask extends BuildTask
 {
-    private static $segment = 'BuildDocsTask';
+    protected static string $commandName = 'BuildDocsTask';
+
+    private static array $permissions_for_browser_execution = [
+        'ALL_DEV_ADMIN' => false,
+        'BUILDTASK_CAN_RUN' => false,
+    ];
 
     /**
      * Regex patterns for github repositories that should be ignored.
@@ -45,18 +51,9 @@ class BuildDocsTask extends BuildTask
         '/-theme$/',
     ];
 
-    private ?BuildDocsQueuedJob $job;
-
     private OutputInterface $output;
 
-    public function __construct(?BuildDocsQueuedJob $job = null)
-    {
-        parent::__construct();
-        $this->job = $job;
-        $this->output = new ConsoleOutput(ConsoleOutput::VERBOSITY_VERBOSE);
-    }
-
-    public function run($request)
+    protected function execute(InputInterface $input, PolyOutput $output): int
     {
         // Remove time limit to ensure the task will run to completion
         set_time_limit(0);
@@ -67,6 +64,7 @@ class BuildDocsTask extends BuildTask
         // Create static documentation with Doctum
         $doctum = $this->getDoctum();
         $doctum->getProject()->update(null, true);
+        return Command::SUCCESS;
     }
 
     private function cloneRepositories(): void
@@ -358,8 +356,5 @@ class BuildDocsTask extends BuildTask
     private function log(string $message)
     {
         $this->output->writeln($message);
-        if ($this->job) {
-            $this->job->addMessage(strip_tags($message));
-        }
     }
 }

@@ -2,8 +2,10 @@
 
 namespace SilverStripe\ApiDocs\Build;
 
-use Symbiote\QueuedJobs\Services\AbstractQueuedJob;
 use SilverStripe\Core\Injector\Injectable;
+use SilverStripe\PolyExecution\PolyOutput;
+use Symbiote\QueuedJobs\Services\AbstractQueuedJob;
+use Symfony\Component\Console\Input\ArrayInput;
 
 /**
  * Queued job to build the API documentation
@@ -20,8 +22,10 @@ class BuildDocsQueuedJob extends AbstractQueuedJob
 
     public function process()
     {
-        $task = new BuildDocsTask($this);
-        $task->run(null);
+        $task = BuildDocsTask::create();
+        $input = new ArrayInput([]);
+        $output = PolyOutput::create(PolyOutput::FORMAT_ANSI);
+        $task->run($input, $output);
         $this->isComplete = true;
     }
 }
