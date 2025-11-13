@@ -10,17 +10,14 @@
     ],
     "require": {
         "php": "^8.3",
-        "silverstripe/recipe-core": "^5.4",
-        "silverstripe/admin": "^2",
-        "silverstripe/supported-modules": "^1",
-        "silverstripe/totp-authenticator": "^5",
-        "symbiote/silverstripe-queuedjobs": "^5",
-        "gitonomy/gitlib": "^1.2",
-        "symfony/console": "^6.2",
-        "code-lts/doctum": "^5.5.3",
-        "psr/log": "^3.0",
-        "silverstripe/crontask": "^3.0",
-        "silverstripe/dynamodb": "^5.0"
+        "silverstripe/recipe-core": "^6",
+        "silverstripe/supported-modules": "^2",
+        "silverstripe/totp-authenticator": "^6",
+        "symbiote/silverstripe-queuedjobs": "^6",
+        "gitonomy/gitlib": "^1",
+        "symfony/console": "^7",
+        "code-lts/doctum": "dev-main#40df854fd30212c7dc8cbeb070fdf0679d400732",
+        "psr/log": "^3"
     },
     "autoload": {
         "psr-4": {
@@ -29,7 +26,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.6",
+        "phpunit/phpunit": "^11",
         "squizlabs/php_codesniffer": "^3"
     },
     "extra": {
