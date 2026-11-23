@@ -3642,16 +3642,16 @@
         },
         {
             "name": "silverstripe/framework",
-            "version": "6.3.0",
+            "version": "6.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silverstripe/silverstripe-framework.git",
-                "reference": "41c343cb68c25016f5063e1f4f3a12e40803f2df"
+                "reference": "3c49e768255d7afd02a8a226f0a17506d94f1e3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silverstripe/silverstripe-framework/zipball/41c343cb68c25016f5063e1f4f3a12e40803f2df",
-                "reference": "41c343cb68c25016f5063e1f4f3a12e40803f2df",
+                "url": "https://api.github.com/repos/silverstripe/silverstripe-framework/zipball/3c49e768255d7afd02a8a226f0a17506d94f1e3e",
+                "reference": "3c49e768255d7afd02a8a226f0a17506d94f1e3e",
                 "shasum": ""
             },
             "require": {
@@ -3786,9 +3786,9 @@
             ],
             "support": {
                 "issues": "https://github.com/silverstripe/silverstripe-framework/issues",
-                "source": "https://github.com/silverstripe/silverstripe-framework/tree/6.3.0"
+                "source": "https://github.com/silverstripe/silverstripe-framework/tree/6.3.10"
             },
-            "time": "2026-10-28T02:09:45+00:00"
+            "time": "2026-11-23T21:14:03+00:00"
         },
         {
             "name": "silverstripe/login-forms",
@@ -4179,16 +4179,16 @@
         },
         {
             "name": "silverstripe/template-engine",
-            "version": "1.0.1",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silverstripe/silverstripe-template-engine.git",
-                "reference": "e4f5f4e1e881ebf33acdd6071dc41b393cacdf63"
+                "reference": "72915544dc4d81b463556ef8d83c4843398346e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silverstripe/silverstripe-template-engine/zipball/e4f5f4e1e881ebf33acdd6071dc41b393cacdf63",
-                "reference": "e4f5f4e1e881ebf33acdd6071dc41b393cacdf63",
+                "url": "https://api.github.com/repos/silverstripe/silverstripe-template-engine/zipball/72915544dc4d81b463556ef8d83c4843398346e2",
+                "reference": "72915544dc4d81b463556ef8d83c4843398346e2",
                 "shasum": ""
             },
             "require": {
@@ -4225,9 +4225,9 @@
             "description": "Template engine for rendering templates in Silverstripe CMS projects",
             "support": {
                 "issues": "https://github.com/silverstripe/silverstripe-template-engine/issues",
-                "source": "https://github.com/silverstripe/silverstripe-template-engine/tree/1.0.1"
+                "source": "https://github.com/silverstripe/silverstripe-template-engine/tree/1.0.3"
             },
-            "time": "2026-06-24T02:50:52+00:00"
+            "time": "2026-11-23T21:07:53+00:00"
         },
         {
             "name": "silverstripe/totp-authenticator",
